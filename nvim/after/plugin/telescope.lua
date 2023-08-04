@@ -114,7 +114,7 @@ vim.keymap.set('n', '<leader>sr', require('telescope.builtin').registers, { desc
 vim.keymap.set('n', '<leader>sc', require('telescope.builtin').commands, { desc = '[S]earch [C]ommands' })
 vim.keymap.set('n', '<leader>so', require('telescope.builtin').vim_options, { desc = '[S]earch [O]ptions' })
 vim.keymap.set('n', '<leader>sC', require('telescope.builtin').colorscheme, { desc = '[S]earch [C]olorscheme' })
-vim.keymap.set('n', '<leader>sb', require('telescope.builtin').builtin, { desc = '[S]earch [B]uiltin Commands ' })
+vim.keymap.set('n', '<leader>sb', require('telescope.builtin').builtin, { desc = '[S]earch [B]uiltin Commands' })
 
 require("telescope").load_extension "file_browser"
 -- open file_browser with the path of the current buffer

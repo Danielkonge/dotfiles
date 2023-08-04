@@ -200,7 +200,17 @@ require('lazy').setup({
     "m4xshen/smartcolumn.nvim",
     opts = {
       disabled_filetypes = {
-        "help", "text", "markdown", "tex", "latex", "lua", "netrw", "lazy", "mason", "conf", "log", "tmux", "sh"
+        "help",
+        "text",
+        "markdown",
+        "tex", "latex",
+        "lua",
+        "netrw", "lazy", "mason",
+        "conf",
+        "log",
+        "tmux",
+        "sh",
+        "NeogitCommitMessage", "NeogitStatus",
       },
     }
   },
@@ -311,7 +321,10 @@ require('lazy').setup({
     },
     {
       "NeogitOrg/neogit",
-      dependencies = "nvim-lua/plenary.nvim",
+      dependencies = {
+        "nvim-lua/plenary.nvim",
+        "sindrets/diffview.nvim"
+      },
       config = true
     }
   },
