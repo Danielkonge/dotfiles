@@ -210,7 +210,7 @@ require('lazy').setup({
         "log",
         "tmux",
         "sh",
-        "NeogitCommitMessage", "NeogitStatus",
+        "NeogitCommitMessage", "NeogitStatus", "NeogitPopup"
       },
     }
   },
