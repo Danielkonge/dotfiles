@@ -22,16 +22,9 @@ vim.keymap.set({ 'n', 'v' }, '<C-u>', '<C-u>zz')
 -- :Ex short cut
 vim.keymap.set("n", "-", vim.cmd.Ex)
 
-vim.keymap.set('n', '<leader>db', '<cmd>BufDel<cr>', { silent = true, nowait = true, noremap = true, desc = '[D]elete [B]uffer' })
-
 -- Window movement
 vim.keymap.set('n', '<c-h>', '<c-w>h', { silent = true })
 vim.keymap.set('n', '<c-j>', '<c-w>j', { silent = true })
 vim.keymap.set('n', '<c-k>', '<c-w>k', { silent = true })
 vim.keymap.set('n', '<c-l>', '<c-w>l', { silent = true })
-
-vim.keymap.set('n', '<leader><c-h>', '<c-w>H', { silent = true, desc = 'Move Window Left' })
-vim.keymap.set('n', '<leader><c-j>', '<c-w>J', { silent = true, desc = 'Move Window Down' })
-vim.keymap.set('n', '<leader><c-k>', '<c-w>K', { silent = true, desc = 'Move Window Up' })
-vim.keymap.set('n', '<leader><c-l>', '<c-w>L', { silent = true, desc = 'Move Window Right' })
 

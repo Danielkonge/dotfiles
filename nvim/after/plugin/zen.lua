@@ -8,9 +8,19 @@ vim.keymap.set('n', '<leader>z', function()
     transp = vim.g.onedark_config.transparent
     require('onedark').setup({ transparent = not transp })
     require('onedark').load()
-  elseif cur_theme == "catppuccin-mocha" then 
+  elseif cur_theme == "catppuccin-mocha" then
     transp = require("catppuccin").options.transparent_background
-    require("catppuccin").setup({ transparent_background = not transp })
+    require("catppuccin").setup({
+      flavour = "mocha",
+      transparent_background = not transp,
+      integrations = {
+        neogit = true,
+        which_key = true,
+        lsp_trouble = true,
+        gitsigns = true,
+        notify = true,
+      }
+    })
     require("catppuccin").load()
   else
     print("Error: Not onedark or catppuccin-mocha.")

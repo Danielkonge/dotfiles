@@ -327,6 +327,12 @@ require('lazy').setup({
         "sindrets/diffview.nvim"
       },
       config = true
+    },
+    {
+     "ThePrimeagen/harpoon",
+      dependencies = {
+        "nvim-lua/plenary.nvim",
+      }
     }
   },
 }, {})
