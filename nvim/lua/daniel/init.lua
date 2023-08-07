@@ -211,7 +211,8 @@ require('lazy').setup({
         "log",
         "tmux",
         "sh",
-        "NeogitCommitMessage", "NeogitStatus", "NeogitPopup"
+        "NeogitCommitMessage", "NeogitStatus", "NeogitPopup",
+        "startup"
       },
     }
   },
@@ -332,6 +333,13 @@ require('lazy').setup({
      "ThePrimeagen/harpoon",
       dependencies = {
         "nvim-lua/plenary.nvim",
+      }
+    },
+    {
+     "startup-nvim/startup.nvim",
+      dependencies = {
+        "nvim-telescope/telescope.nvim",
+        "nvim-lua/plenary.nvim"
       }
     }
   },
