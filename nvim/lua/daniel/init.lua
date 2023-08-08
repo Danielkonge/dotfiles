@@ -212,7 +212,8 @@ require('lazy').setup({
         "tmux",
         "sh",
         "NeogitCommitMessage", "NeogitStatus", "NeogitPopup",
-        "startup"
+        "startup", "checkhealth",
+        "zsh"
       },
     }
   },
