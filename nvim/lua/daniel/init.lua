@@ -66,6 +66,12 @@ require('lazy').setup({
 
       -- Adds a number of user-friendly snippets
       'rafamadriz/friendly-snippets',
+
+      -- Adds command line completions
+      'hrsh7th/cmp-cmdline',
+
+      -- Adds buffer completions
+      'hrsh7th/cmp-buffer',
     },
   },
 
