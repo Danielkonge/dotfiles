@@ -39,7 +39,11 @@ local on_attach = function(_, bufnr)
         print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
     end, '[W]orkspace [L]ist Folders')
 
-    nmap('<leader>f', vim.lsp.buf.format, '[F]ormat Buffer')
+    nmap('<leader>f', function()
+        vim.lsp.buf.format()
+        -- add fix so rainbow-delimiters highlighting works with format
+        vim.cmd({ cmd = 'edit', args = { "%" }, bang = true })
+    end, '[F]ormat Buffer')
 
     -- Create a command `:Format` local to the LSP buffer
     vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
@@ -53,7 +57,7 @@ vim.keymap.set('n', '<leader>dn', vim.diagnostic.goto_next, { desc = 'Go to [N]e
 vim.keymap.set('n', '<leader>do', vim.diagnostic.open_float, { desc = '[O]pen floating diagnostic message' })
 vim.keymap.set('n', '<leader>dl', vim.diagnostic.setloclist, { desc = 'Open diagnostics [L]ist' })
 
-
+vim.keymap.set('n', '<leader>=', 'ggVG=<C-o>zz', { silent = true, desc = 'Indent buffer' })
 
 -- Enable the following language servers
 --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
@@ -77,7 +81,9 @@ local servers = {
 }
 
 -- Setup neovim lua configuration
-require('neodev').setup()
+require('neodev').setup({
+    -- add options here
+})
 
 -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
 local capabilities = vim.lsp.protocol.make_client_capabilities()
