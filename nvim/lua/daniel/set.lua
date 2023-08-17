@@ -66,3 +66,6 @@ vim.opt.smartindent = true
 -- highlight current line's line number with another color
 vim.opt.cursorline = true
 vim.opt.cursorlineopt = "number"
+
+vim.opt.spell = false
+vim.opt.spelllang = { 'en_us' }

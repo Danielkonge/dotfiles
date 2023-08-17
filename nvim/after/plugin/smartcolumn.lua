@@ -1,6 +1,6 @@
 -- smartcolumn.lua
 
-vim.keymap.set('n', '<leader>cc', function()
+vim.keymap.set('n', '<leader>tc', function()
   local colopts = {"0","80"}
   local colorcol = vim.wo.colorcolumn
   for _, i in pairs(colopts) do
@@ -8,4 +8,4 @@ vim.keymap.set('n', '<leader>cc', function()
        vim.wo.colorcolumn = i
     end
   end
-end, { desc = '[C]olor[C]olumn Toggle' })
+end, { desc = '[C]olor Column Toggle' })

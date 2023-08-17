@@ -72,14 +72,17 @@ require('lazy').setup({
 
       -- Adds buffer completions
       'hrsh7th/cmp-buffer',
+
+      -- Adds path completions
+      'hrsh7th/cmp-path',
     },
   },
 
   -- Useful plugin to show you pending keybinds.
-  { 'folke/which-key.nvim',          opts = {} },
+  { 'folke/which-key.nvim', opts = {} },
 
   {
-    -- Adds git releated signs to the gutter, as well as utilities for managing changes
+    -- Adds git related signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
     opts = {
       -- See `:help gitsigns.txt`
@@ -107,7 +110,7 @@ require('lazy').setup({
       vim.cmd.colorscheme 'onedark'
     end,
   },
-  { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
+  { "catppuccin/nvim",      name = "catppuccin", priority = 1000 },
 
   {
     -- Set lualine as statusline
@@ -293,8 +296,7 @@ require('lazy').setup({
   },
 
   {
-    "HiPhish/nvim-ts-rainbow2",
-    dependencies = { "nvim-treesitter/nvim-treesitter" }
+    "hiphish/rainbow-delimiters.nvim"
   },
   {
     "folke/noice.nvim",
@@ -337,13 +339,13 @@ require('lazy').setup({
       config = true
     },
     {
-     "ThePrimeagen/harpoon",
+      "ThePrimeagen/harpoon",
       dependencies = {
         "nvim-lua/plenary.nvim",
       }
     },
     {
-     "startup-nvim/startup.nvim",
+      "startup-nvim/startup.nvim",
       dependencies = {
         "nvim-telescope/telescope.nvim",
         "nvim-lua/plenary.nvim"
@@ -365,7 +367,9 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 
 require("which-key").register({
   ["<leader>g"] = { name = "+git" },
-  ["<leader>w"] = { name = "+workspace" }
+  ["<leader>w"] = { name = "+workspace" },
+  ["<leader>d"] = { name = "+diagnostics/document" },
+  ["<leader>t"] = { name = "+toggle" },
 })
 
 -- The line beneath this is called `modeline`. See `:help modeline`

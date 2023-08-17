@@ -23,7 +23,7 @@ require("catppuccin").setup({
 })
 
 
-vim.keymap.set('n', '<leader>b', function()
+vim.keymap.set('n', '<leader>tb', function()
   local cur_theme = vim.g.colors_name
   local transp = true
   if cur_theme == "onedark" then

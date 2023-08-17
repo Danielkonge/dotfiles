@@ -4,20 +4,24 @@
 -- See `:help nvim-treesitter`
 require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = { 'c', 'cpp', 'lua', 'python', 'rust', 'latex', 'bibtex', 'vimdoc', 'vim' },
+  ensure_installed = { 'c', 'lua', 'haskell', 'python', 'rust', 'latex', 'bibtex', 'vimdoc', 'vim', 'vimdoc', 'query', },
+  sync_install = false,
 
   -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
   auto_install = true,
 
-  highlight = { enable = true },
+  highlight = {
+    enable = true,
+    additional_vim_regex_highlighting = false,
+  },
   indent = { enable = true },
   incremental_selection = {
     enable = true,
     keymaps = {
-      init_selection = '<M-space>',
-      node_incremental = '<M-space>',
-      scope_incremental = '<M-->',
-      node_decremental = '<M-S-space>',
+      init_selection = '<M-space>v',
+      node_incremental = 'n',
+      scope_incremental = 's',
+      node_decremental = 'd',
     },
   },
   textobjects = {
@@ -57,11 +61,15 @@ require('nvim-treesitter.configs').setup {
     swap = {
       enable = true,
       swap_next = {
-        ['<leader>a'] = '@parameter.inner',
+        ['<M-space>a'] = '@parameter.inner',
       },
       swap_previous = {
-        ['<leader>A'] = '@parameter.inner',
+        ['<M-space>A'] = '@parameter.inner',
       },
     },
   },
 }
+
+require("which-key").register({
+  ["<M-space>"] = { name = "+treesitter" },
+})

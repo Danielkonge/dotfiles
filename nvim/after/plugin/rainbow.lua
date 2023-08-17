@@ -1,13 +1,28 @@
 -- rainbow.lua
 
-require('nvim-treesitter.configs').setup {
-  rainbow = {
-    enable = true,
-    -- list of languages you want to disable the plugin for
-    disable = { 'jsx' },
-    -- Which query to use for finding delimiters
-    query = 'rainbow-parens',
-    -- Highlight the entire buffer all at once
-    strategy = require('ts-rainbow').strategy.global,
-  }
+-- This module contains a number of default definitions
+local rainbow_delimiters = require 'rainbow-delimiters'
+
+vim.g.rainbow_delimiters = {
+    strategy = {
+        [''] = rainbow_delimiters.strategy['global'],
+        vim = rainbow_delimiters.strategy['local'],
+    },
+    query = {
+        [''] = 'rainbow-delimiters',
+        lua = 'rainbow-blocks',
+        latex = 'rainbow-blocks',
+        sh = 'rainbow-blocks',
+        bash = 'rainbow-blocks',
+        zsh = 'rainbow-blocks',
+    },
+    highlight = {
+        'RainbowDelimiterRed',
+        'RainbowDelimiterYellow',
+        'RainbowDelimiterBlue',
+        'RainbowDelimiterOrange',
+        'RainbowDelimiterGreen',
+        'RainbowDelimiterViolet',
+        'RainbowDelimiterCyan',
+    },
 }

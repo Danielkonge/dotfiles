@@ -1,6 +1,6 @@
 -- zen.lua
 
-vim.keymap.set('n', '<leader>z', function()
+vim.keymap.set('n', '<leader>tz', function()
   require('zen-mode').toggle()
   local cur_theme = vim.g.colors_name
   local transp = true
