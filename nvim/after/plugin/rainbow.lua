@@ -12,9 +12,6 @@ vim.g.rainbow_delimiters = {
         [''] = 'rainbow-delimiters',
         lua = 'rainbow-blocks',
         latex = 'rainbow-blocks',
-        sh = 'rainbow-blocks',
-        bash = 'rainbow-blocks',
-        zsh = 'rainbow-blocks',
     },
     highlight = {
         'RainbowDelimiterRed',

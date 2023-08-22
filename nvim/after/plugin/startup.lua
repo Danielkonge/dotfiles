@@ -6,6 +6,8 @@ vim.g.startup_bookmarks = {
   ["K"] = '~/.config/kitty/kitty.conf',
   ["T"] = '~/.config/tmux/tmux.conf',
   ["I"] = '~/.config/nvim/lua/daniel/init.lua',
+  ["W"] = '~/.config/wezterm/wezterm.lua',
+  ["H"] = '~/.hammerspoon/init.lua',
 }
 
 local user_bookmarks = vim.g.startup_bookmarks
@@ -161,7 +163,7 @@ require("startup").setup({
     cursor_column = 0.25,
     empty_line_between_mappings = false,
     disable_statuslines = true,
-    paddings = { 4, 3, 3, 3, 3, 4 },
+    paddings = { 3, 2, 1, 2, 2, 2 },
   },
   mappings = {
     execute_command = "<CR>",
