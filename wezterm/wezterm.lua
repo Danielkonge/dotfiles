@@ -16,7 +16,8 @@ config.font = wezterm.font({
 })
 -- ->
 config.adjust_window_size_when_changing_font_size = false
-config.font_size = 12.0
+config.font_size = 13.0
+config.line_height = 1.2
 
 config.hide_tab_bar_if_only_one_tab = true
 -- config.tab_bar_at_bottom = true
@@ -27,7 +28,7 @@ config.background = {
         source = {
             File = '/Users/daniel/Dropbox/Background-Images/sword-red.png'
         },
-        hsb = { brightness = 0.04 },
+        hsb = { brightness = 0.03 },
         opacity = 0.96,
     },
     -- more layers can be added here
@@ -50,8 +51,10 @@ wezterm.on('toggle-bg', function(window, _)
   local overrides = window:get_config_overrides() or {}
   if not overrides.background then
     overrides.background = {}
+    overrides.text_background_opacity = 1.0
   else
     overrides.background = nil
+    overrides.text_background_opacity = nil
   end
   window:set_config_overrides(overrides)
 end)
@@ -99,6 +102,16 @@ config.keys = {
         key = 'l',
         mods = 'LEADER',
         action = act.EmitEvent 'toggle-ligature',
+    },
+    {
+        key = '+',
+        mods = 'CMD',
+        action = act.IncreaseFontSize,
+    },
+    {
+        key = 'c',
+        mods = 'LEADER',
+        action = act.ActivateCopyMode,
     },
 }
 

@@ -7,7 +7,7 @@ vim.g.startup_bookmarks = {
   ["T"] = '~/.config/tmux/tmux.conf',
   ["I"] = '~/.config/nvim/lua/daniel/init.lua',
   ["W"] = '~/.config/wezterm/wezterm.lua',
-  ["H"] = '~/.hammerspoon/init.lua',
+  ["H"] = '~/.config/hammerspoon/init.lua',
 }
 
 local user_bookmarks = vim.g.startup_bookmarks
@@ -99,7 +99,7 @@ require("startup").setup({
     fold_section = false,
     margin = 5,
     content = nvim_header,
-    highlight = "String",
+    highlight = "Statement",
   },
   header = {
     type = "text",
@@ -163,7 +163,8 @@ require("startup").setup({
     cursor_column = 0.25,
     empty_line_between_mappings = false,
     disable_statuslines = true,
-    paddings = { 3, 2, 1, 2, 2, 2 },
+    -- paddings = { 2, 1, 1, 1, 1, 2 },
+    paddings = { 2, 2, 1, 1, 2 },
   },
   mappings = {
     execute_command = "<CR>",
@@ -176,7 +177,8 @@ require("startup").setup({
     background = "#1f2227",
     folded_section = "#56b6c2",
   },
-  parts = { "pre_header", "header", "body", "body_2", "bookmarks", "time_data" },
+  -- parts = { "pre_header", "header", "body", "body_2", "bookmarks", "time_data" },
+  parts = { "pre_header", "body", "body_2", "bookmarks", "time_data" },
 })
 
 -- require("startup").setup({

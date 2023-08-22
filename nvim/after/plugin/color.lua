@@ -25,13 +25,15 @@ vim.keymap.set('n', '<leader>to', require("onedark").toggle, { desc = '[O]nedark
 
 vim.keymap.set('n', '<leader>tb', function()
   local cur_theme = vim.g.colors_name
-  local transp = true
   if cur_theme == "onedark" then
-    transp = vim.g.onedark_config.transparent
-    require('onedark').setup({ transparent = not transp })
+    require('onedark').set_options(
+      'transparent',
+      not vim.g.onedark_config.transparent
+    )
     require('onedark').load()
   elseif cur_theme == "catppuccin-mocha" then
-    transp = require("catppuccin").options.transparent_background
+    local transp = require("catppuccin").options.transparent_background
+    require("catppuccin").default_options.transparent_background = not transp
     require("catppuccin").setup({
       flavour = "mocha",
       transparent_background = not transp,

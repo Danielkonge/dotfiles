@@ -11,8 +11,12 @@ vim.keymap.set('n', '<leader>zd', function()
 end, { desc = '[D]anish Spell Check' })
 
 vim.keymap.set('n', '<leader>zt', function()
-  vim.opt.spell = not vim.opt.spell
+  vim.opt.spell = not ( vim.opt.spell:get() )
 end, { desc = '[T]oggle Spell Check' })
+
+vim.keymap.set('n', '<leader>ts', function()
+  vim.opt.spell = not ( vim.opt.spell:get()  )
+end, { desc = 'Toggle [S]pell Check' })
 
 require("which-key").register({
   ["<leader>z"] = { name = "+spell" }

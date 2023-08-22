@@ -42,15 +42,15 @@ local on_attach = function(_, bufnr)
     nmap('<leader>f', function()
         vim.lsp.buf.format()
         -- add fix so rainbow-delimiters highlighting works with format
-        vim.cmd({ cmd = 'edit', args = { "%" }, bang = true })
+        vim.cmd({ cmd = 'write' })
+        vim.cmd({ cmd = 'edit', args = { "%" } })
     end, '[F]ormat Buffer')
 
     -- Create a command `:Format` local to the LSP buffer
     vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
         vim.lsp.buf.format()
     end, { desc = 'Format current buffer with LSP' })
-end
-
+end 
 -- Diagnostic keymaps
 vim.keymap.set('n', '<leader>dp', vim.diagnostic.goto_prev, { desc = 'Go to [P]revious diagnostic message' })
 vim.keymap.set('n', '<leader>dn', vim.diagnostic.goto_next, { desc = 'Go to [N]ext diagnostic message' })
