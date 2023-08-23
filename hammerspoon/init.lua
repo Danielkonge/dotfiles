@@ -73,8 +73,10 @@ local batteryWatcherCallback = function()
   notifyCharge()
 end
 
-local batteryWatcher = hs.battery.watcher.new(batteryWatcherCallback)
-batteryWatcher:start()
+-- if the watcher is local it can get garbage collected 
+-- unless we call it somewhere else
+DK_batteryWatcher = hs.battery.watcher.new(batteryWatcherCallback)
+DK_batteryWatcher:start()
 
 local hotkeys = {
   n = "Notes",

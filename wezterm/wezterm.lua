@@ -37,6 +37,13 @@ config.background = {
 -- background of special text (e.g. which-key in nvim)
 config.text_background_opacity = 0.5
 
+-- config.window_padding = {
+--     left = 0,
+--     right = 0,
+--     top = 0,
+--     bottom = 0,
+-- }
+
 -- config.colors = {
 --     -- useful for One Dark theme
 --     cursor_fg = "yellow",

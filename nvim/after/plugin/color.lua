@@ -2,6 +2,7 @@
 
 require("onedark").setup({
   transparent = true,
+  style = "deep",
   -- Lualine options --
   lualine = {
     transparent = true, -- lualine center bar transparency
@@ -18,12 +19,76 @@ require("catppuccin").setup({
     lsp_trouble = true,
     gitsigns = true,
     notify = true,
+    -- navic = {
+    --   enabled = true,
+    --   custom_bg = "NONE",
+    -- },
+    barbecue = {
+      dim_dirname = true, -- directory name is dimmed by default
+      bold_basename = true,
+      dim_context = false,
+      alt_background = false,
+    },
   }
 })
 
+require("material").setup({
+  lualine_style = 'default',
+  disable = {
+    background = true,
+  },
+  plugins = { -- Uncomment the plugins that you use to highlight them
+    -- Available plugins:
+    -- "dap",
+    -- "dashboard",
+    "gitsigns",
+    -- "hop",
+    "indent-blankline",
+    -- "lspsaga",
+    -- "mini",
+    "neogit",
+    -- "neorg",
+    "nvim-cmp",
+    "nvim-navic",
+    "nvim-tree",
+    "nvim-web-devicons",
+    -- "sneak",
+    "telescope",
+    "trouble",
+    "which-key",
+  },
+})
+
+require('kanagawa').setup({
+  -- compile = false,          -- enable compiling the colorscheme
+  transparent = true,          -- do not set background color
+  theme = "wave",              -- Load "wave" theme when 'background' option is not set
+  colors = {
+    theme = {
+      all = {
+        ui = {
+          bg_gutter = "none"
+        }
+      }
+    }
+  },
+})
+
+require('nightfox').setup({
+  options = {
+    transparent = true,     -- Disable setting background
+    styles = {
+      comments = "italic",
+      keywords = "bold",
+      types = "italic,bold",
+    }
+  },
+})
+
+
 vim.keymap.set('n', '<leader>to', require("onedark").toggle, { desc = '[O]nedark Theme Toggle' })
 
-vim.keymap.set('n', '<leader>tb', function()
+vim.keymap.set('n', '<leader>tB', function()
   local cur_theme = vim.g.colors_name
   if cur_theme == "onedark" then
     require('onedark').set_options(
@@ -33,7 +98,7 @@ vim.keymap.set('n', '<leader>tb', function()
     require('onedark').load()
   elseif cur_theme == "catppuccin-mocha" then
     local transp = require("catppuccin").options.transparent_background
-    require("catppuccin").default_options.transparent_background = not transp
+    -- require("catppuccin").default_options.transparent_background = not transp
     require("catppuccin").setup({
       flavour = "mocha",
       transparent_background = not transp,

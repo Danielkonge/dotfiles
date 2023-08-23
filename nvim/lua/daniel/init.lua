@@ -46,10 +46,39 @@ require('lazy').setup({
 
       -- Useful status updates for LSP
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      { 'j-hui/fidget.nvim',       tag = 'legacy', opts = {} },
+      {
+        'j-hui/fidget.nvim',
+        tag = 'legacy',
+        event = 'LspAttach',
+        opts = {},
+      },
 
       -- Additional lua configuration, makes nvim stuff amazing!
       'folke/neodev.nvim',
+
+      {
+        "SmiteshP/nvim-navbuddy",
+        dependencies = {
+          "SmiteshP/nvim-navic",
+          "MunifTanjim/nui.nvim"
+        },
+        -- opts = {
+        --   -- options are set in lsp.lua
+        -- }
+      },
+    },
+  },
+
+  {
+    "utilyre/barbecue.nvim",
+    name = "barbecue",
+    version = "*",
+    dependencies = {
+      "SmiteshP/nvim-navic",
+      "nvim-tree/nvim-web-devicons", -- optional dependency
+    },
+    opts = {
+      -- configurations go here
     },
   },
 
@@ -102,6 +131,8 @@ require('lazy').setup({
     },
   },
 
+
+  -- THEMES
   {
     -- Theme inspired by Atom
     'navarasu/onedark.nvim',
@@ -111,6 +142,10 @@ require('lazy').setup({
     end,
   },
   { "catppuccin/nvim",      name = "catppuccin", priority = 1000 },
+  { "EdenEast/nightfox.nvim" },
+  { 'marko-cerovac/material.nvim' },
+  { "rebelot/kanagawa.nvim" },
+
 
   {
     -- Set lualine as statusline
@@ -119,7 +154,7 @@ require('lazy').setup({
     opts = {
       options = {
         icons_enabled = true,
-        theme = 'onedark',
+        theme = 'auto',
         component_separators = '|',
         section_separators = '',
       },
@@ -145,6 +180,13 @@ require('lazy').setup({
             }
           }
         }
+      },
+      extensions = {
+        'quickfix',
+        'nvim-tree',
+        'man',
+        'trouble',
+        'lazy',
       }
     },
   },
@@ -238,7 +280,11 @@ require('lazy').setup({
     "folke/flash.nvim",
     event = "VeryLazy",
     ---type Flash.Config
-    opts = {},
+    opts = {
+      modes = {
+        search = { enabled = false }
+      }
+    },
     keys = {
       {
         "s",
@@ -258,7 +304,7 @@ require('lazy').setup({
       },
       {
         "R",
-        mode = "o",
+        mode = "o", -- operator pending mode (e.g., d.., y..)
         function()
           require("flash").remote()
         end,
@@ -274,7 +320,7 @@ require('lazy').setup({
       },
       {
         "<c-s>",
-        mode = { "c" },
+        mode = { "c" }, -- command mode (used when searching with "/")
         function()
           require("flash").toggle()
         end,
@@ -370,6 +416,7 @@ require("which-key").register({
   ["<leader>w"] = { name = "+workspace" },
   ["<leader>d"] = { name = "+diagnostics/document" },
   ["<leader>t"] = { name = "+toggle" },
+  ["<leader>l"] = { name = "+lsp" },
 })
 
 -- The line beneath this is called `modeline`. See `:help modeline`

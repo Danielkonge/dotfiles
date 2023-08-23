@@ -1,5 +1,67 @@
 -- lsp.lua
 
+-- require('nvim-navic').setup({
+--     lsp = {
+--         auto_attach = true,
+--     },
+--     highlight = true,
+-- })
+--
+-- local navic_on = false
+-- local navic_toggle = function()
+--     if navic_on then
+--         require('lualine').setup({
+--             winbar = {
+--                 lualine_c = {}
+--             },
+--         })
+--         navic_on = false
+--     else
+--         require('lualine').setup({
+--             winbar = {
+--                 lualine_c = {
+--                     {
+--                         "navic",
+--                         -- Can be nil, "static" or "dynamic". This option is useful only when you have highlights enabled.
+--                         -- Many colorschemes don't define same backgroud for nvim-navic as their lualine statusline backgroud.
+--                         -- Setting it to "static" will perform a adjustment once when the component is being setup. This should
+--                         --   be enough when the lualine section isn't changing colors based on the mode.
+--                         -- Setting it to "dynamic" will keep updating the highlights according to the current modes colors for
+--                         --   the current section.
+--                         color_correction = nil,
+--                         -- lua table with same format as setup's option. All options except "lsp" options take effect when set here.
+--                         navic_opts = nil
+--                     },
+--                 }
+--             },
+--         })
+--         navic_on = true
+--     end
+-- end
+
+-- vim.keymap.set('n', '<leader>tn', navic_toggle, { desc = 'LSP: Start nvim-navic (breadcrumb display)' })
+
+require("barbecue.ui").toggle(false)
+
+vim.keymap.set('n', '<leader>lb', require("barbecue.ui").toggle, { desc = 'LSP: Toggle barbecue' })
+vim.keymap.set('n', '<leader>tb', require("barbecue.ui").toggle, { desc = 'LSP: Toggle [B]arbecue' })
+vim.keymap.set('n', '<leader>lp', function() require("barbecue.ui").navigate(-1) end, { desc = 'LSP: Barbecue previous' })
+vim.keymap.set('n', '<leader>l1', function() require("barbecue.ui").navigate(1) end, { desc = 'LSP: Barbecue 1st entry' })
+vim.keymap.set('n', '<leader>l2', function() require("barbecue.ui").navigate(2) end, { desc = 'LSP: Barbecue 2nd entry' })
+vim.keymap.set('n', '<leader>l3', function() require("barbecue.ui").navigate(3) end, { desc = 'LSP: Barbecue 3rd entry' })
+vim.keymap.set('n', '<leader>l4', function() require("barbecue.ui").navigate(4) end, { desc = 'LSP: Barbecue 4th entry' })
+
+require('nvim-navbuddy').setup({
+    lsp = {
+        auto_attach = true,
+    },
+    mappings = {
+        ["?"] = require("nvim-navbuddy.actions").help(),
+    },
+})
+
+vim.keymap.set('n', '<leader>ll', require('nvim-navbuddy').open, { desc = 'LSP: Breadcrumb navigation' })
+
 -- [[ Configure LSP ]]
 --  This function gets run when an LSP connects to a particular buffer.
 local on_attach = function(_, bufnr)
@@ -50,12 +112,15 @@ local on_attach = function(_, bufnr)
     vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
         vim.lsp.buf.format()
     end, { desc = 'Format current buffer with LSP' })
-end 
+end
 -- Diagnostic keymaps
 vim.keymap.set('n', '<leader>dp', vim.diagnostic.goto_prev, { desc = 'Go to [P]revious diagnostic message' })
 vim.keymap.set('n', '<leader>dn', vim.diagnostic.goto_next, { desc = 'Go to [N]ext diagnostic message' })
 vim.keymap.set('n', '<leader>do', vim.diagnostic.open_float, { desc = '[O]pen floating diagnostic message' })
 vim.keymap.set('n', '<leader>dl', vim.diagnostic.setloclist, { desc = 'Open diagnostics [L]ist' })
+vim.keymap.set('n', '<leader>d+', function() vim.diagnostic.show(nil,0) end, { desc = 'Show diagnostics (buffer)' })
+vim.keymap.set('n', '<leader>d-', function() vim.diagnostic.hide(nil,0) end, { desc = 'Hide diagnostics (buffer)' })
+
 
 vim.keymap.set('n', '<leader>=', 'ggVG=<C-o>zz', { silent = true, desc = 'Indent buffer' })
 
@@ -106,4 +171,3 @@ mason_lspconfig.setup_handlers {
         }
     end,
 }
-
