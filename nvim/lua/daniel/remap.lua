@@ -19,6 +19,11 @@ vim.keymap.set('n', '<Esc><Esc>', vim.cmd.noh)
 vim.keymap.set({ 'n', 'v' }, '<C-d>', '<C-d>zz')
 vim.keymap.set({ 'n', 'v' }, '<C-u>', '<C-u>zz')
 
+vim.keymap.set('i', '<C-a>', '<Esc>I', { silent = true })
+vim.keymap.set('i', '<C-e>', '<Esc>A', { silent = true })
+vim.keymap.set('i', '<C-u>', '<Esc>O', { silent = true })
+vim.keymap.set('i', '<C-d>', '<Esc>o', { silent = true })
+
 -- :Ex short cut
 vim.keymap.set("n", "-", vim.cmd.Ex)
 

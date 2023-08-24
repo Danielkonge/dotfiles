@@ -5,7 +5,8 @@ local config = {}
 
 config.front_end = "WebGpu"
 
-config.color_scheme = 'Catppuccin Mocha'
+-- config.color_scheme = 'Catppuccin Mocha'
+config.color_scheme = 'carbonfox'
 
 config.window_decorations = "RESIZE"
 
