@@ -1,7 +1,7 @@
 -- personal init.lua
 
-require("daniel.remap")
 require("daniel.set")
+require("daniel.remap")
 
 -- Install package manager
 --    https://github.com/folke/lazy.nvim
@@ -376,6 +376,9 @@ require('lazy').setup({
       -- or leave it empty to use the default settings
       -- refer to the configuration section below
     },
+  },
+
+  {
     {
       "NeogitOrg/neogit",
       dependencies = {
@@ -384,12 +387,18 @@ require('lazy').setup({
       },
       config = true
     },
+  },
+
+  {
     {
       "ThePrimeagen/harpoon",
       dependencies = {
         "nvim-lua/plenary.nvim",
       }
     },
+  },
+
+  {
     {
       "startup-nvim/startup.nvim",
       dependencies = {
@@ -397,6 +406,10 @@ require('lazy').setup({
         "nvim-lua/plenary.nvim"
       }
     }
+  },
+
+  {
+    'Vonr/align.nvim',
   },
 }, {})
 
@@ -413,9 +426,9 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 
 require("which-key").register({
   ["<leader>g"] = { name = "+git" },
-  ["<leader>w"] = { name = "+workspace" },
   ["<leader>d"] = { name = "+diagnostics/document" },
   ["<leader>t"] = { name = "+toggle" },
+  ["<leader>w"] = { name = "+workspace" },
   ["<leader>l"] = { name = "+lsp" },
 })
 

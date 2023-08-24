@@ -27,6 +27,8 @@ vim.keymap.set('i', '<C-d>', '<Esc>o', { silent = true })
 -- :Ex short cut
 vim.keymap.set("n", "-", vim.cmd.Ex)
 
+vim.keymap.set('n', '<leader>wS', function() print(vim.fn.getcwd()) end, { desc = 'Show CWD (≈ workspace)' })
+
 -- Window movement
 vim.keymap.set('n', '<c-h>', '<c-w>h', { silent = true })
 vim.keymap.set('n', '<c-j>', '<c-w>j', { silent = true })
