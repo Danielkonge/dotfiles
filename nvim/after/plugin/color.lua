@@ -61,8 +61,8 @@ require("material").setup({
 
 require('kanagawa').setup({
   -- compile = false,          -- enable compiling the colorscheme
-  transparent = true,          -- do not set background color
-  theme = "wave",              -- Load "wave" theme when 'background' option is not set
+  transparent = true, -- do not set background color
+  theme = "wave",     -- Load "wave" theme when 'background' option is not set
   colors = {
     theme = {
       all = {
@@ -76,7 +76,7 @@ require('kanagawa').setup({
 
 require('nightfox').setup({
   options = {
-    transparent = true,     -- Disable setting background
+    transparent = true, -- Disable setting background
     styles = {
       comments = "italic",
       keywords = "bold",
@@ -115,4 +115,3 @@ vim.keymap.set('n', '<leader>tB', function()
     print("Error: Not onedark or catppuccin-mocha.")
   end
 end, { desc = '[B]ackground Transparent Toggle' })
-

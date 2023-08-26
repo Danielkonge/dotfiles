@@ -39,6 +39,8 @@ require('telescope').setup {
     mappings = {
       i = {
         ['<C-h>'] = "which_key",
+        ['<esc><esc>'] = require('telescope.actions').close,
+        -- this is also covered below, but this is a bit quicker
       },
       n = {
         ['<esc>'] = require('telescope.actions').close,
@@ -101,7 +103,7 @@ vim.keymap.set('n', '<leader>/', function()
   -- You can pass additional configuration to telescope to change theme, layout, etc.
   require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
     winblend = 10,
-    previewer = false,
+    previewer = true,
   })
 end, { desc = '[/] Fuzzily search in current buffer' })
 
@@ -113,6 +115,7 @@ vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { de
 vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
 vim.keymap.set('n', '<leader>sG', function() require('telescope.builtin').live_grep({ cwd = '$HOME' }) end, { desc = '[S]earch ~ by [G]rep' })
 vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
+vim.keymap.set('n', '<leader>ds', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
 vim.keymap.set('n', '<leader>sk', require('telescope.builtin').keymaps, { desc = '[S]earch [K]eymaps' })
 vim.keymap.set('n', '<leader>sr', require('telescope.builtin').registers, { desc = '[S]earch [R]egisters' })
 vim.keymap.set('n', '<leader>sc', require('telescope.builtin').commands, { desc = '[S]earch [C]ommands' })
@@ -126,7 +129,7 @@ vim.api.nvim_set_keymap(
   "n",
   "<space>.",
   ":Telescope file_browser path=%:p:h select_buffer=true<CR>",
-  { noremap = true, desc = '[.] Telescope File Browser' }
+  { noremap = true, silent = true, desc = '[.] Telescope File Browser' }
 )
 
 require("which-key").register({

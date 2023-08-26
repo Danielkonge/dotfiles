@@ -6,8 +6,8 @@
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
 -- keymaps for moving marked text up or down
-vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { silent = true })
-vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { silent = true })
+vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { silent = true, desc = "Move marked text down" })
+vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { silent = true, desc = "Move marked text up" })
 
 -- Remap for dealing with word wrap
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
@@ -28,6 +28,9 @@ vim.keymap.set('i', '<C-d>', '<Esc>o', { silent = true })
 vim.keymap.set("n", "-", vim.cmd.Ex)
 
 vim.keymap.set('n', '<leader>wS', function() print(vim.fn.getcwd()) end, { desc = 'Show CWD (≈ workspace)' })
+
+vim.keymap.set('n', [[<leader>"]], vim.cmd.split, { desc = 'Horizontal split window' })
+vim.keymap.set('n', [[<leader>%]], vim.cmd.vsplit, { desc = 'Vertical split window' })
 
 -- Window movement
 vim.keymap.set('n', '<c-h>', '<c-w>h', { silent = true })

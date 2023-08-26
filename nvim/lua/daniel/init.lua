@@ -104,11 +104,17 @@ require('lazy').setup({
 
       -- Adds path completions
       'hrsh7th/cmp-path',
+
+      -- Adds pictograms
+      'onsails/lspkind.nvim',
+
+      -- Adds lsp document symbols
+      'hrsh7th/cmp-nvim-lsp-document-symbol'
     },
   },
 
   -- Useful plugin to show you pending keybinds.
-  { 'folke/which-key.nvim', opts = {} },
+  { 'folke/which-key.nvim',       opts = {} },
 
   {
     -- Adds git related signs to the gutter, as well as utilities for managing changes
@@ -126,7 +132,7 @@ require('lazy').setup({
         vim.keymap.set('n', '<leader>gp', require('gitsigns').prev_hunk,
           { buffer = bufnr, desc = '[G]o to [P]revious Hunk' })
         vim.keymap.set('n', '<leader>gn', require('gitsigns').next_hunk, { buffer = bufnr, desc = '[G]o to [N]ext Hunk' })
-        vim.keymap.set('n', '<leader>ph', require('gitsigns').preview_hunk, { buffer = bufnr, desc = '[P]review [H]unk' })
+        vim.keymap.set('n', '<leader>gP', require('gitsigns').preview_hunk, { buffer = bufnr, desc = '[P]review [H]unk' })
       end,
     },
   },
@@ -141,7 +147,7 @@ require('lazy').setup({
       vim.cmd.colorscheme 'onedark'
     end,
   },
-  { "catppuccin/nvim",      name = "catppuccin", priority = 1000 },
+  { "catppuccin/nvim",            name = "catppuccin", priority = 1000 },
   { "EdenEast/nightfox.nvim" },
   { 'marko-cerovac/material.nvim' },
   { "rebelot/kanagawa.nvim" },
@@ -151,44 +157,9 @@ require('lazy').setup({
     -- Set lualine as statusline
     'nvim-lualine/lualine.nvim',
     -- See `:help lualine.txt`
-    opts = {
-      options = {
-        icons_enabled = true,
-        theme = 'auto',
-        component_separators = '|',
-        section_separators = '',
-      },
-      sections = {
-        lualine_c = {
-          {
-            'filename',
-            file_status = true,     -- Displays file status (readonly status, modified status)
-            newfile_status = false, -- Display new file status (new file means no write after created)
-            path = 3,               -- 0: Just the filename
-            -- 1: Relative path
-            -- 2: Absolute path
-            -- 3: Absolute path, with tilde as the home directory
-            -- 4: Filename and parent dir, with tilde as the home directory
-
-            shorting_target = 40, -- Shortens path to leave 40 spaces in the window
-            -- for other components. (terrible name, any suggestions?)
-            symbols = {
-              modified = '[+]',      -- Text to show when the file is modified.
-              readonly = '[-]',      -- Text to show when the file is non-modifiable or readonly.
-              unnamed = '[No Name]', -- Text to show for unnamed buffers.
-              newfile = '[New]',     -- Text to show for newly created file before first write
-            }
-          }
-        }
-      },
-      extensions = {
-        'quickfix',
-        'nvim-tree',
-        'man',
-        'trouble',
-        'lazy',
-      }
-    },
+    -- opts = {
+    --   --
+    -- },
   },
 
   {
@@ -424,9 +395,23 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   pattern = '*',
 })
 
+local daniel_save_group = vim.api.nvim_create_augroup('DanielOnSave', { clear = true })
+vim.api.nvim_create_autocmd("BufWritePre", {
+  group = daniel_save_group,
+  pattern = "*",
+  callback = function()
+    local _, lnum, col, _, _ = unpack(vim.fn.getcursorcharpos())
+    vim.cmd([[%s/\s\+$//e]])
+    vim.fn.setcursorcharpos({ lnum, col })
+  end
+  -- command = [[%s/\s\+$//e]],
+})
+
+
 require("which-key").register({
   ["<leader>g"] = { name = "+git" },
-  ["<leader>d"] = { name = "+diagnostics/document" },
+  ["<leader>gd"] = { name = "+diffview" },
+  ["<leader>d"] = { name = "+diagnostics" },
   ["<leader>t"] = { name = "+toggle" },
   ["<leader>w"] = { name = "+workspace" },
   ["<leader>l"] = { name = "+lsp" },

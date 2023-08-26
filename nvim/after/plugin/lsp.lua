@@ -86,8 +86,10 @@ local on_attach = function(_, bufnr)
     nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
     nmap('gI', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
     nmap('gt', vim.lsp.buf.type_definition, 'Type [D]efinition')
-    nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
+    nmap('<leader>sD', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
     nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
+    nmap('<leader>sW', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
+
 
     -- See `:help K` for why this keymap
     nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
@@ -118,11 +120,21 @@ vim.keymap.set('n', '<leader>dp', vim.diagnostic.goto_prev, { desc = 'Go to [P]r
 vim.keymap.set('n', '<leader>dn', vim.diagnostic.goto_next, { desc = 'Go to [N]ext diagnostic message' })
 vim.keymap.set('n', '<leader>do', vim.diagnostic.open_float, { desc = '[O]pen floating diagnostic message' })
 vim.keymap.set('n', '<leader>dl', vim.diagnostic.setloclist, { desc = 'Open diagnostics [L]ist' })
-vim.keymap.set('n', '<leader>d+', function() vim.diagnostic.show(nil,0) end, { desc = 'Show diagnostics (buffer)' })
-vim.keymap.set('n', '<leader>d-', function() vim.diagnostic.hide(nil,0) end, { desc = 'Hide diagnostics (buffer)' })
+vim.keymap.set('n', '<leader>d+', function() vim.diagnostic.show(nil, 0) end, { desc = 'Show diagnostics (buffer)' })
+vim.keymap.set('n', '<leader>d-', function() vim.diagnostic.hide(nil, 0) end, { desc = 'Hide diagnostics (buffer)' })
 
-
-vim.keymap.set('n', '<leader>=', 'ggVG=<C-o>zz', { silent = true, desc = 'Indent buffer' })
+vim.keymap.set('n',
+    '<leader>=',
+    'ggVG=<C-o>',
+    -- The following two methods don't work for some reason
+    -- 'gg=G<C-o>',
+    -- function()
+    --     local _, lnum, col, _, _ = unpack(vim.fn.getcursorcharpos())
+    --     vim.cmd([[execute "normal gg=G"]])
+    --     vim.fn.setcursorcharpos({ lnum, col })
+    -- end,
+    { silent = true, desc = 'Indent buffer' }
+)
 
 -- Enable the following language servers
 --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.

@@ -1,7 +1,11 @@
 local wezterm = require('wezterm')
 local act = wezterm.action
 
+-- Allow working with both the current release and the nightly
 local config = {}
+-- if wezterm.config_builder then
+--     config = wezterm.config_builder()
+-- end
 
 config.front_end = "WebGpu"
 
@@ -56,19 +60,21 @@ config.term = "wezterm"
 -- keybindings:
 
 wezterm.on('toggle-bg', function(window, _)
-  local overrides = window:get_config_overrides() or {}
-  if not overrides.background then
-    overrides.background = {}
-    overrides.text_background_opacity = 1.0
-  else
-    overrides.background = nil
-    overrides.text_background_opacity = nil
-  end
-  window:set_config_overrides(overrides)
+    local overrides = window:get_config_overrides() or {}
+    if not overrides.background then
+        overrides.background = {}
+        overrides.colors = { background = '#1a212e' }
+        overrides.text_background_opacity = 1.0
+    else
+        overrides.background = nil
+        overrides.colors = nil
+        overrides.text_background_opacity = nil
+    end
+    window:set_config_overrides(overrides)
 end)
 
 wezterm.on('toggle-ligature', function(window, _)
-  local overrides = window:get_config_overrides() or {}
+    local overrides = window:get_config_overrides() or {}
     if not overrides.font then
         -- If we haven't overridden it yet, then override with ligatures enabled
         overrides.font = wezterm.font({
@@ -77,10 +83,10 @@ wezterm.on('toggle-ligature', function(window, _)
             harfbuzz_features = { 'calt=1', 'clig=1', 'liga=1' },
         })
     else
-    -- else we did already, and we should disable out override now
-    overrides.font = nil
-  end
-  window:set_config_overrides(overrides)
+        -- else we did already, and we should disable out override now
+        overrides.font = nil
+    end
+    window:set_config_overrides(overrides)
 end)
 
 config.leader = { key = 'Space', mods = 'CTRL|SHIFT', timeout_milliseconds = 3000 }
@@ -123,16 +129,48 @@ config.keys = {
     },
 }
 
-for i = 1,8 do
+for i = 1, 8 do
     table.insert(config.keys, {
         key = tostring(i),
         mods = 'LEADER',
-        action = act.ActivateTab(i-1),
+        action = act.ActivateTab(i - 1),
     })
 end
+
+wezterm.on('user-var-changed', function(window, pane, name, value)
+    local overrides = window:get_config_overrides() or {}
+    if name == "ZEN_MODE" then
+        local incremental = value:find("+")
+        local number_value = tonumber(value)
+        if incremental ~= nil then
+            while (number_value > 0) do
+                window:perform_action(wezterm.action.IncreaseFontSize, pane)
+                number_value = number_value - 1
+            end
+            overrides.enable_tab_bar = false
+            overrides.background = {}
+            overrides.colors = { background = '#1a212e' }
+            overrides.text_background_opacity = 1.0
+        elseif number_value < 0 then
+            window:perform_action(wezterm.action.ResetFontSize, pane)
+            overrides.font_size = nil
+            overrides.background = nil
+            overrides.colors = nil
+            overrides.text_background_opacity = nil
+            overrides.enable_tab_bar = true
+        else
+            overrides.font_size = number_value
+            overrides.background = {}
+            overrides.colors = { background = '#1a212e' }
+            overrides.text_background_opacity = 1.0
+            overrides.enable_tab_bar = false
+        end
+    end
+    window:set_config_overrides(overrides)
+end)
+
 
 -- config.debug_key_events = true
 -- config.enable_kitty_keyboard = true
 
 return config
-
