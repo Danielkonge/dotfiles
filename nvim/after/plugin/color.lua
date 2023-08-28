@@ -85,6 +85,12 @@ require('nightfox').setup({
   },
 })
 
+require('tokyonight').setup({
+  style = 'night',
+  transparent = true,
+  dim_inactive = true,
+})
+
 
 vim.keymap.set('n', '<leader>to', require("onedark").toggle, { desc = '[O]nedark Theme Toggle' })
 

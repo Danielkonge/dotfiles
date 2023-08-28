@@ -151,6 +151,7 @@ require('lazy').setup({
   { "EdenEast/nightfox.nvim" },
   { 'marko-cerovac/material.nvim' },
   { "rebelot/kanagawa.nvim" },
+  { "folke/tokyonight.nvim" },
 
 
   {

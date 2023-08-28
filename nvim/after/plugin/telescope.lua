@@ -43,7 +43,8 @@ require('telescope').setup {
         -- this is also covered below, but this is a bit quicker
       },
       n = {
-        ['<esc>'] = require('telescope.actions').close,
+        ['<esc><esc>'] = require('telescope.actions').close,
+        ['<esc>'] = require('telescope.actions').close, -- both of these should close telescope
         ['dd'] = require('telescope.actions').delete_buffer,
         ['<C-h>'] = "which_key",
       }
@@ -58,27 +59,27 @@ require('telescope').setup {
         '--hidden',
         '--relative-path',
         '--follow',
-        '--exclude', '.git',
-        '--exclude', 'Library',
-        '--exclude', 'Music',
-        '--exclude', 'Movies',
-        '--exclude', 'Applications',
-        '--exclude', 'Pictures',
-        '--exclude', '.DS_Store',
-        '--exclude', '.cache',
-        '--exclude', '.sage',
-        '--exclude', '.npm',
-        '--exclude', '.conda',
-        '--exclude', '.zsh',
-        '--exclude', '*.aux',
-        '--exclude', '*.fdb_latexmk',
-        '--exclude', '*.gz',
-        '--exclude', '.auctex-auto',
-        '--exclude', '.dropbox',
-        '--exclude', '.anaconda',
-        '--exclude', '.emacs.d',
-        '--exclude', 'mason',
-        '--exclude', 'lazy',
+        -- '--exclude', '.git',
+        -- '--exclude', 'Library',
+        -- '--exclude', 'Music',
+        -- '--exclude', 'Movies',
+        -- '--exclude', 'Applications',
+        -- '--exclude', 'Pictures',
+        -- '--exclude', '.DS_Store',
+        -- '--exclude', '.cache',
+        -- '--exclude', '.sage',
+        -- '--exclude', '.npm',
+        -- '--exclude', '.conda',
+        -- '--exclude', '.zsh',
+        -- '--exclude', '*.aux',
+        -- '--exclude', '*.fdb_latexmk',
+        -- '--exclude', '*.gz',
+        -- '--exclude', '.auctex-auto',
+        -- '--exclude', '.dropbox',
+        -- '--exclude', '.anaconda',
+        -- '--exclude', '.emacs.d',
+        -- '--exclude', 'mason',
+        -- '--exclude', 'lazy',
         -- '.', '$HOME',
       },
       -- follow = true,
@@ -108,12 +109,14 @@ vim.keymap.set('n', '<leader>/', function()
 end, { desc = '[/] Fuzzily search in current buffer' })
 
 vim.keymap.set('n', '<leader>gf', require('telescope.builtin').git_files, { desc = 'Search [G]it [F]iles' })
-vim.keymap.set('n', '<leader>sf', function() require('telescope.builtin').find_files({ cwd = '$HOME' }) end, { desc = '[S]earch [F]iles' })
+vim.keymap.set('n', '<leader>sf', function() require('telescope.builtin').find_files({ cwd = '$HOME' }) end,
+  { desc = '[S]earch [F]iles' })
 vim.keymap.set('n', '<leader>sp', require('telescope.builtin').find_files, { desc = '[S]earch Files [P]roject (cwd)' })
 vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags, { desc = '[S]earch [H]elp' })
 vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
 vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
-vim.keymap.set('n', '<leader>sG', function() require('telescope.builtin').live_grep({ cwd = '$HOME' }) end, { desc = '[S]earch ~ by [G]rep' })
+vim.keymap.set('n', '<leader>sG', function() require('telescope.builtin').live_grep({ cwd = '$HOME' }) end,
+  { desc = '[S]earch ~ by [G]rep' })
 vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
 vim.keymap.set('n', '<leader>ds', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
 vim.keymap.set('n', '<leader>sk', require('telescope.builtin').keymaps, { desc = '[S]earch [K]eymaps' })
