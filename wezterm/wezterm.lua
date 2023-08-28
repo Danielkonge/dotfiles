@@ -9,6 +9,9 @@ end
 
 config.front_end = "WebGpu"
 
+config.max_fps = 120
+config.animation_fps = 60
+
 -- config.color_scheme = 'Catppuccin Mocha'
 config.color_scheme = 'carbonfox'
 
@@ -75,6 +78,13 @@ wezterm.on('update-status', function(window, pane)
         if hostname == '' then
             hostname = wezterm.hostname()
         end
+
+        -- Format cwd nicely
+        if hostname == 'Daniels-MBP' then
+            cwd = cwd:gsub('/Users/daniel', '~')
+        end
+
+
         left_status = {
             { Foreground = { Color = 'rgb(210,55,100)' } },
             { Background = { Color = 'none' } },
@@ -110,13 +120,42 @@ wezterm.on('update-status', function(window, pane)
     window:set_right_status(wezterm.format(right_status))
 end)
 
+-- This function returns the suggested title for a tab.
+-- It prefers the title that was set via `tab:set_title()`
+-- or `wezterm cli set-tab-title`, but falls back to the
+-- title of the active pane in that tab.
+function tab_title(tab_info)
+    local title = tab_info.tab_title
+    -- if the tab title is explicitly set, take that
+    if title and #title > 0 then
+        return title
+    end
+    -- Otherwise, use the title from the active pane
+    -- in that tab
+    return tab_info.active_pane.title
+end
+
+wezterm.on('format-tab-title', function(tab, _tabs, _panes, _config, _hover, _max_width)
+    local zoomed = ''
+    local index = tab.tab_index + 1
+    local title = tab_title(tab)
+    if tab.active_pane.is_zoomed then
+        zoomed = '+'
+    end
+    return {
+        { Text = ' ' .. index .. ' ' .. title .. zoomed .. ' ' }
+    }
+end)
+
 -- retro tab bar
+config.tab_max_width = 32
 config.colors = {
     tab_bar = {
         background = 'none',   -- 'rgba(0,0,0,0)',
         active_tab = {
             bg_color = 'none', -- 'rgba(0,0,0,0)',
             fg_color = 'rgb(75,185,55)',
+            -- intensity = 'Bold',
         },
         inactive_tab = {
             bg_color = 'none',           -- 'rgba(0,0,0,0)',
@@ -128,6 +167,8 @@ config.colors = {
         },
     }
 }
+
+
 
 config.background = {
     -- deepest layer
@@ -158,6 +199,7 @@ config.text_background_opacity = 0.4
 
 config.term = "wezterm"
 
+config.default_workspace = "Home"
 
 -- keybindings:
 
@@ -191,9 +233,9 @@ wezterm.on('toggle-ligature', function(window, _)
     window:set_config_overrides(overrides)
 end)
 
-config.leader = { key = 'Space', mods = 'CTRL|SHIFT', timeout_milliseconds = 3000 }
+config.leader = { key = 'Space', mods = 'CTRL', timeout_milliseconds = 3000 }
 config.keys = {
-    -- Turn off the default CTRL-SHIFT-Space action
+    -- Turn off the default CTRL-SHIFT-Space action (so it can potentially be used in tmux)
     {
         key = 'Space',
         mods = 'CTRL|SHIFT',
@@ -229,9 +271,157 @@ config.keys = {
         mods = 'LEADER',
         action = act.ActivateCopyMode,
     },
+    {
+        key = 'p',
+        mods = 'LEADER',
+        action = act.ActivateCommandPalette,
+    },
+    {
+        key = 'q',
+        mods = 'LEADER',
+        action = act.CloseCurrentPane { confirm = false },
+    },
+    {
+        key = 'z',
+        mods = 'LEADER',
+        action = act.TogglePaneZoomState,
+    },
+    {
+        key = '?',
+        mods = 'LEADER',
+        action = act.ShowLauncherArgs { title = 'Choose Command', flags = 'FUZZY|COMMANDS' }
+        -- seems to be the same as below
+        -- action = act.ShowLauncherArgs { title = 'Keys', flags = 'FUZZY|KEY_ASSIGNMENTS|COMMANDS' }
+    },
+    {
+        key = 't',
+        mods = 'LEADER',
+        action = act.ShowLauncherArgs { title = 'Switch Tab', flags = 'FUZZY|TABS' }
+    },
+    {
+        key = 'w',
+        mods = 'LEADER',
+        action = act.ShowLauncherArgs { title = 'Switch Workspace', flags = 'FUZZY|WORKSPACES' }
+    },
+    {
+        key = '.',
+        mods = 'LEADER',
+        action = act.PaneSelect {
+            alphabet = '1234567890',
+        },
+    },
+    {
+        key = ',',
+        mods = 'LEADER',
+        action = act.PaneSelect {
+            alphabet = '1234567890',
+            mode = 'SwapWithActive',
+        },
+    },
+    {
+        key = 'r',
+        mods = 'LEADER',
+        action = act.RotatePanes 'CounterClockwise',
+    },
+    {
+        key = 'LeftArrow',
+        mods = 'LEADER',
+        action = act.ActivatePaneDirection 'Left',
+    },
+    {
+        key = 'RightArrow',
+        mods = 'LEADER',
+        action = act.ActivatePaneDirection 'Right',
+    },
+    {
+        key = 'UpArrow',
+        mods = 'LEADER',
+        action = act.ActivatePaneDirection 'Up',
+    },
+    {
+        key = 'DownArrow',
+        mods = 'LEADER',
+        action = act.ActivatePaneDirection 'Down',
+    },
+    {
+        key = 'LeftArrow',
+        mods = 'ALT',
+        action = act.AdjustPaneSize { 'Left', 1 },
+    },
+    {
+        key = 'RightArrow',
+        mods = 'ALT',
+        action = act.AdjustPaneSize { 'Right', 1 },
+    },
+    {
+        key = 'UpArrow',
+        mods = 'ALT',
+        action = act.AdjustPaneSize { 'Up', 1 },
+    },
+    {
+        key = 'DownArrow',
+        mods = 'ALT',
+        action = act.AdjustPaneSize { 'Down', 1 },
+    },
+    {
+        key = 'UpArrow',
+        mods = 'ALT|CMD',
+        action = act.SwitchWorkspaceRelative(1),
+    },
+    {
+        key = 'DownArrow',
+        mods = 'ALT|CMD',
+        action = act.SwitchWorkspaceRelative(-1),
+    },
+    {
+        key = 'f',
+        mods = 'LEADER',
+        action = wezterm.action_callback(function(window, pane)
+            local success, stdout, stderr = wezterm.run_child_process {
+                '/Users/daniel/.config/scripts/wezterm-workspaces.sh'
+            }
+            local workspaces = {}
+
+            if success then
+                for line in stdout:gmatch("[^\r\n]+") do
+                    -- Match on the '$' symbol
+                    for line_id, line_label in line:gmatch("(.+) %$ (.+)") do
+                        table.insert(workspaces, { id = line_id, label = line_label })
+                    end
+                end
+            else
+                wezterm.log_info('stderr:', stderr)
+            end
+
+            window:perform_action(
+                act.InputSelector {
+                    action = wezterm.action_callback(function(inner_window, inner_pane, id, label)
+                        if not id and not label then
+                            wezterm.log_info 'Cancelled'
+                        else
+                            wezterm.log_info('You selected id(' .. id .. ') and label(' .. label .. ')')
+                            inner_window:perform_action(
+                                act.SwitchToWorkspace {
+                                    name = label,
+                                    spawn = {
+                                        label = 'Workspace: ' .. label,
+                                        cwd = id,
+                                    }
+                                },
+                                inner_pane
+                            )
+                        end
+                    end),
+                    title = 'Choose Workspace',
+                    choices = workspaces,
+                },
+                pane
+            )
+        end),
+    },
 }
 
-for i = 1, 8 do
+for i = 1, 9 do
     table.insert(config.keys, {
         key = tostring(i),
         mods = 'LEADER',
