@@ -37,6 +37,11 @@ function workspace.fuzzy_picker(window, pane)
                             spawn = {
                                 label = 'Workspace: ' .. label,
                                 cwd = id,
+                                -- set_environment_variables here to avoid writing full brew path in the script
+                                -- doesn't seem to work?
+                                -- set_environment_variables = {
+                                --     PATH = "/opt/homebrew/bin:" .. os.getenv("PATH"),
+                                -- },
                             }
                         },
                         inner_pane

@@ -11,11 +11,11 @@ function keys.apply_to_config(config)
 
     config.keys = {
         -- Turn off the default CTRL-SHIFT-Space action (so it can potentially be used in tmux)
-        {
-            key = 'Space',
-            mods = 'CTRL|SHIFT',
-            action = act.DisableDefaultAssignment,
-        },
+        -- {
+        --     key = 'Space',
+        --     mods = 'CTRL|SHIFT',
+        --     action = act.DisableDefaultAssignment,
+        -- },
         {
             key = '%',
             mods = 'LEADER',

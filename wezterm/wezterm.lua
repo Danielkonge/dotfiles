@@ -10,8 +10,13 @@ end
 config.front_end = "WebGpu"
 config.term = "wezterm"
 
+-- This might not be a good idea?
+-- config.default_prog = { '/opt/homebrew/bin/zsh', '-l' }
+
 config.max_fps = 120
 config.animation_fps = 60
+
+config.enable_kitty_keyboard = true
 
 -- config.color_scheme = 'Catppuccin Mocha'
 config.color_scheme = 'carbonfox'
@@ -39,11 +44,13 @@ config.background = {
         source = {
             File = '/Users/daniel/.config/wezterm/sword-red.png'
         },
-        hsb = { brightness = 0.03 },
-        opacity = 0.96,
+        hsb = { brightness = 0.03, saturation = 1.02 },
+        opacity = 0.95,
     },
     -- more layers can be added here
 }
+
+config.macos_window_background_blur = 10
 
 -- background of special text (e.g. which-key in nvim)
 config.text_background_opacity = 0.4
@@ -83,7 +90,6 @@ require('key-bindings').apply_to_config(config)
 
 
 -- config.debug_key_events = true
--- config.enable_kitty_keyboard = true
 
 
 return config

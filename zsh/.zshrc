@@ -6,7 +6,7 @@
 path+=('/Users/daniel/.emacs.d/bin')
 path+=('/Users/daniel/.luarocks/bin')
 path+=('/Users/daniel/.config/scripts/')
-export PATH
+export -U PATH
 
 export EDITOR=nvim
 export VISUAL=nvim
@@ -28,9 +28,9 @@ source /opt/homebrew/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh
 
 source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
-# source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-# Note: The above can be faster sometimes, but this one has better highlighting
-source /opt/homebrew/share/zsh-fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
+source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# Note: The above can be faster sometimes, but the below one has better highlighting
+# source /opt/homebrew/share/zsh-fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
 
 # >>> conda initialize >>> !! Contents within this block are managed by 'conda init' !!
 __conda_setup="$('/opt/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
