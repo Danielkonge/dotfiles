@@ -383,6 +383,14 @@ require('lazy').setup({
   {
     'Vonr/align.nvim',
   },
+
+  {
+    'windwp/nvim-autopairs',
+    event = "InsertEnter",
+    opts = {
+      break_undo = false,
+    } -- this is equalent to setup({}) function
+  },
 }, {})
 
 -- [[ Highlight on yank ]]

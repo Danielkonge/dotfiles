@@ -10,6 +10,12 @@ end
 config.front_end = "WebGpu"
 config.term = "wezterm"
 
+-- This doens't seem to work? If it is fixed, it would be good to include
+-- Currently: PATH = /usr/bin:/bin:/usr/sbin:/sbin when running from wezterm
+-- config.set_environment_variables = {
+--   PATH = '/Users/daniel/.config/scripts:' .. '/opt/homebrew/bin:' .. os.getenv('PATH')
+-- }
+
 -- This might not be a good idea?
 -- config.default_prog = { '/opt/homebrew/bin/zsh', '-l' }
 
