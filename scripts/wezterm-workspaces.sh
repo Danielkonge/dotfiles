@@ -1,6 +1,6 @@
 #!/bin/bash
 
-dirs=$(find -L ~/Work ~/Personal ~ ~/.config ~/Dropbox  -mindepth 1 -maxdepth 1 -type d)
+dirs=$(find -L ~/work ~/personal ~ ~/.config ~/Dropbox  -mindepth 1 -maxdepth 1 -type d)
 nice_dirs=$(echo "$dirs" | sed -r 's/\/Users\/daniel/~/g')
 
 prev_dirs=$(echo "$nice_dirs" | xargs dirname | xargs basename)

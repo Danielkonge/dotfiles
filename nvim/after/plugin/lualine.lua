@@ -30,10 +30,10 @@ require('lualine').setup {
             },
         },
         lualine_x = {
-            {
-                require("noice").api.status.message.get_hl,
-                cond = require("noice").api.status.message.has,
-            },
+            -- {
+            --     require("noice").api.status.message.get_hl,
+            --     cond = require("noice").api.status.message.has,
+            -- },
             {
                 require("noice").api.status.command.get,
                 cond = require("noice").api.status.command.has,

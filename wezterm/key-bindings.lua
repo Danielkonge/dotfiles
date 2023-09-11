@@ -153,6 +153,54 @@ function keys.apply_to_config(config)
             mods = 'LEADER',
             action = wezterm.action_callback(workspaces.fuzzy_picker),
         },
+        {
+            key = 'd',
+            mods = 'LEADER',
+            action = act.ShowDebugOverlay,
+        },
+        --[[ {
+            key = 'å',
+            mods = 'LEADER',
+            action = wezterm.action_callback(function(window, pane)
+                -- Here you can dynamically construct a longer list if needed
+
+                local home = wezterm.home_dir
+                local workspaces2 = {
+                    { id = home .. '/work', label = 'Work' },
+                    { id = home .. '/personal', label = 'Personal' },
+                    { id = home .. '/.config', label = 'Config' },
+                }
+
+                window:perform_action(
+                    act.InputSelector {
+                        action = wezterm.action_callback(function(inner_window, inner_pane, id, label)
+                            if not id and not label then
+                                wezterm.log_info 'cancelled'
+                            else
+                                wezterm.log_info('id = ' .. id)
+                                wezterm.log_info('label = ' .. label)
+                                inner_window:perform_action(
+                                    act.SwitchToWorkspace {
+                                        name = label,
+                                        spawn = {
+                                            label = 'Workspace: ' .. label,
+                                            cwd = id,
+                                        }
+                                    },
+                                    inner_pane
+                                )
+                            end
+                        end),
+                        title = 'Choose Workspace',
+                        choices = workspaces2,
+                        -- fuzzy = true,
+                        description = "Fuzzy find and make workspace",
+                        fuzzy_description = "Tester: ",
+                    },
+                    pane
+                )
+            end),
+        }, ]]
     }
 
     for i = 1, 9 do

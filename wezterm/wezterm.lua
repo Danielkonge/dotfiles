@@ -99,3 +99,59 @@ require('key-bindings').apply_to_config(config)
 
 
 return config
+
+--[[ local wezterm = require('wezterm')
+local act = wezterm.action
+local config = wezterm.config_builder()
+
+config.leader = { key = 'Space', mods = 'CTRL', timeout_milliseconds = 3000 }
+
+config.keys = {
+  {
+    key = 'w',
+    mods = 'LEADER',
+    action = wezterm.action_callback(function(window, pane)
+      -- Here you can dynamically construct a longer list if needed
+
+      local home = wezterm.home_dir
+      local workspaces = {
+        { id = home .. '/work', label = 'Work' },
+        { id = home .. '/personal', label = 'Personal' },
+        { id = home .. '/.config', label = 'Config' },
+      }
+
+      window:perform_action(
+          act.InputSelector {
+              action = wezterm.action_callback(function(inner_window, inner_pane, id, label)
+                  if not id and not label then
+                      wezterm.log_info 'cancelled'
+                  else
+                      wezterm.log_info('id = ' .. id)
+                      wezterm.log_info('label = ' .. label)
+                      inner_window:perform_action(
+                          act.SwitchToWorkspace {
+                              name = label,
+                              spawn = {
+                                  label = 'Workspace: ' .. label,
+                                  cwd = id,
+                              }
+                          },
+                          inner_pane
+                      )
+                  end
+              end),
+              title = 'Choose Workspace',
+              choices = workspaces,
+          },
+          pane
+      )
+    end),
+  },
+}
+
+wezterm.on('update-status', function(_, pane)
+    local cwd_uri = pane:get_current_working_dir()
+end)
+
+return config
+]]

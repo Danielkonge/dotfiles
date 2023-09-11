@@ -20,6 +20,7 @@ Pictures
 mason
 lazy
 .zcompdump
+.zcompdump*
 
 .aux
 .dvi

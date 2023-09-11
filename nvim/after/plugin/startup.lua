@@ -2,7 +2,7 @@
 
 vim.g.startup_bookmarks = {
   ["S"] = '~/.config/nvim/after/plugin/startup.lua',
-  ["Z"] = '~/.zshrc',
+  ["Z"] = '~/.config/zsh/.zshrc',
   ["K"] = '~/.config/kitty/kitty.conf',
   ["T"] = '~/.config/tmux/tmux.conf',
   ["I"] = '~/.config/nvim/lua/daniel/init.lua',
