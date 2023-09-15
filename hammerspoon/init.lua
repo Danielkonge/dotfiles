@@ -15,7 +15,7 @@ hs.hotkey.bind(hyper, "s", function()
 end)
 
 
-local battery = {
+DK_battery = {
   percent = hs.battery.percentage(),
   source = hs.battery.powerSource(),
   title = "Battery Status",
@@ -24,58 +24,58 @@ local battery = {
   very_low = 5,
 }
 
-local alertPowerSource = function()
+DK_alertPowerSource = function()
   local currentSource = hs.battery.powerSource()
-  if battery.source ~= currentSource then
-    battery.source = currentSource
-    hs.alert.show(battery.source)
+  if DK_battery.source ~= currentSource then
+    DK_battery.source = currentSource
+    hs.alert.show(DK_battery.source)
   end
 end
 
-local notifyCharge = function()
+DK_notifyCharge = function()
   local currentPercent = hs.battery.percentage()
-  if battery.percent == currentPercent then
+  if DK_battery.percent == currentPercent then
     return
   end
-  battery.percent = currentPercent
-  if battery.source == 'AC Power' then
-    if battery.percent == 100 then
+  DK_battery.percent = currentPercent
+  if DK_battery.source == 'AC Power' then
+    if DK_battery.percent == 100 then
       hs.notify.new({
-        title = battery.title,
+        title = DK_battery.title,
         subTitle = "Battery fully charged"
       }):send()
     end
-    if battery.percent == battery.high then
+    if DK_battery.percent == DK_battery.high then
       hs.notify.new({
-        title = battery.title,
-        subTitle = "Battery " .. tostring(battery.high) .. "% charged"
+        title = DK_battery.title,
+        subTitle = "Battery " .. tostring(DK_battery.high) .. "% charged"
       }):send()
     end
   end
-  if battery.source == 'Battery Power' then
-    if battery.percent == battery.low then
+  if DK_battery.source == 'Battery Power' then
+    if DK_battery.percent == DK_battery.low then
       hs.notify.new({
-        title = battery.title,
-        subTitle = "Battery " .. tostring(battery.low) .. "% charge remaining"
+        title = DK_battery.title,
+        subTitle = "Battery " .. tostring(DK_battery.low) .. "% charge remaining"
       }):send()
     end
-    if battery.percent == battery.very_low then
+    if DK_battery.percent == DK_battery.very_low then
       hs.notify.new({
-        title = battery.title,
-        subTitle = "Battery " .. tostring(battery.very_low) .. "% charge remaining"
+        title = DK_battery.title,
+        subTitle = "Battery " .. tostring(DK_battery.very_low) .. "% charge remaining"
       }):send()
     end
   end
 end
 
-local batteryWatcherCallback = function()
-  alertPowerSource()
-  notifyCharge()
+BatteryWatcherCallback = function()
+  DK_alertPowerSource()
+  DK_notifyCharge()
 end
 
--- if the watcher is local it can get garbage collected 
+-- if the watcher is local it can get garbage collected
 -- unless we call it somewhere else
-DK_batteryWatcher = hs.battery.watcher.new(batteryWatcherCallback)
+DK_batteryWatcher = hs.battery.watcher.new(BatteryWatcherCallback)
 DK_batteryWatcher:start()
 
 local hotkeys = {
