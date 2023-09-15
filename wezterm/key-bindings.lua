@@ -17,6 +17,11 @@ function keys.apply_to_config(config)
         --     action = act.DisableDefaultAssignment,
         -- },
         {
+            key = 'Tab',
+            mods = 'CTRL|SHIFT',
+            action = act.ActivatePaneDirection 'Next',
+        },
+        {
             key = '%',
             mods = 'LEADER',
             action = act.SplitHorizontal { domain = 'CurrentPaneDomain' },

@@ -234,7 +234,7 @@ require('lazy').setup({
         "log",
         "tmux",
         "sh",
-        "NeogitCommitMessage", "NeogitStatus", "NeogitPopup",
+        "NeogitCommitMessage", "NeogitStatus", "NeogitPopup", "NeogitGitCommandHistory",
         "startup", "checkhealth",
         "zsh"
       },
@@ -390,6 +390,13 @@ require('lazy').setup({
     opts = {
       break_undo = false,
     } -- this is equalent to setup({}) function
+  },
+
+  {
+    'Aasim-A/scrollEOF.nvim',
+    opts = {
+      insert_mode = true,
+    }
   },
 }, {})
 
