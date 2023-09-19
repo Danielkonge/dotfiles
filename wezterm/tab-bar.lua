@@ -72,7 +72,8 @@ function tab_bar.on_update_status(window, pane)
 
         -- Format cwd nicely
         if hostname == 'Daniels-MBP' then
-            cwd = cwd:gsub('/Users/daniel', '~')
+            -- wezterm.home_dir = '/Users/daniel'
+            cwd = cwd:gsub(wezterm.home_dir, '~')
         end
 
 

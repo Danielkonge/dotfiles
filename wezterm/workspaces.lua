@@ -8,8 +8,9 @@ function workspace.apply_to_config(config)
 end
 
 function workspace.fuzzy_picker(window, pane)
+    -- wezterm.home_dir = '/Users/daniel'
     local success, stdout, stderr = wezterm.run_child_process {
-        '/Users/daniel/.config/scripts/wezterm-workspaces.sh'
+        wezterm.home_dir .. '/.config/scripts/wezterm-workspaces.sh'
     }
     -- -- set_environment_variables somewhere here? to avoid writing full brew path in the script
     -- set_environment_variables = {
