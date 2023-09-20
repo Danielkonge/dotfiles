@@ -6,4 +6,5 @@ This is a working copy of my personal wezterm setup.
 
 ![Editing rust in neovim](media/wezterm-image.png)
 
-![Switching workspace with the InputSelector](media/wezterm-recording.mov)
+https://github.com/Danielkonge/dotfiles/assets/7075380/4ff1a2b1-8ab7-4968-93c3-a417af7bf816
+
