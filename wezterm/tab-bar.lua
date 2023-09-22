@@ -32,6 +32,8 @@ function tab_bar.apply_to_config(config)
     }
 end
 
+tab_bar.bg_color = 'none'
+
 function tab_bar.on_update_status(window, pane)
     -- Figure out the cwd and host of the current pane.
     -- This will pick up the hostname for the remote host if your
@@ -79,7 +81,7 @@ function tab_bar.on_update_status(window, pane)
 
         left_status = {
             { Foreground = { Color = 'rgb(210,55,100)' } },
-            { Background = { Color = 'none' } },
+            { Background = { Color = tab_bar.bg_color } },
             { Attribute = { Italic = true } },
             { Text = '  Workspace:  ' },
 
@@ -88,7 +90,7 @@ function tab_bar.on_update_status(window, pane)
 
         }
         right_status = {
-            { Background = { Color = 'none' } },
+            { Background = { Color = tab_bar.bg_color } },
 
             { Foreground = { Color = 'rgb(94,172,211)' } },
             { Attribute = { Italic = true } },
