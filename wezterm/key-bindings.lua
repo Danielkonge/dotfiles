@@ -1,9 +1,9 @@
-local wezterm = require('wezterm')
-local act = wezterm.action
+local wezterm    = require('wezterm')
+local act        = wezterm.action
 
 local workspaces = require('workspaces')
 
-local keys = {}
+local keys       = {}
 
 
 function keys.apply_to_config(config)
@@ -18,8 +18,13 @@ function keys.apply_to_config(config)
         -- },
         {
             key = 'Tab',
-            mods = 'CTRL|SHIFT',
+            mods = 'ALT',
             action = act.ActivatePaneDirection 'Next',
+        },
+        {
+            key = 'Tab',
+            mods = 'ALT',
+            action = act.ActivatePaneDirection 'Prev',
         },
         {
             key = '%',
@@ -104,23 +109,23 @@ function keys.apply_to_config(config)
             action = act.RotatePanes 'CounterClockwise',
         },
         {
-            key = 'LeftArrow',
-            mods = 'LEADER',
+            key = 'h',
+            mods = 'ALT',
             action = act.ActivatePaneDirection 'Left',
         },
         {
-            key = 'RightArrow',
-            mods = 'LEADER',
+            key = 'l',
+            mods = 'ALT',
             action = act.ActivatePaneDirection 'Right',
         },
         {
-            key = 'UpArrow',
-            mods = 'LEADER',
+            key = 'k',
+            mods = 'ALT',
             action = act.ActivatePaneDirection 'Up',
         },
         {
-            key = 'DownArrow',
-            mods = 'LEADER',
+            key = 'j',
+            mods = 'ALT',
             action = act.ActivatePaneDirection 'Down',
         },
         {
@@ -163,49 +168,67 @@ function keys.apply_to_config(config)
             mods = 'LEADER',
             action = act.ShowDebugOverlay,
         },
-        --[[ {
+        {
             key = 'å',
             mods = 'LEADER',
-            action = wezterm.action_callback(function(window, pane)
-                -- Here you can dynamically construct a longer list if needed
+            action = wezterm.action_callback(function(win, pane)
+                local weztable = wezterm.table
+                -- wezterm.log_info( table.merge( { { opt1 = "a", opt2 = "b" }, { opt3 = "c", opt4 = "d" }, { opt1 = "b" } } ) )
+                --
+                -- local tbl = { 1, 2, "a", { 1, 2, "b" }, "c" }
+                -- wezterm.log_info( tbl )
+                -- local new_tbl = table.clone(tbl)
+                -- wezterm.log_info( new_tbl )
+                --
+                -- local tbl = table.flatten( {0, {1,2,3,4},{5,6,7},{8,9,10},{11, {12, {13, 14}}}} )
+                -- wezterm.log_info(tbl)
+                -- wezterm.log_info( table.to_string(tbl) )
+                --
+                -- local t = { a = 1, b = 2 }
+                -- wezterm.log_info(#t)
+                -- wezterm.log_info(table.length(t))
+                -- wezterm.log_info(table.has_key(t, "a"))
+                -- wezterm.log_info(table.has_value(t, 1))
+                --
+                -- wezterm.log_info( table.to_string(t) )
+                --
 
-                local home = wezterm.home_dir
-                local workspaces2 = {
-                    { id = home .. '/work', label = 'Work' },
-                    { id = home .. '/personal', label = 'Personal' },
-                    { id = home .. '/.config', label = 'Config' },
-                }
+                local tbl = { 1, 2, 3, { a = 1, b = 2, { 5 } } }
 
-                window:perform_action(
-                    act.InputSelector {
-                        action = wezterm.action_callback(function(inner_window, inner_pane, id, label)
-                            if not id and not label then
-                                wezterm.log_info 'cancelled'
-                            else
-                                wezterm.log_info('id = ' .. id)
-                                wezterm.log_info('label = ' .. label)
-                                inner_window:perform_action(
-                                    act.SwitchToWorkspace {
-                                        name = label,
-                                        spawn = {
-                                            label = 'Workspace: ' .. label,
-                                            cwd = id,
-                                        }
-                                    },
-                                    inner_pane
-                                )
-                            end
-                        end),
-                        title = 'Choose Workspace',
-                        choices = workspaces2,
-                        -- fuzzy = true,
-                        description = "Fuzzy find and make workspace",
-                        fuzzy_description = "Tester: ",
-                    },
-                    pane
-                )
-            end),
-        }, ]]
+                -- wezterm.log_info( table.to_string( { {1,2,3}, { a = 1, b = 2, { 5 }} } ) )
+                wezterm.log_info(weztable.to_string({ { 1, 2, 3 }, { a = 1, b = 2, { 5 } } }, 0))
+                wezterm.log_info(weztable.to_string({ { 1, 2, 3 }, { a = 1, b = 2, { 5 } } }, 2))
+                wezterm.log_info(weztable.to_string({ { 1, 2, 3 }, { a = 1, b = 2, { 5 } } }, 0, true))
+                wezterm.log_info(weztable.to_string(tbl))
+
+                -- string.startswith = function(str, start)
+                --     return str:sub(1, #start) == start
+                -- end
+                --
+                -- string.basename = function(s)
+                --     return string.gsub(s, '(.*[/\\])(.*)', '%2')
+                -- end
+                --
+                --
+                -- local home = wezterm.home_dir
+                -- local year_in_secs = 60*60*24*365
+                -- for _, v in ipairs(wezterm.read_dir(home, function(filepath, meta)
+                --     -- wezterm.log_info(filepath, meta:is_dir(), meta:is_symlink())
+                --     -- return { (meta:is_symlink() or meta:is_dir()) and (not filepath:basename():startswith('.')), #filepath, meta:secs_since_accessed() }
+                --     -- return meta:is_symlink() and meta:is_dir()
+                --     return {
+                --         meta:is_file() and (10^3 < meta:bytes() and meta:bytes() < 10^7) and (meta:secs_since_created() < year_in_secs),
+                --         filepath:basename(),
+                --         -meta:secs_since_created()
+                --     }
+                -- end)) do
+                --     wezterm.log_info('entry: ' .. v)
+                -- end
+                --
+                -- local tbl = wezterm.read_dir(home, function(filepath, meta) return { meta:is_file(), filepath:basename() }  end)
+                -- wezterm.log_info(tbl)
+            end)
+        }
     }
 
     for i = 1, 9 do

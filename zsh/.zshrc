@@ -9,7 +9,16 @@ path+=('/Users/daniel/.config/scripts/')
 export -U PATH
 
 export EDITOR=nvim
-export VISUAL=nvim
+# export VISUAL=nvim
+
+# setting EDITOR=nvim makes zsh think we want vi mode,
+# so we change back to emacs keybindings like this:
+set -o emacs
+
+# CTRL+X CTRL+E to edit command line input in nvim
+autoload -z edit-command-line
+zle -N edit-command-line
+bindkey "^X^E" edit-command-line
 
 export HISTFILE="$HOME/.zsh_history"
 export HISTSIZE=10000
