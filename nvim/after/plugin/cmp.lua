@@ -14,16 +14,20 @@ cmp.setup({
       luasnip.lsp_expand(args.body)
     end,
   },
-  mapping = cmp.mapping.preset.insert({
-    ['<C-n>'] = cmp.mapping.select_next_item(),
-    ['<C-p>'] = cmp.mapping.select_prev_item(),
-    ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-    ['<C-f>'] = cmp.mapping.scroll_docs(4),
-    ['<C-x>'] = cmp.mapping.complete(),
-    ['<CR>'] = cmp.mapping.confirm({
+  mapping = {
+    -- setting keys
+    ['<Down>'] = { i = cmp.mapping.select_next_item() },
+    ['<Up>'] = { i = cmp.mapping.select_prev_item() },
+    ['<C-n>'] = { i = cmp.mapping.select_next_item() },
+    ['<C-p>'] = { i = cmp.mapping.select_prev_item() },
+    ['<C-d>'] = { i = cmp.mapping.scroll_docs(-4) },
+    ['<C-f>'] = { i = cmp.mapping.scroll_docs(4) },
+    ['<C-x>'] = { i = cmp.mapping.complete() },
+    ['<C-c>'] = { i = cmp.mapping.abort() },
+    ['<CR>'] = { i = cmp.mapping.confirm({
       behavior = cmp.ConfirmBehavior.Replace,
       select = true,
-    }),
+    })},
     ['<Tab>'] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_next_item()
@@ -42,7 +46,7 @@ cmp.setup({
         fallback()
       end
     end, { 'i', 's' }),
-  }),
+  },
   sources = cmp.config.sources({
     -- NOTE: The order is important here.
     { name = 'nvim_lsp' },

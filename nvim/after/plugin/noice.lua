@@ -40,6 +40,23 @@ vim.keymap.set("n", "<leader>ns", function()
 end, { desc = '[N]oice [S]tats' }
 )
 
+vim.keymap.set("c", "<S-Enter>", function()
+    require("noice").redirect(vim.fn.getcmdline())
+    end, { desc = "Redirect Cmdline" })
+
+-- set up in cmp too:
+vim.keymap.set({"n", "s"}, "<C-f>", function()
+  if not require("noice.lsp").scroll(4) then
+    return "<C-f>"
+  end
+end, { silent = true, expr = true })
+
+vim.keymap.set({"n", "s"}, "<C-d>", function()
+  if not require("noice.lsp").scroll(-4) then
+    return "<C-d>"
+  end
+end, { silent = true, expr = true })
+
 require("which-key").register({
   ["<leader>n"] = { name = "+noice" }
 })

@@ -20,5 +20,6 @@ hooks.register(
 require("ibl").setup({
     indent = { char = '┊', }, -- can add: highlight = highlight, here too
     scope = { highlight = highlight },
-    viewport_buffer = { min = 200, max = 1000, },
+    viewport_buffer = { min = 100, max = 200, },
+    -- current_indent = { enabled = true }, -- only available in my fork
 })

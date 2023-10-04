@@ -23,8 +23,13 @@ function keys.apply_to_config(config)
         },
         {
             key = 'Tab',
-            mods = 'ALT',
+            mods = 'ALT|SHIFT',
             action = act.ActivatePaneDirection 'Prev',
+        },
+        {
+            key = 'w',
+            mods = 'ALT',
+            action = act.CloseCurrentPane { confirm = true },
         },
         {
             key = '%',
@@ -161,6 +166,11 @@ function keys.apply_to_config(config)
         {
             key = 'f',
             mods = 'LEADER',
+            action = wezterm.action_callback(workspaces.quick_picker),
+        },
+        {
+            key = 'F',
+            mods = 'LEADER',
             action = wezterm.action_callback(workspaces.fuzzy_picker),
         },
         {
@@ -168,6 +178,20 @@ function keys.apply_to_config(config)
             mods = 'LEADER',
             action = act.ShowDebugOverlay,
         },
+        -- Shell Integration commands:
+        {
+            key = 'UpArrow',
+            mods = 'SHIFT',
+            action = act.ScrollToPrompt(-1),
+        },
+        {
+            key = 'DownArrow',
+            mods = 'SHIFT',
+            action = act.ScrollToPrompt(1),
+        },
+
+
+
         {
             key = 'å',
             mods = 'LEADER',
@@ -238,6 +262,14 @@ function keys.apply_to_config(config)
             action = act.ActivateTab(i - 1),
         })
     end
+
+    config.mouse_bindings = {
+        {
+            event = { Down = { streak = 2, button = 'Left' } },
+            action = act.SelectTextAtMouseCursor 'SemanticZone',
+            mods = 'SHIFT',
+        },
+    }
 end
 
 return keys

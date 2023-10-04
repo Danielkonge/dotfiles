@@ -3,9 +3,9 @@
 # export ZDOTDIR = "$HOME/.config/zsh"
 
 # Set PATH
-path+=('/Users/daniel/.emacs.d/bin')
-path+=('/Users/daniel/.luarocks/bin')
-path+=('/Users/daniel/.config/scripts/')
+path+=("$HOME/.emacs.d/bin")
+path+=("$HOME/.luarocks/bin")
+path+=("$HOME/.config/scripts/")
 export -U PATH
 
 export EDITOR=nvim
@@ -34,6 +34,8 @@ fi
 source /opt/homebrew/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh
 
 [ -f ~/.config/zsh/.fzf.zsh ] && source ~/.config/zsh/.fzf.zsh
+
+source ~/.config/zsh/wezterm.sh
 
 source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
