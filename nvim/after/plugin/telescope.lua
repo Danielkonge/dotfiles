@@ -98,17 +98,20 @@ require('telescope').setup {
 
 -- Enable telescope fzf native, if installed
 pcall(require('telescope').load_extension, 'fzf')
+-- Enable telescope ui select
+pcall(require("telescope").load_extension, "ui-select")
 
 -- See `:help telescope.builtin`
 vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles, { desc = '[?] Find recently opened files' })
 vim.keymap.set('n', '<leader>,', require('telescope.builtin').buffers, { desc = '[,] Find existing buffers' })
-vim.keymap.set('n', '<leader>/', function()
-  -- You can pass additional configuration to telescope to change theme, layout, etc.
-  require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
-    winblend = 10,
-    previewer = true,
-  })
-end, { desc = '[/] Fuzzily search in current buffer' })
+-- vim.keymap.set('n', '<leader>/', function()
+--   -- You can pass additional configuration to telescope to change theme, layout, etc.
+--   require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
+--     winblend = 10,
+--     previewer = true,
+--   })
+-- end, { desc = '[/] Fuzzily search in current buffer' })
+vim.keymap.set('n', '<leader>/', require('telescope.builtin').current_buffer_fuzzy_find, { desc = '[/] Fuzzily search in current buffer' })
 
 vim.keymap.set('n', '<leader>gf', require('telescope.builtin').git_files, { desc = 'Search [G]it [F]iles' })
 vim.keymap.set('n', '<leader>sf', function() require('telescope.builtin').find_files({ cwd = '$HOME' }) end,
@@ -125,8 +128,15 @@ vim.keymap.set('n', '<leader>sk', require('telescope.builtin').keymaps, { desc =
 vim.keymap.set('n', '<leader>sr', require('telescope.builtin').registers, { desc = '[S]earch [R]egisters' })
 vim.keymap.set('n', '<leader>sc', require('telescope.builtin').commands, { desc = '[S]earch [C]ommands' })
 vim.keymap.set('n', '<leader>so', require('telescope.builtin').vim_options, { desc = '[S]earch [O]ptions' })
-vim.keymap.set('n', '<leader>sC', require('telescope.builtin').colorscheme, { desc = '[S]earch [C]olorscheme' })
+vim.keymap.set('n', '<leader>sCs', require('telescope.builtin').colorscheme, { desc = '[S]earch [C]olorschemes' })
+vim.keymap.set('n', '<leader>sCh', require('telescope.builtin').highlights, { desc = '[S]earch Highlights' })
 vim.keymap.set('n', '<leader>sb', require('telescope.builtin').builtin, { desc = '[S]earch [B]uiltin Commands' })
+vim.keymap.set('n', '<leader>sH', require('telescope.builtin').command_history, { desc = '[S]earch Command [H]istory'})
+vim.keymap.set('n', '<leader>sq', require('telescope.builtin').quickfix, { desc = '[S]earch [Q]uickfix List'})
+vim.keymap.set('n', '<leader>sl', require('telescope.builtin').loclist, { desc = '[S]earch [L]ocation List'})
+vim.keymap.set('n', '<leader>sj', require('telescope.builtin').jumplist, { desc = '[S]earch [J]ump List'})
+vim.keymap.set('n', '<leader>sv', require('telescope.builtin').vim_options, { desc = '[S]earch [V]im Options'})
+vim.keymap.set('n', '<leader>sa', require('telescope.builtin').autocommands, { desc = '[S]earch Vim [A]utocommands'})
 
 require("telescope").load_extension "file_browser"
 -- open file_browser with the path of the current buffer
@@ -138,5 +148,6 @@ vim.api.nvim_set_keymap(
 )
 
 require("which-key").register({
-  ["<leader>s"] = { name = "+search" }
+  ["<leader>s"] = { name = "+search" },
+  ["<leader>sC"] = { name = "+color" }
 })

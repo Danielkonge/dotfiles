@@ -164,12 +164,7 @@ require('lazy').setup({
   },
 
 
-  { dir = "~/personal/nvim-plugins/indent-blankline.nvim", main = "ibl", branch = "current_indent_fork" },
-  -- {
-  --   "Danielkonge/indent-blankline.nvim",
-  --   main = "ibl",
-  --   branch = "current_indent_fork",
-  -- },
+  { dir = "~/personal/nvim-plugins/indent-blankline.nvim", main = "ibl",     branch = "current_indent_fork" },
   -- {
   --   -- Add indentation guides even on blank lines
   --   'lukas-reineke/indent-blankline.nvim',
@@ -200,6 +195,8 @@ require('lazy').setup({
       return vim.fn.executable 'make' == 1
     end,
   },
+
+  { 'nvim-telescope/telescope-ui-select.nvim' },
 
   {
     -- Highlight, edit, and navigate code
