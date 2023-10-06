@@ -228,20 +228,17 @@ require('lazy').setup({
   {
     "m4xshen/smartcolumn.nvim",
     opts = {
+      colorcolumn = "0",
       disabled_filetypes = {
         "help",
         "text",
         "markdown",
         "tex", "latex",
-        "lua",
         "netrw", "lazy", "mason",
         "conf",
         "log",
-        "tmux",
-        "sh",
         "NeogitCommitMessage", "NeogitStatus", "NeogitPopup", "NeogitGitCommandHistory",
         "startup", "checkhealth",
-        "zsh"
       },
     }
   },
@@ -318,9 +315,10 @@ require('lazy').setup({
     dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }
   },
 
-  {
-    "hiphish/rainbow-delimiters.nvim"
-  },
+  { dir = "~/personal/nvim-plugins/rainbow-delimiters.nvim" },
+  -- {
+  --   "hiphish/rainbow-delimiters.nvim"
+  -- },
   {
     "folke/noice.nvim",
     event = "VeryLazy",
