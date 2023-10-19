@@ -94,12 +94,37 @@ require('telescope').setup {
       -- cwd = '$HOME',
     },
   },
+  extensions = {
+    ["ui-select"] = {
+      -- opts
+    },
+    undo = {
+      -- opts
+      use_delta = true,
+      mappings = {
+        i = {
+          ["<CR>"] = require("telescope-undo.actions").yank_additions,
+          ["<S-CR>"] = require("telescope-undo.actions").yank_deletions,
+          ["<C-CR>"] = require("telescope-undo.actions").restore,
+        },
+        n = {
+          ["<CR>"] = require("telescope-undo.actions").yank_additions,
+          ["<S-CR>"] = require("telescope-undo.actions").yank_deletions,
+          ["<C-CR>"] = require("telescope-undo.actions").restore,
+        },
+      },
+    },
+  },
 }
 
 -- Enable telescope fzf native, if installed
 pcall(require('telescope').load_extension, 'fzf')
 -- Enable telescope ui select
 pcall(require("telescope").load_extension, "ui-select")
+-- Enable telescope undo
+pcall(require('telescope').load_extension, "undo")
+
+vim.keymap.set('n', '<leader>su', require('telescope').extensions.undo.undo, { desc = '[S]earch [U]ndo' })
 
 -- See `:help telescope.builtin`
 vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles, { desc = '[?] Find recently opened files' })

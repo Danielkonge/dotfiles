@@ -106,8 +106,8 @@ local on_attach = function(_, bufnr)
     nmap('<leader>f', function()
         vim.lsp.buf.format()
         -- add fix so rainbow-delimiters highlighting works with format
-        vim.cmd({ cmd = 'write' })
-        vim.cmd({ cmd = 'edit', args = { "%" } })
+        vim.cmd.write()
+        vim.cmd.edit()
     end, '[F]ormat Buffer')
 
     -- Create a command `:Format` local to the LSP buffer

@@ -198,6 +198,8 @@ require('lazy').setup({
 
   { 'nvim-telescope/telescope-ui-select.nvim' },
 
+  { 'debugloop/telescope-undo.nvim' },
+
   {
     -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',

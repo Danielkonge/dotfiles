@@ -22,3 +22,9 @@ vim.g.rainbow_delimiters = {
         'RainbowDelimiterCyan',
     },
 }
+
+vim.keymap.set('n', '<leader>e', function()
+    vim.cmd.write()
+    vim.cmd.edit()
+end, { desc = 'Reload formatting' })
+
