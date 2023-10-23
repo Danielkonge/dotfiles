@@ -46,10 +46,10 @@ require("barbecue.ui").toggle(false)
 vim.keymap.set('n', '<leader>lb', require("barbecue.ui").toggle, { desc = 'LSP: Toggle [B]arbecue' })
 vim.keymap.set('n', '<leader>tb', require("barbecue.ui").toggle, { desc = 'LSP: Toggle [B]arbecue' })
 vim.keymap.set('n', '<leader>lp', function() require("barbecue.ui").navigate(-1) end, { desc = 'LSP: Barbecue previous' })
-vim.keymap.set('n', '<leader>l1', function() require("barbecue.ui").navigate(1) end, { desc = 'LSP: Barbecue 1st entry' })
-vim.keymap.set('n', '<leader>l2', function() require("barbecue.ui").navigate(2) end, { desc = 'LSP: Barbecue 2nd entry' })
-vim.keymap.set('n', '<leader>l3', function() require("barbecue.ui").navigate(3) end, { desc = 'LSP: Barbecue 3rd entry' })
-vim.keymap.set('n', '<leader>l4', function() require("barbecue.ui").navigate(4) end, { desc = 'LSP: Barbecue 4th entry' })
+-- vim.keymap.set('n', '<leader>l1', function() require("barbecue.ui").navigate(1) end, { desc = 'LSP: Barbecue 1st entry' })
+-- vim.keymap.set('n', '<leader>l2', function() require("barbecue.ui").navigate(2) end, { desc = 'LSP: Barbecue 2nd entry' })
+-- vim.keymap.set('n', '<leader>l3', function() require("barbecue.ui").navigate(3) end, { desc = 'LSP: Barbecue 3rd entry' })
+-- vim.keymap.set('n', '<leader>l4', function() require("barbecue.ui").navigate(4) end, { desc = 'LSP: Barbecue 4th entry' })
 
 require('nvim-navbuddy').setup({
     lsp = {

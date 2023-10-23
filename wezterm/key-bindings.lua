@@ -196,7 +196,7 @@ function keys.apply_to_config(config)
             key = 'å',
             mods = 'LEADER',
             action = wezterm.action_callback(function(win, pane)
-                local weztable = wezterm.table
+                -- local weztable = wezterm.table
                 -- wezterm.log_info( table.merge( { { opt1 = "a", opt2 = "b" }, { opt3 = "c", opt4 = "d" }, { opt1 = "b" } } ) )
                 --
                 -- local tbl = { 1, 2, "a", { 1, 2, "b" }, "c" }
@@ -217,13 +217,13 @@ function keys.apply_to_config(config)
                 -- wezterm.log_info( table.to_string(t) )
                 --
 
-                local tbl = { 1, 2, 3, { a = 1, b = 2, { 5 } } }
+                -- local tbl = { 1, 2, 3, { a = 1, b = 2, { 5 } } }
 
                 -- wezterm.log_info( table.to_string( { {1,2,3}, { a = 1, b = 2, { 5 }} } ) )
-                wezterm.log_info(weztable.to_string({ { 1, 2, 3 }, { a = 1, b = 2, { 5 } } }, 0))
-                wezterm.log_info(weztable.to_string({ { 1, 2, 3 }, { a = 1, b = 2, { 5 } } }, 2))
-                wezterm.log_info(weztable.to_string({ { 1, 2, 3 }, { a = 1, b = 2, { 5 } } }, 0, true))
-                wezterm.log_info(weztable.to_string(tbl))
+                -- wezterm.log_info(weztable.to_string({ { 1, 2, 3 }, { a = 1, b = 2, { 5 } } }, 0))
+                -- wezterm.log_info(weztable.to_string({ { 1, 2, 3 }, { a = 1, b = 2, { 5 } } }, 2))
+                -- wezterm.log_info(weztable.to_string({ { 1, 2, 3 }, { a = 1, b = 2, { 5 } } }, 0, true))
+                -- wezterm.log_info(weztable.to_string(tbl))
 
                 -- string.startswith = function(str, start)
                 --     return str:sub(1, #start) == start
@@ -234,7 +234,7 @@ function keys.apply_to_config(config)
                 -- end
                 --
                 --
-                -- local home = wezterm.home_dir
+                local home = wezterm.home_dir
                 -- local year_in_secs = 60*60*24*365
                 -- for _, v in ipairs(wezterm.read_dir(home, function(filepath, meta)
                 --     -- wezterm.log_info(filepath, meta:is_dir(), meta:is_symlink())
@@ -249,8 +249,35 @@ function keys.apply_to_config(config)
                 --     wezterm.log_info('entry: ' .. v)
                 -- end
                 --
-                -- local tbl = wezterm.read_dir(home, function(filepath, meta) return { meta:is_file(), filepath:basename() }  end)
-                -- wezterm.log_info(tbl)
+                local tbl = wezterm.read_dir(home, function(filepath, meta) return { meta:is_file(), filepath }  end)
+                wezterm.log_info(tbl)
+
+                local per_path = wezterm.to_path("/Users/daniel/personal")
+                wezterm.log_info(per_path)
+
+                local home_path = per_path:dirname()
+                wezterm.log_info(home_path)
+                home_path:pop()
+                wezterm.log_info(home_path)
+
+                local basepath = per_path:basename()
+
+                local test_path = home_path:join(basepath)
+                wezterm.log_info(test_path)
+
+                wezterm.log_info("Extra tests:")
+
+                local test = wezterm.to_path("/path1") .. wezterm.to_path("/path2")
+                -- local test1 = "string" .. wezterm.to_path("/path")
+                local test2 = wezterm.to_path("/path") .. "/string"
+                local test3 = string.format("%s/string", wezterm.to_path("/path"))
+                local test4 = wezterm.to_path("/path"):join("file.txt")
+                local test5 = wezterm.to_path( wezterm.home_dir ):metadata()
+                wezterm.log_info(test, test2, test3, test4, test5)
+
+                -- local tmp = Path.basename("/path/string")
+                -- wezterm.log_info(tmp)
+
             end)
         }
     }
