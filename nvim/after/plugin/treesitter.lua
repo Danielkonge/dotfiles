@@ -38,9 +38,9 @@ require('nvim-treesitter.configs').setup {
   incremental_selection = {
     enable = true,
     keymaps = {
-      init_selection = '<M-space>v',
+      init_selection = '<leader>Tv',
       node_incremental = '+',
-      scope_incremental = '^',
+      scope_incremental = '.',
       node_decremental = '-',
     },
   },
@@ -81,15 +81,15 @@ require('nvim-treesitter.configs').setup {
     swap = {
       enable = true,
       swap_next = {
-        ['<M-space>a'] = '@parameter.inner',
+        ['<leader>Ts'] = '@parameter.inner',
       },
       swap_previous = {
-        ['<M-space>A'] = '@parameter.inner',
+        ['<leader>TS'] = '@parameter.inner',
       },
     },
   },
 }
 
 require("which-key").register({
-  ["<M-space>"] = { name = "+treesitter" },
+  ["<leader>T"] = { name = "+treesitter" },
 })

@@ -9,6 +9,7 @@ end
 
 config.front_end = "WebGpu"
 config.term = "wezterm"
+config.freetype_load_flags = 'NO_HINTING'
 
 config.enable_kitty_keyboard = true
 config.use_dead_keys = false

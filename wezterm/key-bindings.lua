@@ -195,8 +195,12 @@ function keys.apply_to_config(config)
         {
             key = 'å',
             mods = 'LEADER',
-            action = wezterm.action_callback(function(win, pane)
+            action = wezterm.action_callback(function(_win, _pane)
                 -- local weztable = wezterm.table
+                -- wezterm.log_info( weztable.to_string_fallback(_G) )
+
+                -- wezterm.log_info("table test fallback", weztable.to_string_fallback( { a=1, b=2 } ), weztable.to_string_fallback( { a=1, { b=2 } } ) )
+                -- wezterm.log_info("table test", weztable.to_string( { a=1, b=2 } ), weztable.to_string( { a=1, { b=2 } } ) )
                 -- wezterm.log_info( table.merge( { { opt1 = "a", opt2 = "b" }, { opt3 = "c", opt4 = "d" }, { opt1 = "b" } } ) )
                 --
                 -- local tbl = { 1, 2, "a", { 1, 2, "b" }, "c" }
@@ -234,7 +238,7 @@ function keys.apply_to_config(config)
                 -- end
                 --
                 --
-                local home = wezterm.home_dir
+                -- local home = wezterm.home_dir
                 -- local year_in_secs = 60*60*24*365
                 -- for _, v in ipairs(wezterm.read_dir(home, function(filepath, meta)
                 --     -- wezterm.log_info(filepath, meta:is_dir(), meta:is_symlink())
@@ -249,35 +253,60 @@ function keys.apply_to_config(config)
                 --     wezterm.log_info('entry: ' .. v)
                 -- end
                 --
-                local tbl = wezterm.read_dir(home, function(filepath, meta) return { meta:is_file(), filepath }  end)
-                wezterm.log_info(tbl)
 
-                local per_path = wezterm.to_path("/Users/daniel/personal")
-                wezterm.log_info(per_path)
+                -- local home = wezterm.home_dir
+                -- local tbl = wezterm.read_dir(home, function(filepath, meta) return { meta:is_file(), filepath }  end)
+                -- wezterm.log_info(tbl)
 
-                local home_path = per_path:dirname()
-                wezterm.log_info(home_path)
-                home_path:pop()
-                wezterm.log_info(home_path)
+                -- local per_path = wezterm.to_path("/Users/daniel/personal")
+                -- wezterm.log_info(per_path)
 
-                local basepath = per_path:basename()
+                -- local home_path = per_path:dirname()
+                -- wezterm.log_info(home_path)
+                -- home_path:pop()
+                -- wezterm.log_info(home_path)
 
-                local test_path = home_path:join(basepath)
-                wezterm.log_info(test_path)
+                -- local basepath = per_path:basename()
 
-                wezterm.log_info("Extra tests:")
+                -- local test_path = home_path:join(basepath)
+                -- wezterm.log_info(test_path)
 
-                local test = wezterm.to_path("/path1") .. wezterm.to_path("/path2")
-                -- local test1 = "string" .. wezterm.to_path("/path")
-                local test2 = wezterm.to_path("/path") .. "/string"
-                local test3 = string.format("%s/string", wezterm.to_path("/path"))
-                local test4 = wezterm.to_path("/path"):join("file.txt")
-                local test5 = wezterm.to_path( wezterm.home_dir ):metadata()
-                wezterm.log_info(test, test2, test3, test4, test5)
+                -- wezterm.log_info("Extra tests:")
 
-                -- local tmp = Path.basename("/path/string")
+                -- local test = wezterm.to_path("/path1") .. wezterm.to_path("/path2")
+                -- -- local test1 = "string" .. wezterm.to_path("/path")
+                -- local test2 = wezterm.to_path("/path") .. "/string"
+                -- local test3 = string.format("%s/string", wezterm.to_path("/path"))
+                -- local test4 = wezterm.to_path("/path"):join("file.txt")
+                -- local test5 = wezterm.to_path( wezterm.home_dir ):metadata()
+                -- wezterm.log_info(test, test2, test3, test4, test5)
+
+                -- local to_path = wezterm.to_path
+                -- local tmp = to_path('Test')
+                -- wezterm.log_info( tmp:upper(), tmp:lower())
+                -- local tmp2 = to_path('a longer test')
+                -- local test = tmp2:clone()
+                -- local tmp3 = 'some longer test'
+                -- wezterm.log_info( tmp3:find('e') )
+                -- wezterm.log_info( tmp2:find('e'))
+                -- wezterm.log_info( tmp2:find('z') )
+                -- wezterm.log_info( tmp3:find('z') )
+                -- test:gsub('a', 'one')
+                -- wezterm.log_info(tmp2, test)
+                -- local test2 = tmp2:clone()
+                -- test2:join("abc")
+                -- wezterm.log_info(tmp2, test2, tmp2 == test2)
+                -- local tmp = wezterm.Path.clone('tmp')
                 -- wezterm.log_info(tmp)
+                -- local test1 = to_path 'abc'
+                -- local test2 = test1:clone()
+                -- local test3 = to_path 'xyz'
+                -- wezterm.log_info(test1, test2, test3)
+                -- wezterm.log_info(test1 == test2)
+                -- wezterm.log_info(test1 == test3)
+                -- wezterm.log_info(test1, test2, test3, test1 == test2, test1 == test3, test2 == test3)
 
+                -- string.match
             end)
         }
     }

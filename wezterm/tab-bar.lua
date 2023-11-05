@@ -13,6 +13,8 @@ function tab_bar.apply_to_config(config)
     -- retro tab bar
     config.tab_max_width = 32
     config.colors = {
+        -- selection_fg = 'white',
+        -- selection_bg = 'white',
         tab_bar = {
             background = 'none', -- 'rgba(0,0,0,0)',
             active_tab = {
@@ -73,11 +75,11 @@ function tab_bar.on_update_status(window, pane)
         end
 
         -- Format cwd nicely
-        if hostname == 'Daniels-MBP' then
-            -- wezterm.home_dir = '/Users/daniel'
-            cwd = cwd:gsub(wezterm.home_dir, '~')
-        end
-
+        -- if hostname == 'daniels-mbp' then
+        --     -- wezterm.home_dir = '/Users/daniel'
+        --     cwd = cwd:gsub(wezterm.home_dir, '~')
+        -- end
+        cwd = cwd:gsub(wezterm.home_dir, '~')
 
         left_status = {
             { Foreground = { Color = 'rgb(210,55,100)' } },
@@ -87,8 +89,8 @@ function tab_bar.on_update_status(window, pane)
 
             { Attribute = { Italic = false } },
             { Text = window:active_workspace() .. '        ' },
-
         }
+
         right_status = {
             { Background = { Color = tab_bar.bg_color } },
 

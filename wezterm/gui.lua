@@ -39,6 +39,8 @@ function gui.apply_to_config(config)
         -- more layers can be added here
     }
 
+    -- config.color is set in tab-bar
+
     config.macos_window_background_blur = 10
 
     -- background of special text (e.g. which-key in nvim)
