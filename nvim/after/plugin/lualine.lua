@@ -1,5 +1,13 @@
 -- lualine.lua
 
+---@type boolean
+vim.g.show_macro_in_lualine = true
+
+vim.keymap.set('n', '<leader>tm',
+    function()
+        vim.g.show_macro_in_lualine = not vim.g.show_macro_in_lualine
+    end, { desc = 'Toggle [M]acro in Lualine' })
+
 require('lualine').setup {
     options = {
         icons_enabled = true,
@@ -49,13 +57,42 @@ require('lualine').setup {
                 cond = require("noice").api.status.search.has,
                 color = { fg = "#ff9e64" },
             },
+
+            {
+                function() return 'Recording macro to: @' .. vim.fn.reg_recording() end,
+                cond = function()
+                    return vim.fn.reg_recording() ~= ''
+                        and vim.g.show_macro_in_lualine
+                    end,
+                color = { fg = 'ff9e64' },
+            },
+
+            {
+                function() return 'Last macro: @' .. vim.fn.reg_recorded() end,
+                cond = function()
+                    return vim.fn.reg_recording() == ''
+                        and vim.fn.reg_recorded() ~= ''
+                        and vim.fn.reg_executing() == ''
+                        and vim.g.show_macro_in_lualine
+                    end
+            },
+
+            {
+                function() return 'Current macro: @' .. vim.fn.reg_executing() end,
+                cond = function()
+                    return vim.fn.reg_recording() == ''
+                        and vim.fn.reg_recorded() ~= ''
+                        and vim.fn.reg_executing() ~= ''
+                        and vim.g.show_macro_in_lualine
+                    end
+            },
             'encoding', 'fileformat', 'filetype'
         },
     },
     extensions = {
         'quickfix',
-        'nvim-tree',
         'man',
+        'mason',
         'trouble',
         'lazy',
     }

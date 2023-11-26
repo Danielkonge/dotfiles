@@ -18,11 +18,11 @@ hooks.register(
 )
 
 require("ibl").setup({
-    indent = { char = '┊', }, -- can add: highlight = highlight, here too
+    indent = { char = '┊', highlight = "LineNr" }, -- LineNr is the standard hl, but some themes overwrite it
     scope = {
         highlight = highlight,
         show_exact_scope = true,
     },
-    viewport_buffer = { min = 300, max = 600, },
+    viewport_buffer = { min = 50, max = 1000, },
     current_indent = { enabled = true, highlight = "CursorLineNr" },
 })

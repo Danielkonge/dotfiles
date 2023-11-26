@@ -23,12 +23,12 @@ require("catppuccin").setup({
     --   enabled = true,
     --   custom_bg = "NONE",
     -- },
-    barbecue = {
-      dim_dirname = true, -- directory name is dimmed by default
-      bold_basename = true,
-      dim_context = false,
-      alt_background = false,
-    },
+    -- barbecue = {
+    --   dim_dirname = true, -- directory name is dimmed by default
+    --   bold_basename = true,
+    --   dim_context = false,
+    --   alt_background = false,
+    -- },
   }
 })
 

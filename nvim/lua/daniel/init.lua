@@ -48,8 +48,8 @@ require('lazy').setup({
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
       {
         'j-hui/fidget.nvim',
-        tag = 'legacy',
-        event = 'LspAttach',
+        -- tag = 'legacy',
+        -- event = 'LspAttach',
         opts = {},
       },
 
@@ -69,18 +69,18 @@ require('lazy').setup({
     },
   },
 
-  {
-    "utilyre/barbecue.nvim",
-    name = "barbecue",
-    version = "*",
-    dependencies = {
-      "SmiteshP/nvim-navic",
-      "nvim-tree/nvim-web-devicons", -- optional dependency
-    },
-    opts = {
-      -- configurations go here
-    },
-  },
+  -- {
+  --   "utilyre/barbecue.nvim",
+  --   name = "barbecue",
+  --   version = "*",
+  --   dependencies = {
+  --     "SmiteshP/nvim-navic",
+  --     "nvim-tree/nvim-web-devicons", -- optional dependency
+  --   },
+  --   opts = {
+  --     -- configurations go here
+  --   },
+  -- },
 
   {
     -- Autocompletion
@@ -205,24 +205,14 @@ require('lazy').setup({
     'nvim-treesitter/nvim-treesitter',
     dependencies = {
       'nvim-treesitter/nvim-treesitter-textobjects',
+      'nvim-treesitter/nvim-treesitter-context',
     },
     build = ':TSUpdate',
   },
 
-  -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
-  --       These are some example plugins that I've included in the kickstart repository.
-  --       Uncomment any of the lines below to enable them.
-  -- require 'kickstart.plugins.autoformat',
-  -- require 'kickstart.plugins.debug',
+  -- { dir = "~/personal/nvim-plugins/nvim-treesitter-context", branch = "testing" },
 
-  -- NOTE: The import below automatically adds your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
-  --    You can use this folder to prevent any conflicts with this init.lua if you're interested in keeping
-  --    up-to-date with whatever is in the kickstart repo.
-  --
-  --    For additional information see: https://github.com/folke/lazy.nvim#-structuring-your-plugins
-  -- { import = 'custom.plugins' },
   {
-    -- PERSONAL:
     -- Undotree
     'mbbill/undotree'
   },
@@ -278,14 +268,14 @@ require('lazy').setup({
         end,
         desc = "Flash Treesitter",
       },
-      {
-        "R",
-        mode = "o", -- operator pending mode (e.g., d.., y..)
-        function()
-          require("flash").remote()
-        end,
-        desc = "Remote Flash",
-      },
+      -- {
+      --   "R",
+      --   mode = "o", -- operator pending mode (e.g., d.., y..)
+      --   function()
+      --     require("flash").remote()
+      --   end,
+      --   desc = "Remote Flash",
+      -- },
       {
         "r",
         mode = { "o", "x" },
@@ -294,33 +284,33 @@ require('lazy').setup({
         end,
         desc = "Flash Treesitter Search",
       },
-      {
-        "<c-s>",
-        mode = { "c" }, -- command mode (used when searching with "/")
-        function()
-          require("flash").toggle()
-        end,
-        desc = "Toggle Flash Search",
-      },
+      -- {
+      --   "<c-s>",
+      --   mode = { "c" }, -- command mode (used when searching with "/")
+      --   function()
+      --     require("flash").toggle()
+      --   end,
+      --   desc = "Toggle Flash Search",
+      -- },
     },
   },
 
-  {
-    "nvim-tree/nvim-tree.lua",
-    dependencies = {
-      'nvim-tree/nvim-web-devicons',
-    },
-  },
+  -- {
+  --   "nvim-tree/nvim-tree.lua",
+  --   dependencies = {
+  --     'nvim-tree/nvim-web-devicons',
+  --   },
+  -- },
 
   {
     "nvim-telescope/telescope-file-browser.nvim",
     dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }
   },
 
-  { dir = "~/personal/nvim-plugins/rainbow-delimiters.nvim" },
-  -- {
-  --   "hiphish/rainbow-delimiters.nvim"
-  -- },
+  -- { dir = "~/personal/nvim-plugins/rainbow-delimiters.nvim" },
+  {
+    "hiphish/rainbow-delimiters.nvim"
+  },
   {
     "folke/noice.nvim",
     event = "VeryLazy",

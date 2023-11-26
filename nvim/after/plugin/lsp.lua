@@ -41,11 +41,11 @@
 
 -- vim.keymap.set('n', '<leader>tn', navic_toggle, { desc = 'LSP: Start nvim-navic (breadcrumb display)' })
 
-require("barbecue.ui").toggle(false)
-
-vim.keymap.set('n', '<leader>lb', require("barbecue.ui").toggle, { desc = 'LSP: Toggle [B]arbecue' })
-vim.keymap.set('n', '<leader>tb', require("barbecue.ui").toggle, { desc = 'LSP: Toggle [B]arbecue' })
-vim.keymap.set('n', '<leader>lp', function() require("barbecue.ui").navigate(-1) end, { desc = 'LSP: Barbecue previous' })
+-- require("barbecue.ui").toggle(false)
+--
+-- vim.keymap.set('n', '<leader>lb', require("barbecue.ui").toggle, { desc = 'LSP: Toggle [B]arbecue' })
+-- vim.keymap.set('n', '<leader>tb', require("barbecue.ui").toggle, { desc = 'LSP: Toggle [B]arbecue' })
+-- vim.keymap.set('n', '<leader>lp', function() require("barbecue.ui").navigate(-1) end, { desc = 'LSP: Barbecue previous' })
 -- vim.keymap.set('n', '<leader>l1', function() require("barbecue.ui").navigate(1) end, { desc = 'LSP: Barbecue 1st entry' })
 -- vim.keymap.set('n', '<leader>l2', function() require("barbecue.ui").navigate(2) end, { desc = 'LSP: Barbecue 2nd entry' })
 -- vim.keymap.set('n', '<leader>l3', function() require("barbecue.ui").navigate(3) end, { desc = 'LSP: Barbecue 3rd entry' })
@@ -90,6 +90,8 @@ local on_attach = function(_, bufnr)
     nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
     nmap('<leader>sW', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
 
+    nmap('<leader>ih', function() vim.lsp.inlay_hint(0, nil) end, 'Toggle [I]nlay [H]ints')
+    nmap('<leader>ti', function() vim.lsp.inlay_hint(0, nil) end, 'Toggle [I]nlay Hints')
 
     -- See `:help K` for why this keymap
     nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
@@ -153,6 +155,7 @@ local servers = {
         Lua = {
             workspace = { checkThirdParty = false },
             telemetry = { enable = false },
+            hint = { enable = true },
             diagnostics = {
                 unusedLocalExclude = { "_*" },
             },
@@ -180,6 +183,7 @@ mason_lspconfig.setup_handlers {
     function(server_name)
         require('lspconfig')[server_name].setup {
             capabilities = capabilities,
+            inlay_hint = { enabled = true },
             on_attach = on_attach,
             settings = servers[server_name],
             filetypes = (servers[server_name] or {}).filetypes,

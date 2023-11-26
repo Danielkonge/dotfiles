@@ -7,6 +7,7 @@ require('nvim-treesitter.configs').setup {
   ensure_installed = {
     'c',
     'lua',
+    'luadoc',
     'haskell',
     'python',
     'rust',
@@ -29,6 +30,9 @@ require('nvim-treesitter.configs').setup {
 
   -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
   auto_install = true,
+
+  ignore_install = {},
+  modules = {},
 
   highlight = {
     enable = true,
@@ -89,6 +93,19 @@ require('nvim-treesitter.configs').setup {
     },
   },
 }
+
+require("treesitter-context").setup({
+  enable = false,
+  max_lines = 16,
+  min_window_height = 10,
+  multiline_threshold = 8,
+})
+
+vim.keymap.set('n', '<leader>Tc', ':TSContextToggle<CR>', { silent = true, desc = 'Toggle [C]ontext' })
+vim.keymap.set('n', '<leader>tC', ':TSContextToggle<CR>', { silent = true, desc = 'Toggle [C]ontext' })
+vim.keymap.set("n", "[c", function()
+  require("treesitter-context").go_to_context()
+end, { silent = true, desc = 'Jump to [C]ontext' })
 
 require("which-key").register({
   ["<leader>T"] = { name = "+treesitter" },
