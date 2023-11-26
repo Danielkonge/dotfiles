@@ -24,5 +24,10 @@ require("ibl").setup({
         show_exact_scope = true,
     },
     viewport_buffer = { min = 50, max = 1000, },
-    current_indent = { enabled = true, highlight = "CursorLineNr" },
+    current_indent = {
+        enabled = true,
+        highlight = "CursorLineNr",
+        show_start = false,
+        show_end = false,
+    },
 })

@@ -1,56 +1,5 @@
 -- lsp.lua
 
--- require('nvim-navic').setup({
---     lsp = {
---         auto_attach = true,
---     },
---     highlight = true,
--- })
---
--- local navic_on = false
--- local navic_toggle = function()
---     if navic_on then
---         require('lualine').setup({
---             winbar = {
---                 lualine_c = {}
---             },
---         })
---         navic_on = false
---     else
---         require('lualine').setup({
---             winbar = {
---                 lualine_c = {
---                     {
---                         "navic",
---                         -- Can be nil, "static" or "dynamic". This option is useful only when you have highlights enabled.
---                         -- Many colorschemes don't define same backgroud for nvim-navic as their lualine statusline backgroud.
---                         -- Setting it to "static" will perform a adjustment once when the component is being setup. This should
---                         --   be enough when the lualine section isn't changing colors based on the mode.
---                         -- Setting it to "dynamic" will keep updating the highlights according to the current modes colors for
---                         --   the current section.
---                         color_correction = nil,
---                         -- lua table with same format as setup's option. All options except "lsp" options take effect when set here.
---                         navic_opts = nil
---                     },
---                 }
---             },
---         })
---         navic_on = true
---     end
--- end
-
--- vim.keymap.set('n', '<leader>tn', navic_toggle, { desc = 'LSP: Start nvim-navic (breadcrumb display)' })
-
--- require("barbecue.ui").toggle(false)
---
--- vim.keymap.set('n', '<leader>lb', require("barbecue.ui").toggle, { desc = 'LSP: Toggle [B]arbecue' })
--- vim.keymap.set('n', '<leader>tb', require("barbecue.ui").toggle, { desc = 'LSP: Toggle [B]arbecue' })
--- vim.keymap.set('n', '<leader>lp', function() require("barbecue.ui").navigate(-1) end, { desc = 'LSP: Barbecue previous' })
--- vim.keymap.set('n', '<leader>l1', function() require("barbecue.ui").navigate(1) end, { desc = 'LSP: Barbecue 1st entry' })
--- vim.keymap.set('n', '<leader>l2', function() require("barbecue.ui").navigate(2) end, { desc = 'LSP: Barbecue 2nd entry' })
--- vim.keymap.set('n', '<leader>l3', function() require("barbecue.ui").navigate(3) end, { desc = 'LSP: Barbecue 3rd entry' })
--- vim.keymap.set('n', '<leader>l4', function() require("barbecue.ui").navigate(4) end, { desc = 'LSP: Barbecue 4th entry' })
-
 require('nvim-navbuddy').setup({
     lsp = {
         auto_attach = true,
@@ -128,7 +77,7 @@ vim.keymap.set('n', '<leader>d-', function() vim.diagnostic.hide(nil, 0) end, { 
 vim.keymap.set('n',
     '<leader>=',
     'ggVG=<C-o>',
-    -- The following two methods don't work for some reason
+    -- The following two methods don't work for some reason (some plugin)
     -- 'gg=G<C-o>',
     -- function()
     --     local _, lnum, col, _, _ = unpack(vim.fn.getcursorcharpos())

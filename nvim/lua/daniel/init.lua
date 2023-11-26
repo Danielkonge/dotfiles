@@ -237,9 +237,9 @@ require('lazy').setup({
 
   {
     "folke/zen-mode.nvim",
-    opts = {
-      -- options
-    }
+    -- opts = {
+    --   -- options
+    -- }
   },
 
   {

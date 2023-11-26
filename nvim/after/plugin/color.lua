@@ -94,31 +94,3 @@ require('tokyonight').setup({
 
 vim.keymap.set('n', '<leader>to', require("onedark").toggle, { desc = '[O]nedark Theme Toggle' })
 
--- no longer used (I now use wezterm to switch the background)
--- vim.keymap.set('n', '<leader>tB', function()
---   local cur_theme = vim.g.colors_name
---   if cur_theme == "onedark" then
---     require('onedark').set_options(
---       'transparent',
---       not vim.g.onedark_config.transparent
---     )
---     require('onedark').load()
---   elseif cur_theme == "catppuccin-mocha" then
---     local transp = require("catppuccin").options.transparent_background
---     -- require("catppuccin").default_options.transparent_background = not transp
---     require("catppuccin").setup({
---       flavour = "mocha",
---       transparent_background = not transp,
---       integrations = {
---         neogit = true,
---         which_key = true,
---         lsp_trouble = true,
---         gitsigns = true,
---         notify = true,
---       }
---     })
---     require("catppuccin").load()
---   else
---     print("Error: Not onedark or catppuccin-mocha.")
---   end
--- end, { desc = '[B]ackground Transparent Toggle' })
