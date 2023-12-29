@@ -23,7 +23,7 @@ vim.keymap.set('i', '<C-a>', '<Esc>I', { silent = true })
 vim.keymap.set('i', '<C-e>', '<Esc>A', { silent = true })
 vim.keymap.set('i', '<C-u>', '<Esc>O', { silent = true })
 vim.keymap.set('i', '<C-d>', '<Esc>o', { silent = true })
-vim.keymap.set('i', '<C-z>', '<Esc>zzi', { silent = true })
+vim.keymap.set('i', '<C-z>', '<Esc>zza', { silent = true })
 
 -- :Ex short cut
 vim.keymap.set("n", "-", vim.cmd.Ex)
@@ -39,3 +39,8 @@ vim.keymap.set('n', '<c-j>', '<c-w>j', { silent = true })
 vim.keymap.set('n', '<c-k>', '<c-w>k', { silent = true })
 vim.keymap.set('n', '<c-l>', '<c-w>l', { silent = true })
 
+-- Insert mode movement
+vim.keymap.set('i', '<c-h>', '<Left>', { silent = true })
+vim.keymap.set('i', '<c-j>', '<Down>', { silent = true })
+vim.keymap.set('i', '<c-k>', '<Up>', { silent = true })
+vim.keymap.set('i', '<c-l>', '<Right>', { silent = true })

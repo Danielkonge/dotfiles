@@ -3,7 +3,7 @@
 require("telescope").load_extension('harpoon')
 
 vim.keymap.set('n', '<leader><space>', require('harpoon.ui').toggle_quick_menu, { desc = '[ ] Harpoon Menu' })
-vim.keymap.set('n', '<leader>h<space>', ":Telescope harpoon marks<CR>", { silent = true, desc = 'Harpoon Telescope Menu' })
+vim.keymap.set('n', '<leader>h<space>', "<Cmd>Telescope harpoon marks<CR>", { silent = true, desc = 'Harpoon Telescope Menu' })
 vim.keymap.set('n', '<leader>ha', require('harpoon.mark').add_file, { desc = '[A]dd Mark' })
 vim.keymap.set('n', '<leader>hr', require('harpoon.mark').rm_file, { desc = '[R]emove Mark' })
 vim.keymap.set('n', '<leader>hc', require('harpoon.mark').clear_all, { desc = '[C]lear Marks' })

@@ -114,6 +114,9 @@ require('telescope').setup {
         },
       },
     },
+    file_browser = {
+      hidden = { file_browser = true, folder_browser = true, },
+    }
   },
 }
 
@@ -168,7 +171,7 @@ require("telescope").load_extension "file_browser"
 vim.api.nvim_set_keymap(
   "n",
   "<space>.",
-  ":Telescope file_browser path=%:p:h select_buffer=true<CR>",
+  "<Cmd>Telescope file_browser path=%:p:h select_buffer=true<CR>",
   { noremap = true, silent = true, desc = '[.] Telescope File Browser' }
 )
 

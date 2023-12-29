@@ -33,10 +33,12 @@ function workspace.quick_picker(window, pane)
         act.InputSelector {
             action = wezterm.action_callback(function(inner_window, inner_pane, id, label)
                 if not id and not label then
+                    -- do nothing
                     -- wezterm.log_info 'Cancelled'
                 else
                     -- wezterm.log_info('You selected id(' .. id .. ') and label(' .. label .. ')')
                     -- wezterm.log_info(wezterm.home_dir)
+                    -- if (id, label) is chosen
                     inner_window:perform_action(
                         act.SwitchToWorkspace {
                             name = label,
@@ -85,10 +87,12 @@ function workspace.fuzzy_picker(window, pane)
         act.InputSelector {
             action = wezterm.action_callback(function(inner_window, inner_pane, id, label)
                 if not id and not label then
+                    -- do nothing
                     -- wezterm.log_info 'Cancelled'
                 else
                     -- wezterm.log_info('You selected id(' .. id .. ') and label(' .. label .. ')')
                     -- wezterm.log_info(wezterm.home_dir)
+                    -- if (id, label) is chosen
                     inner_window:perform_action(
                         act.SwitchToWorkspace {
                             name = label,

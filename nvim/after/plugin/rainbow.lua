@@ -12,6 +12,11 @@ vim.g.rainbow_delimiters = {
     query = {
         [''] = 'rainbow-delimiters',
         lua = 'rainbow-blocks',
+        query = function(bufnr)
+            -- Use blocks for `:InspectTree`
+            local is_inspecttree = vim.b[bufnr].dev_base ~= nil
+            return is_inspecttree and 'rainbow-blocks' or 'rainbow-delimiters'
+        end,
     },
     priority = {
         [''] = 110,

@@ -9,8 +9,8 @@ require("noice").setup({
   },
   -- you can enable a preset for easier configuration
   presets = {
-    bottom_search = true,         -- use a classic bottom cmdline for search
-    command_palette = true,       -- position the cmdline and popupmenu together
+    bottom_search = false,         -- use a classic bottom cmdline for search
+    command_palette = false,       -- position the cmdline and popupmenu together
     long_message_to_split = true, -- long messages will be sent to a split
     inc_rename = false,           -- enables an input dialog for inc-rename.nvim
     lsp_doc_border = false,       -- add a border to hover docs and signature help
@@ -45,13 +45,13 @@ vim.keymap.set("c", "<S-Enter>", function()
 end, { desc = "Redirect Cmdline" })
 
 -- set up in cmp too:
-vim.keymap.set({"n", "s"}, "<C-.>", function()
+vim.keymap.set({"n", "s", "i"}, "<C-.>", function()
   if not require("noice.lsp").scroll(4) then
     return "<C-.>"
   end
 end, { silent = true, expr = true })
 
-vim.keymap.set({"n", "s"}, "<C-,>", function()
+vim.keymap.set({"n", "s", "i"}, "<C-,>", function()
   if not require("noice.lsp").scroll(-4) then
     return "<C-,>"
   end

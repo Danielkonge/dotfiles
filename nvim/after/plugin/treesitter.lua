@@ -85,8 +85,8 @@ require("treesitter-context").setup({
   multiline_threshold = 8,
 })
 
-vim.keymap.set('n', '<leader>Tc', ':TSContextToggle<CR>', { silent = true, desc = 'Toggle [C]ontext' })
-vim.keymap.set('n', '<leader>tC', ':TSContextToggle<CR>', { silent = true, desc = 'Toggle [C]ontext' })
+vim.keymap.set('n', '<leader>Tc', '<Cmd>TSContextToggle<CR>', { silent = true, desc = 'Toggle [C]ontext' })
+vim.keymap.set('n', '<leader>tC', '<Cmd>TSContextToggle<CR>', { silent = true, desc = 'Toggle [C]ontext' })
 vim.keymap.set("n", "[c", function()
   require("treesitter-context").go_to_context()
 end, { silent = true, desc = 'Jump to [C]ontext' })

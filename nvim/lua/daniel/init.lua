@@ -164,7 +164,7 @@ require('lazy').setup({
   },
 
 
-  { dir = "~/personal/nvim-plugins/indent-blankline.nvim", main = "ibl",     branch = "current_indent_fork" },
+  { dir = "~/personal/nvim-plugins/indent-blankline.nvim", main = "ibl",     branch = "current_indent_final" },
   -- {
   --   -- Add indentation guides even on blank lines
   --   'lukas-reineke/indent-blankline.nvim',
@@ -314,9 +314,6 @@ require('lazy').setup({
   {
     "folke/noice.nvim",
     event = "VeryLazy",
-    opts = {
-      -- add any options here
-    },
     dependencies = {
       -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
       "MunifTanjim/nui.nvim",
@@ -391,6 +388,21 @@ require('lazy').setup({
     'Aasim-A/scrollEOF.nvim',
     opts = {
       insert_mode = true,
+    }
+  },
+
+  {
+    'abecodes/tabout.nvim',
+    opts = {
+      tabouts = {
+        { open = "'", close = "'" },
+        { open = '"', close = '"' },
+        { open = '`', close = '`' },
+        { open = '(', close = ')' },
+        { open = '[', close = ']' },
+        { open = '{', close = '}' },
+        { open = '<', close = '>' },
+      },
     }
   },
 }, {})

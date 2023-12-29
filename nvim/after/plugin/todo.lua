@@ -11,13 +11,13 @@ end, { desc = "Previous todo comment" })
 vim.api.nvim_set_keymap(
   "n",
   "<space>st",
-  ":TodoTelescope<CR>",
+  "<Cmd>TodoTelescope<CR>",
   { noremap = true, desc = '[S]earch [T]odo' }
 )
 
 vim.api.nvim_set_keymap(
   "n",
   "<space>xt",
-  ":TodoTrouble<CR>",
+  "<Cmd>TodoTrouble<CR>",
   { noremap = true, desc = 'Trouble [T]odos' }
 )

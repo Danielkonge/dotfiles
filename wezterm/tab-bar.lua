@@ -139,7 +139,7 @@ function tab_bar.on_format_tab_title(tab, _tabs, _panes, _config, _hover, _max_w
         zoomed = '+'
     end
     return {
-        { Text = ' ' .. index .. ' ' .. title .. zoomed .. ' ' }
+        { Text = string.format(' %d %s%s ', index, title, zoomed) }
     }
 end
 

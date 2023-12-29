@@ -39,8 +39,12 @@ local on_attach = function(_, bufnr)
     nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
     nmap('<leader>sW', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
 
-    nmap('<leader>ih', function() vim.lsp.inlay_hint(0, nil) end, 'Toggle [I]nlay [H]ints')
-    nmap('<leader>ti', function() vim.lsp.inlay_hint(0, nil) end, 'Toggle [I]nlay Hints')
+    nmap('<leader>ih', function()
+        vim.lsp.inlay_hint.enable(0, not vim.lsp.inlay_hint.is_enabled(0))
+    end, 'Toggle [I]nlay [H]ints')
+    nmap('<leader>ti', function()
+        vim.lsp.inlay_hint.enable(0, not vim.lsp.inlay_hint.is_enabled(0))
+    end, 'Toggle [I]nlay Hints')
 
     -- See `:help K` for why this keymap
     nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
@@ -93,7 +97,7 @@ vim.keymap.set('n',
 --  Add any additional override configuration in the following tables. They will be passed to
 --  the `settings` field of the server config. You must look up that documentation yourself.
 local servers = {
-    -- clangd = {},
+    clangd = {},
     -- gopls = {},
     pyright = {},
     rust_analyzer = {},
