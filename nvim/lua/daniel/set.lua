@@ -97,7 +97,7 @@ vim.api.nvim_create_autocmd("BufEnter", {
 vim.opt.diffopt = { "internal", "filler", "closeoff", "hiddenoff", "algorithm:minimal" }
 
 -- NOTE: You should make sure your terminal supports this
-vim.o.termguicolors = true
+vim.opt.termguicolors = true
 
 vim.opt.scrolloff = 10
 vim.opt.incsearch = true
