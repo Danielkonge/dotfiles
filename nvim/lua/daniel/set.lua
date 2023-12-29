@@ -116,7 +116,7 @@ vim.api.nvim_create_autocmd({ "InsertEnter", "FocusLost", "WinLeave", "CmdlineEn
 	pattern = "*",
 	callback = function()
 		vim.opt.cursorlineopt = { "number" }
-		if vim.wo.number then
+		if vim.opt.number:get() then
 			vim.opt.relativenumber = false
 		end
 	end,
@@ -126,7 +126,7 @@ vim.api.nvim_create_autocmd({ "InsertLeave", "FocusGained", "WinEnter", "Cmdline
 	pattern = "*",
 	callback = function()
 		vim.opt.cursorlineopt = { "screenline", "number" }
-		if vim.wo.number then
+		if vim.opt.number:get() then
 			vim.opt.relativenumber = true
 		end
 	end,
