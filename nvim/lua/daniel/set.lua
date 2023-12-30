@@ -11,9 +11,7 @@ vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 
--- netrw settings
-vim.g.netrw_browse_split = 0
-vim.g.netrw_winsize = 25
+vim.opt.virtualedit = 'block'
 
 -- Set highlight on search
 vim.opt.hlsearch = true
@@ -137,14 +135,10 @@ vim.g.c_syntax_for_h = 1
 vim.opt.spell = false
 vim.opt.spelllang = { 'en_us' }
 
--- vim.go.tsml = 32
--- vim.api.nvim_create_autocmd("FileType", {
--- 	group = daniel_opts,
--- 	pattern = "*",
--- 	callback = function(args)
--- 		local lang = vim.treesitter.language.get_lang(args.match)
--- 		if lang == 'query' then
--- 			vim.bo.tsml = 2048
--- 		end
--- 	end,
--- })
+-- netrw settings
+-- vim.g.netrw_browse_split = 0
+-- vim.g.netrw_winsize = 25
+-- don't load netrw (use oil instead)
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+

@@ -25,8 +25,8 @@ vim.keymap.set('i', '<C-u>', '<Esc>O', { silent = true })
 vim.keymap.set('i', '<C-d>', '<Esc>o', { silent = true })
 vim.keymap.set('i', '<C-z>', '<Esc>zza', { silent = true })
 
--- :Ex short cut
-vim.keymap.set("n", "-", vim.cmd.Ex)
+-- :Ex short cut (use oil instead)
+-- vim.keymap.set("n", "-", vim.cmd.Ex)
 
 vim.keymap.set('n', '<leader>wS', function() print(vim.fn.getcwd()) end, { desc = 'Show CWD (≈ workspace)' })
 

@@ -1,4 +1,4 @@
--- indent-hl.lua
+-- indent-blankline.lua
 
 local highlight = {
     "RainbowDelimiterRed",
