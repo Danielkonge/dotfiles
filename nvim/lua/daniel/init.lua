@@ -1,7 +1,8 @@
 -- personal init.lua
 
-require("daniel.set")
-require("daniel.remap")
+require("daniel.options")
+require("daniel.keymaps")
+require("daniel.autocmds")
 
 -- Install package manager
 --    https://github.com/folke/lazy.nvim
@@ -19,13 +20,8 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
--- NOTE: Here is where you install your plugins.
---  You can configure plugins using the `config` key.
---
---  You can also configure plugins after the setup call,
---    as they will be available in your neovim runtime.
 require('lazy').setup({
-  -- NOTE: First, some plugins that don't require any configuration
+  { "folke/lazy.nvim", version = "*" },
 
   -- Git related plugin
   --'tpope/vim-fugitive',
@@ -34,8 +30,6 @@ require('lazy').setup({
   -- Detect tabstop and shiftwidth automatically
   'tpope/vim-sleuth',
 
-  -- NOTE: This is where your plugins related to LSP can be installed.
-  --  The configuration is done below. Search for lspconfig to find it below.
   {
     -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
@@ -45,7 +39,6 @@ require('lazy').setup({
       'williamboman/mason-lspconfig.nvim',
 
       -- Useful status updates for LSP
-      -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
       {
         'j-hui/fidget.nvim',
         -- tag = 'legacy',
@@ -68,19 +61,6 @@ require('lazy').setup({
       },
     },
   },
-
-  -- {
-  --   "utilyre/barbecue.nvim",
-  --   name = "barbecue",
-  --   version = "*",
-  --   dependencies = {
-  --     "SmiteshP/nvim-navic",
-  --     "nvim-tree/nvim-web-devicons", -- optional dependency
-  --   },
-  --   opts = {
-  --     -- configurations go here
-  --   },
-  -- },
 
   {
     -- Autocompletion
@@ -226,7 +206,7 @@ require('lazy').setup({
         "text",
         "markdown",
         "tex", "latex",
-        "netrw", "lazy", "mason",
+        "netrw", "lazy", "mason", "oil",
         "conf",
         "log",
         "NeogitCommitMessage", "NeogitStatus", "NeogitPopup", "NeogitGitCommandHistory",
@@ -295,13 +275,6 @@ require('lazy').setup({
     },
   },
 
-  -- {
-  --   "nvim-tree/nvim-tree.lua",
-  --   dependencies = {
-  --     'nvim-tree/nvim-web-devicons',
-  --   },
-  -- },
-
   {
     "nvim-telescope/telescope-file-browser.nvim",
     dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }
@@ -311,6 +284,7 @@ require('lazy').setup({
   {
     "hiphish/rainbow-delimiters.nvim"
   },
+
   {
     "folke/noice.nvim",
     event = "VeryLazy",
@@ -412,31 +386,20 @@ require('lazy').setup({
     -- Optional dependencies
     dependencies = { "nvim-tree/nvim-web-devicons" },
   },
-}, {})
-
--- [[ Highlight on yank ]]
--- See `:help vim.highlight.on_yank()`
-local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
-vim.api.nvim_create_autocmd('TextYankPost', {
-  callback = function()
-    vim.highlight.on_yank()
-  end,
-  group = highlight_group,
-  pattern = '*',
-})
-
-local daniel_save_group = vim.api.nvim_create_augroup('DanielOnSave', { clear = true })
-vim.api.nvim_create_autocmd("BufWritePre", {
-  group = daniel_save_group,
-  pattern = "*",
-  callback = function()
-    local _, lnum, col, _, _ = unpack(vim.fn.getcursorcharpos())
-    vim.cmd([[%s/\s\+$//e]])
-    vim.fn.setcursorcharpos({ lnum, col })
-  end
-  -- command = [[%s/\s\+$//e]],
-})
-
+}, {
+    dev = {
+      path = "~/personal/nvim-plugins",
+    },
+    ui = { custom_keys = {} },
+    performance = {
+      rtp = {
+        disabled_plugins = {
+          "netrwPlugin",
+          "tutor",
+        }
+      }
+    },
+  })
 
 require("which-key").register({
   ["<leader>g"] = { name = "+git" },

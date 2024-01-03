@@ -140,6 +140,12 @@ vim.keymap.set('n', '<leader>,', require('telescope.builtin').buffers, { desc = 
 --   })
 -- end, { desc = '[/] Fuzzily search in current buffer' })
 vim.keymap.set('n', '<leader>/', require('telescope.builtin').current_buffer_fuzzy_find, { desc = '[/] Fuzzily search in current buffer' })
+vim.keymap.set('n', '<leader>s/', function()
+  require('telescope.builtin').live_grep {
+    grep_open_files = true,
+    prompt_title = 'Live Grep in Open Files'
+  }
+end, { desc = '[/] [S]earch in open buffers' })
 
 vim.keymap.set('n', '<leader>gf', require('telescope.builtin').git_files, { desc = 'Search [G]it [F]iles' })
 vim.keymap.set('n', '<leader>sf', function() require('telescope.builtin').find_files({ cwd = '$HOME' }) end,

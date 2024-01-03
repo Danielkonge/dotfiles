@@ -18,26 +18,6 @@ hooks.register(
     hooks.builtin.scope_highlight_from_extmark
 )
 
--- hooks.register(
---     hooks.type.ACTIVE,
---     function(_)
---         if vim.bo.buftype == 'nofile' then
---             if vim.b.dev_base then
---                 -- we are in `InspectTree`
---                 if vim.fn.line('$') < 500 then
---                     return true
---                 else
---                     -- ibl is slow on large trees
---                     return false
---                 end
---             else
---                 return false
---             end
---         end
---         return true
---     end
--- )
-
 local ibl = require("ibl")
 
 ibl.setup({
@@ -55,16 +35,4 @@ ibl.setup({
         show_end = false,
     },
 })
-
--- note: overwrite needs to be after setup
--- ibl.overwrite({
---     exclude = {
---         buftypes = {
---             "terminal",
---             -- don't include "nofile",
---             "quickfix",
---             "prompt",
---         }
---     }
--- })
 

@@ -16,8 +16,8 @@ vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = tr
 -- stop highlights after search
 vim.keymap.set('n', '<Esc><Esc>', vim.cmd.noh)
 
-vim.keymap.set({ 'n', 'v' }, '<C-d>', '<C-d>zz')
-vim.keymap.set({ 'n', 'v' }, '<C-u>', '<C-u>zz')
+vim.keymap.set({ 'n', 'v' }, '<C-d>', '<C-d>zz', { silent = true })
+vim.keymap.set({ 'n', 'v' }, '<C-u>', '<C-u>zz', { silent = true })
 
 vim.keymap.set('i', '<C-a>', '<Esc>I', { silent = true })
 vim.keymap.set('i', '<C-e>', '<Esc>A', { silent = true })
@@ -44,3 +44,7 @@ vim.keymap.set('i', '<c-h>', '<Left>', { silent = true })
 vim.keymap.set('i', '<c-j>', '<Down>', { silent = true })
 vim.keymap.set('i', '<c-k>', '<Up>', { silent = true })
 vim.keymap.set('i', '<c-l>', '<Right>', { silent = true })
+
+-- better indenting
+vim.keymap.set("v", "<", "<gv", { silent = true })
+vim.keymap.set("v", ">", ">gv", { silent = true })
