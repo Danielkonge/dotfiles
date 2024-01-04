@@ -97,13 +97,15 @@ vim.keymap.set('n',
 --  Add any additional override configuration in the following tables. They will be passed to
 --  the `settings` field of the server config. You must look up that documentation yourself.
 local servers = {
-    clangd = {},
+    clangd = {}, -- c/c++
     -- gopls = {},
-    pyright = {},
-    rust_analyzer = {},
-    texlab = {},
+    pyright = {}, -- python
+    rust_analyzer = {}, -- rust
+    texlab = {}, -- latex
     -- tsserver = {},
-
+    bashls = {}, -- bash
+    yamlls = {}, -- yaml
+    taplo = {}, -- toml
     lua_ls = {
         Lua = {
             workspace = { checkThirdParty = false },
@@ -113,7 +115,7 @@ local servers = {
                 unusedLocalExclude = { "_*" },
             },
         },
-    },
+    }, -- lua
 }
 
 -- Setup neovim lua configuration

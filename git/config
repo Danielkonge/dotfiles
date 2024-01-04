@@ -1,0 +1,5 @@
+[user]
+	email = dakongsgaard@gmail.com
+	name = Danielkonge
+[core]
+	editor = nvim

@@ -62,12 +62,11 @@ vim.opt.splitbelow = true -- Prefer windows splitting to the bottom
 
 vim.opt.inccommand = 'split'
 
--- vim.opt.formatoptions = "cqrnj" -- default: "tcqj"
-
--- The above doesn't work for since some vim ftplugin sets it later,
--- so here is a workaround:
+vim.opt.formatoptions = "cqrnj"
+-- Some filetypes have ftplugin files changing 'formatoptions',
+-- so we change it back again
 local daniel_format = vim.api.nvim_create_augroup('DanielFormat', { clear = true })
-vim.api.nvim_create_autocmd("BufEnter", {
+vim.api.nvim_create_autocmd("FileType", {
 	group = daniel_format,
 	pattern = "*",
 	callback = function()
