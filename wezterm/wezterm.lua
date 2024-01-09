@@ -47,9 +47,7 @@ require('workspaces').apply_to_config(config)
 
 require('key-bindings').apply_to_config(config)
 
-
 -- config.debug_key_events = true
-
 
 return config
 

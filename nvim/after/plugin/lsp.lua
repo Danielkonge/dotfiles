@@ -97,15 +97,16 @@ vim.keymap.set('n',
 --  Add any additional override configuration in the following tables. They will be passed to
 --  the `settings` field of the server config. You must look up that documentation yourself.
 local servers = {
-    clangd = {}, -- c/c++
+    clangd = {},        -- c/c++
     -- gopls = {},
-    pyright = {}, -- python
+    pyright = {},       -- python
     rust_analyzer = {}, -- rust
-    texlab = {}, -- latex
+    texlab = {},        -- latex
     -- tsserver = {},
-    bashls = {}, -- bash
-    yamlls = {}, -- yaml
-    taplo = {}, -- toml
+    bashls = {},        -- bash
+    yamlls = {},        -- yaml
+    taplo = {},         -- toml
+    -- bzl = {}, -- starlark (bazel) [setup in ftplugin]
     lua_ls = {
         Lua = {
             workspace = { checkThirdParty = false },

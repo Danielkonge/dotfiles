@@ -164,12 +164,12 @@ function keys.apply_to_config(config)
             action = act.SwitchWorkspaceRelative(-1),
         },
         {
-            key = 'f',
+            key = 'F',
             mods = 'LEADER',
             action = wezterm.action_callback(workspaces.quick_picker),
         },
         {
-            key = 'F',
+            key = 'f',
             mods = 'LEADER',
             action = wezterm.action_callback(workspaces.fuzzy_picker),
         },

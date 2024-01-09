@@ -37,6 +37,9 @@ require('nvim-treesitter.configs').setup {
   highlight = {
     enable = true,
     additional_vim_regex_highlighting = false,
+    disable = function(_lang, bufnr)
+      return vim.api.nvim_buf_line_count(bufnr) > 10000
+    end,
   },
   indent = { enable = true },
   incremental_selection = {

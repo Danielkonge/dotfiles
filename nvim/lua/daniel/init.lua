@@ -359,13 +359,6 @@ require('lazy').setup({
   },
 
   {
-    'Aasim-A/scrollEOF.nvim',
-    opts = {
-      insert_mode = true,
-    }
-  },
-
-  {
     'abecodes/tabout.nvim',
     opts = {
       tabouts = {
