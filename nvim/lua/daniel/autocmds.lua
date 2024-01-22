@@ -49,3 +49,14 @@ vim.api.nvim_create_autocmd('BufRead', {
     end
   end,
 })
+
+-- Some filetypes have ftplugin files changing 'formatoptions',
+-- so we change it back again
+local daniel_format = vim.api.nvim_create_augroup('DanielFormat', { clear = true })
+vim.api.nvim_create_autocmd("FileType", {
+	group = daniel_format,
+	pattern = "*",
+	callback = function()
+		vim.opt.formatoptions = "cqrnj"
+	end
+})

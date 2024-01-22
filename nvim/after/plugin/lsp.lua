@@ -97,9 +97,78 @@ vim.keymap.set('n',
 --  Add any additional override configuration in the following tables. They will be passed to
 --  the `settings` field of the server config. You must look up that documentation yourself.
 local servers = {
-    clangd = {},        -- c/c++
+    clangd = {}, -- c/c++
     -- gopls = {},
-    pyright = {},       -- python
+    -- pyright = {},       -- python
+    pylsp = {
+        pylsp = {
+            -- Run
+            -- :PylspInstall pylsp-mypy python-lsp-ruff python-lsp-black
+            -- to use the following
+            plugins = {
+                black = {
+                    enabled = true,
+                    line_length = 120,
+                },
+                pylsp_mypy = {
+                    enabled = true,
+                    live_mode = false,
+                    dmypy = true,
+                    strict = true,
+                    report_progress = true,
+                    -- overrides = {
+                    --     "--check-untyped-defs",
+                    --     "--warn-unused-ignores",
+                    --     "--warn-return-any",
+                    --     "--warn-unreachable",
+                    --     "--strict-equality",
+                    --     "--extra-checks",
+                    --     "--show-error-context",
+                    --     "--pretty",
+                    --     true,
+                    -- },
+                },
+                ruff = {
+                    enabled = true,
+                    lineLength = 120,
+                    extendSelect = { "I" },
+                    format = nil, -- need this for black formatting to work
+                },
+                jedi_completion = {
+                    enabled = true,
+                    fuzzy = true,
+                },
+                rope_autoimport = {
+                    enabled = false, -- setting this to true messes with code completion
+                },
+                rope_completion = {
+                    enabled = false,
+                },
+                flake8 = {
+                    enabled = false,
+                    maxLineLength = 120,
+                },
+                mccabe = {
+                    enabled = false,
+                },
+                pycodestyle = {
+                    enabled = false,
+                },
+                pyflakes = {
+                    enabled = false,
+                },
+                pylint = {
+                    enabled = false,
+                },
+                autopep8 = {
+                    enabled = false,
+                },
+                yapf = {
+                    enabled = false,
+                },
+            }
+        }
+    }, -- python
     rust_analyzer = {}, -- rust
     texlab = {},        -- latex
     -- tsserver = {},

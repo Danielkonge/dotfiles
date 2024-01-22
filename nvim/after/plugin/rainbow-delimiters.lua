@@ -41,5 +41,5 @@ vim.g.rainbow_delimiters = {
 vim.keymap.set('n', '<leader>e', function()
     vim.cmd.write()
     vim.cmd.edit()
-end, { desc = 'Reload formatting' })
+end, { desc = 'Reload file' })
 

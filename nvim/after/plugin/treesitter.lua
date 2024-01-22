@@ -81,18 +81,39 @@ require('nvim-treesitter.configs').setup {
   },
 }
 
-require("treesitter-context").setup({
-  enable = false,
-  max_lines = 16,
+local tree_context = require('treesitter-context')
+tree_context.setup({
+  enable = true,
+  max_lines = 8,
   min_window_height = 10,
-  multiline_threshold = 8,
+  multiline_threshold = 1,
 })
+-- vim.api.nvim_set_hl(0, 'TreesitterContextBottom', { underline = true, sp = 'Grey' })
+-- vim.api.nvim_set_hl(0, 'TreesitterContextLineNumber', { link = 'CursorLineNr' })
+vim.api.nvim_set_hl(0, 'TreesitterContext', { bg = 'None' })
+local line_nr = vim.api.nvim_get_hl(0, { name = 'LineNr' })
+line_nr.underline = true
+line_nr.sp = line_nr.fg
+vim.api.nvim_set_hl(0, 'TreesitterContextLineNumber', line_nr)
 
 vim.keymap.set('n', '<leader>Tc', '<Cmd>TSContextToggle<CR>', { silent = true, desc = 'Toggle [C]ontext' })
-vim.keymap.set('n', '<leader>tC', '<Cmd>TSContextToggle<CR>', { silent = true, desc = 'Toggle [C]ontext' })
+vim.keymap.set('n', '<leader>tC', '<Cmd>TSContextToggle<CR>', { silent = true, desc = 'Toggle [C]ontext (see <leader>Tc)' })
 vim.keymap.set("n", "[c", function()
-  require("treesitter-context").go_to_context()
+  tree_context.go_to_context(vim.v.count1)
 end, { silent = true, desc = 'Jump to [C]ontext' })
+vim.keymap.set('n', '<leader>Tt', function()
+  if tree_context.config.multiline_threshold == 1 then
+    tree_context.config.update({
+      max_lines = 30,
+      multiline_threshold = 25,
+    })
+  else
+    tree_context.config.update({
+      max_lines = 8,
+      multiline_threshold = 1,
+    })
+  end
+end, { desc = 'Toggle context length' })
 
 require("which-key").register({
   ["<leader>T"] = { name = "+treesitter" },

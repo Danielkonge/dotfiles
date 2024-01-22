@@ -20,8 +20,8 @@ cmp.setup({
     ['<Up>'] = { i = cmp.mapping.select_prev_item() },
     ['<C-n>'] = { i = cmp.mapping.select_next_item() },
     ['<C-p>'] = { i = cmp.mapping.select_prev_item() },
-    ['<C-,>'] = { i = cmp.mapping.scroll_docs(-4) },
-    ['<C-.>'] = { i = cmp.mapping.scroll_docs(4) },
+    -- ['<C-,>'] = { i = cmp.mapping.scroll_docs(-4) },
+    -- ['<C-.>'] = { i = cmp.mapping.scroll_docs(4) },
     ['<C-x>'] = { i = cmp.mapping.complete() },
     ['<C-c>'] = { i = cmp.mapping.abort() },
     ['<CR>'] = { i = cmp.mapping.confirm({
