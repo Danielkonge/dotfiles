@@ -1,4 +1,4 @@
--- init.lua general file 
+-- init.lua general file
 
 require("daniel")
 
