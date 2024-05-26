@@ -33,7 +33,7 @@ function gui.apply_to_config(config)
             source = {
                 File = wezterm.home_dir .. '/.config/wezterm/sword-red.png'
             },
-            hsb = { brightness = 0.03, saturation = 1.02 },
+            hsb = { brightness = 0.025, saturation = 1.02 },
             opacity = 0.95,
         },
         -- more layers can be added here
@@ -44,7 +44,7 @@ function gui.apply_to_config(config)
     config.macos_window_background_blur = 10
 
     -- background of special text (e.g. which-key in nvim)
-    config.text_background_opacity = 0.2
+    config.text_background_opacity = 0.3
 
     -- config.window_padding = {
     --     left = 0,

@@ -14,8 +14,6 @@ return {
     -- requirements installed.
     {
       'nvim-telescope/telescope-fzf-native.nvim',
-      -- NOTE: If you are having trouble with this installation,
-      --       refer to the README for telescope-fzf-native for more instructions.
       dependencies = { 'nvim-telescope/telescope.nvim' },
       build = 'make',
       cond = function()
@@ -160,8 +158,14 @@ return {
     vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, {
       desc = '[S]earch by [G]rep',
     })
-    vim.keymap.set('n', '<leader>sG', function() require('telescope.builtin').live_grep({ cwd = '$HOME' }) end,
+    vim.keymap.set('n', '<leader>sGh', function() require('telescope.builtin').live_grep({ cwd = '$HOME' }) end,
       { desc = '[S]earch ~ by [G]rep' })
+    vim.keymap.set('n', '<leader>sGp', function() require('telescope.builtin').live_grep({
+      cwd = vim.fn.expand('%:p:h'),
+    }) end, { desc = '[S]earch Parent by [G]rep' })
+    vim.keymap.set('n', '<leader>sGa', function() require('telescope.builtin').live_grep({
+      cwd = vim.fn.expand('%:p:h:h'),
+    }) end, { desc = '[S]earch Grandparent by [G]rep' })
 
     -- Search Diagnostics
     vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, {
@@ -226,9 +230,24 @@ return {
       { noremap = true, silent = true, desc = '[.] Telescope File Browser' }
     )
 
-    require("which-key").register({
-      ["<leader>s"] = { name = "+search" },
-      ["<leader>sC"] = { name = "+color" }
+    vim.api.nvim_set_hl(0, 'TelescopePreviewMatch', { link = 'CurSearch' })
+
+
+    vim.api.nvim_create_autocmd("User", {
+      pattern = "TelescopePreviewerLoaded",
+      callback = function(_args)
+        vim.opt_local.wrap = true
+        vim.opt_local.number = true
+        vim.opt_local.cursorline = true
+        vim.opt_local.cursorlineopt = { "screenline", "number" }
+        -- vim.api.nvim_win_set_hl_ns
+        -- the below doesn't work
+        -- vim.api.nvim_buf_call(args.buf, function() vim.cmd.normal('zz') end)
+        -- or
+        -- vim.opt_local.scrolloff = 999
+        -- when winid is available, it should work by placing the cursor first using
+        -- vim.api.nvim_win_set_cursor
+      end,
     })
   end,
 }

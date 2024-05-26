@@ -26,7 +26,7 @@ return {
 
       require('onedark').load()
 
-      vim.keymap.set('n', '<leader>to', require("onedark").toggle, { desc = '[O]nedark Theme Toggle' })
+      vim.keymap.set('n', '<leader>tO', require("onedark").toggle, { desc = '[O]nedark Theme Toggle' })
     end,
   },
   {

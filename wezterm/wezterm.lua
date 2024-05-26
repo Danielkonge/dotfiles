@@ -14,6 +14,8 @@ config.freetype_load_flags = 'NO_HINTING'
 config.enable_kitty_keyboard = true
 config.use_dead_keys = false
 
+config.scrollback_lines = 10000
+
 -- This doens't seem to work? If it is fixed, it would be good to include
 -- Currently: PATH = /usr/bin:/bin:/usr/sbin:/sbin when running from wezterm
 -- config.set_environment_variables = {
@@ -39,9 +41,9 @@ wezterm.on('toggle-bg', toggles.on_toggle_bg)
 
 wezterm.on('toggle-ligature', toggles.on_toggle_ligature)
 
-local zen_mode = require('zen-mode')
+local user_vars = require('user_vars')
 
-wezterm.on('user-var-changed', zen_mode.on_user_var_change)
+wezterm.on('user-var-changed', user_vars.on_user_var_change)
 
 require('workspaces').apply_to_config(config)
 

@@ -30,6 +30,7 @@ return {
       "nvim-telescope/telescope.nvim",
       "nvim-telescope/telescope-fzf-native.nvim",
     },
+    branch = 'master',
     config = function()
       local neogit = require("neogit")
 
@@ -65,8 +66,11 @@ return {
     config = function()
       require('gitblame').setup({
         enabled = false,
+        display_virtual_text = false,
         date_format = '%r',
-        -- delay = 800,
+        -- delay = 2000,
+        schedule_event = "CursorHold",
+        -- clear_event = "CursorMoved"
         -- use_blame_commit_file_urls = true,
       })
 

@@ -31,6 +31,14 @@ return {
         inc_rename = false,       -- enables an input dialog for inc-rename.nvim
         lsp_doc_border = false,   -- add a border to hover docs and signature help
       },
+      messages = {
+        enabled = true,
+        view = "mini",
+        view_error = "mini",
+        view_warn = "mini",
+        view_history = "messages",
+        view_search = "virtualtext",
+      }
     })
 
     vim.keymap.set("n", "<leader>nl", function()
@@ -61,13 +69,13 @@ return {
     local noice_lsp = require("noice.lsp")
     vim.keymap.set({ "n", "s", "i" }, "<C-.>", function()
       if not noice_lsp.scroll(4) then
-        return "<C-.>"
+        return "<C-.>" -- "<C-.>"
       end
     end, { silent = true, expr = true })
 
     vim.keymap.set({ "n", "s", "i" }, "<C-,>", function()
       if not noice_lsp.scroll(-4) then
-        return "<C-,>"
+        return "<C-,>"-- "<C-,>"
       end
     end, { silent = true, expr = true })
   end,

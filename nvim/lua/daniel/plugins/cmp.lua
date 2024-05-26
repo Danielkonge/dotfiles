@@ -18,7 +18,12 @@ return {
     'hrsh7th/cmp-cmdline',
 
     -- Snippet Engine & its associated nvim-cmp source
-    'L3MON4D3/LuaSnip',
+    {
+      'L3MON4D3/LuaSnip',
+      version = "v2.*",
+      build = "make install_jsregexp",
+    },
+
     'saadparwaiz1/cmp_luasnip',
 
     -- Adds a number of user-friendly snippets
@@ -54,6 +59,16 @@ return {
         ['<C-p>'] = { i = cmp.mapping.select_prev_item() },
         -- ['<C-,>'] = { i = cmp.mapping.scroll_docs(-4) },
         -- ['<C-.>'] = { i = cmp.mapping.scroll_docs(4) },
+        ['<C-,>'] = cmp.mapping(function(_)
+          if cmp.visible() then
+            cmp.scroll_docs(-4)
+          end
+        end, { 'i' }),
+        ['<C-.>'] = cmp.mapping(function(_)
+          if cmp.visible() then
+            cmp.scroll_docs(4)
+          end
+        end, { 'i' }),
         ['<C-x>'] = { i = cmp.mapping.complete() },
         ['<C-c>'] = { i = cmp.mapping.abort() },
         ['<CR>'] = {
@@ -99,7 +114,7 @@ return {
             luasnip = "[snip]",
           },
           mode = 'symbol_text',
-          maxwidth = 50, -- prevent the popup from showing more than provided characters
+          maxwidth = 80, -- prevent the popup from showing more than provided characters
           -- (e.g 50 will not show more than 50 characters)
           -- ellipsis_char = '...', -- when popup menu exceed maxwidth, the truncated part
           -- would show ellipsis_char instead (must define maxwidth first)
@@ -115,7 +130,10 @@ return {
       },
       experimental = {
         ghost_text = true,
-      }
+      },
+      performance = {
+        max_view_entries = 20,
+      },
     })
 
     -- `/` cmdline setup.

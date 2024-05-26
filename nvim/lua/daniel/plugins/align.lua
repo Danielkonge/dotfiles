@@ -1,5 +1,6 @@
 return {
   'Vonr/align.nvim',
+  branch = "v2",
   config = function()
     local align = require('align')
 

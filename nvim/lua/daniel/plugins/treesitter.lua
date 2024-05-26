@@ -91,12 +91,12 @@ return {
   },
 
   {
-    -- 'nvim-treesitter/nvim-treesitter-context',
-    dir = "~/personal/nvim-plugins/nvim-treesitter-context",
+    'nvim-treesitter/nvim-treesitter-context',
+    -- dir = "~/personal/nvim-plugins/nvim-treesitter-context",
     config = function()
       local tree_context = require('treesitter-context')
       tree_context.setup({
-        enable = false,
+        enable = true,
         max_lines = 8,
         min_window_height = 10,
         multiline_threshold = 1,
@@ -104,10 +104,8 @@ return {
       -- vim.api.nvim_set_hl(0, 'TreesitterContextBottom', { underline = true, sp = 'Grey' })
       -- vim.api.nvim_set_hl(0, 'TreesitterContextLineNumber', { link = 'CursorLineNr' })
       vim.api.nvim_set_hl(0, 'TreesitterContext', { link = 'None' })
-      local bottom_line_nr = vim.api.nvim_get_hl(0, { name = 'LineNr' })
-      bottom_line_nr.underline = true
-      bottom_line_nr.sp = bottom_line_nr.fg
-      vim.api.nvim_set_hl(0, 'TreesitterContextLineNumberBottom', bottom_line_nr)
+      local line_nr = vim.api.nvim_get_hl(0, { name = 'LineNr' })
+      vim.api.nvim_set_hl(0, 'TreesitterContextLineNumberBottom', { underline = true, sp = line_nr.fg })
 
       vim.keymap.set('n', '<leader>Tc', '<Cmd>TSContextToggle<CR>', { silent = true, desc = 'Toggle [C]ontext' })
       vim.keymap.set('n', '<leader>tC', '<Cmd>TSContextToggle<CR>',

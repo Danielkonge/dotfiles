@@ -1,8 +1,8 @@
 local wezterm = require('wezterm')
 
-local zen_mode = {}
+local user_vars = {}
 
-function zen_mode.on_user_var_change(window, pane, name, value)
+function user_vars.on_user_var_change(window, pane, name, value)
     local overrides = window:get_config_overrides() or {}
     if name == "ZEN_MODE" then
         local incremental = value:find("+")
@@ -30,8 +30,18 @@ function zen_mode.on_user_var_change(window, pane, name, value)
             overrides.text_background_opacity = 1.0
             overrides.enable_tab_bar = false
         end
+    elseif name == 'OPACITY_MODE' then
+        local number_value = tonumber(value)
+        if number_value == 1 then
+            -- If we haven't overridden it yet, then override the text bg opacity
+            overrides.text_background_opacity = 0.8
+        else
+            -- else we did already, and we should disable out override now
+            overrides.text_background_opacity = nil
+        end
     end
     window:set_config_overrides(overrides)
 end
 
-return zen_mode
+
+return user_vars

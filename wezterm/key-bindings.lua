@@ -52,6 +52,11 @@ function keys.apply_to_config(config)
             action = act.EmitEvent 'toggle-ligature',
         },
         {
+            key = 'o',
+            mods = 'LEADER',
+            action = act.EmitEvent 'toggle-text-bg-opacity',
+        },
+        {
             key = '+',
             mods = 'CMD',
             action = act.IncreaseFontSize,

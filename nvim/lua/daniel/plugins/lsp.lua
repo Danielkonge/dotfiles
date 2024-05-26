@@ -1,5 +1,6 @@
 -- [[ Configure LSP ]]
 --  This function gets run when an LSP connects to a particular buffer.
+local util = require('lspconfig.util')
 local on_attach = function(_, bufnr)
   -- NOTE: Remember that lua is a real programming language, and as such it is possible
   -- to define small helper and utility functions so you don't have to repeat yourself
@@ -27,10 +28,10 @@ local on_attach = function(_, bufnr)
   nmap('<leader>sW', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
 
   nmap('<leader>ih', function()
-    vim.lsp.inlay_hint.enable(0, not vim.lsp.inlay_hint.is_enabled(0))
+    vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = 0 }), { bufnr = 0 })
   end, 'Toggle [I]nlay [H]ints')
   nmap('<leader>ti', function()
-    vim.lsp.inlay_hint.enable(0, not vim.lsp.inlay_hint.is_enabled(0))
+    vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = 0 }), { bufnr = 0 })
   end, 'Toggle [I]nlay Hints')
 
   -- See `:help K` for why this keymap
@@ -58,6 +59,22 @@ local on_attach = function(_, bufnr)
   end, { desc = 'Format current buffer with LSP' })
 end
 
+local pyright_attach = function(client, _bufnr)
+  client.server_capabilities.declarationProvider = nil
+  client.server_capabilities.definitionProvider = nil
+  client.server_capabilities.documentHighlightProvider = nil
+  client.server_capabilities.documentSymbolProvider = nil
+  client.server_capabilities.executeCommandProvider = nil
+  client.server_capabilities.hoverProvider = nil
+  client.server_capabilities.referencesProvider = nil
+  client.server_capabilities.renameProvider = nil
+  -- client.server_capabilities.signatureHelpProvider = nil
+  client.server_capabilities.typeDefinitionProvider = nil
+  client.server_capabilities.codeActionProvider = nil
+
+  client.server_capabilities.completionProvider.resolveProvider = false
+end
+
 -- Enable the following language servers
 --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
 --
@@ -66,7 +83,6 @@ end
 local servers = {
   clangd = {},   -- c/c++
   -- gopls = {},
-  -- pyright = {},       -- python
   pylsp = {
     pylsp = {
       -- Run
@@ -99,12 +115,27 @@ local servers = {
           enabled = true,
           lineLength = 120,
           extendSelect = { "I" },
-          format = nil,           -- need this for black formatting to work
+          -- format = nil,
         },
         jedi_completion = {
-          enabled = true,
-          fuzzy = true,
+          enabled = true, -- true,
+          fuzzy = true, -- true,
         },
+        -- jedi_definition = {
+        --   enabled = false,
+        -- },
+        -- jedi_hover = {
+        --   enabled = false,
+        -- },
+        -- jedi_references = {
+        --   enabled = false,
+        -- },
+        -- jedi_signature_help = {
+        --   enabled = false,
+        -- },
+        -- jedi_symbols = {
+        --   enabled = false,
+        -- },
         rope_autoimport = {
           enabled = false,           -- setting this to true messes with code completion
         },
@@ -136,13 +167,20 @@ local servers = {
       }
     }
   },                    -- python
+  pyright = {
+    -- python = {
+    --   analysis = {
+    --     typeCheckingMode = 'strict',
+    --   }
+    -- } -- use for checking code
+  },       -- python
   rust_analyzer = {},   -- rust
   texlab = {},          -- latex
   -- tsserver = {},
   bashls = {},          -- bash
   yamlls = {},          -- yaml
   taplo = {},           -- toml
-  -- bzl = {}, -- starlark (bazel) [setup in ftplugin]
+  bzl = {}, -- starlark (bazel) [old setup in ftplugin]
   lua_ls = {
     Lua = {
       workspace = { checkThirdParty = false },
@@ -177,7 +215,8 @@ return {
       },
 
       -- Additional lua configuration, makes nvim stuff amazing!
-      { 'folke/neodev.nvim',       commit = '3941036e3da9b0dc09244036d20c590b6d752175' },
+      -- { 'folke/neodev.nvim',       commit = '3941036e3da9b0dc09244036d20c590b6d752175' },
+      { 'folke/neodev.nvim' },
     },
     config = function()
       -- Diagnostic keymaps
@@ -221,15 +260,21 @@ return {
       mason_lspconfig.setup {
         ensure_installed = vim.tbl_keys(servers),
       }
+      -- local pylsp_capabilities = vim.lsp.protocol.make_client_capabilities()
+      -- pylsp_capabilities.textDocument.hover.dynamicRegistration = false
+
 
       mason_lspconfig.setup_handlers {
         function(server_name)
           require('lspconfig')[server_name].setup {
             capabilities = capabilities,
             inlay_hint = { enabled = true },
-            on_attach = on_attach,
+            on_attach = server_name ~= 'pyright' and on_attach or pyright_attach,
             settings = servers[server_name],
             filetypes = (servers[server_name] or {}).filetypes,
+            root_dir = (server_name == 'pylsp' or server_name == 'pyright') and function(fname)
+              return util.find_git_ancestor(fname)
+            end or nil,
           }
         end,
       }

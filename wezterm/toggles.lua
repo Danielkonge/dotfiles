@@ -26,12 +26,12 @@ function toggles.on_toggle_bg(window, _)
                 },
             },
         }
-        overrides.text_background_opacity = 1.0
+        -- overrides.text_background_opacity = 1.0
         my_tab_bar.bg_color = '#1a212e'
     else
         overrides.background = nil
         overrides.colors = nil
-        overrides.text_background_opacity = nil
+        -- overrides.text_background_opacity = nil
         my_tab_bar.bg_color = 'none'
     end
     window:set_config_overrides(overrides)

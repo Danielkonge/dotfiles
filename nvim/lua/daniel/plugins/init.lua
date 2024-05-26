@@ -22,6 +22,9 @@ return {
         ["<leader>T"] = { name = "+treesitter" },
         ["<leader>h"] = { name = "+harpoon" },
         ["<leader>c"] = { name = "+choose/code" },
+        ["<leader>s"] = { name = "+search" },
+        ["<leader>sC"] = { name = "+color" },
+        ["<leader>sG"] = { name = "+grep" },
         ["<leader>"] = {
           ["1"] = "which_key_ignore",
           ["2"] = "which_key_ignore",

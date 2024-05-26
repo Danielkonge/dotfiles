@@ -3,14 +3,14 @@
 -- local util = require('lspconfig.util')
 
 -- for now bzl is better than starlark
-if vim.fn.executable('bzl') == 1 then
-    vim.lsp.start({
-        name = 'Bazel/Starlark Language Server',
-        cmd = { 'bzl', 'lsp', 'serve' },
-        -- root_dir = util.root_pattern('WORKSPACE', 'WORKSPACE.bazel'),
-        -- util.find_git_ancestor(vim.loop.cwd()) -- root_dir is not helpful since a lot of features are pay-walled
-    })
-end
+-- if vim.fn.executable('bzl') == 1 then
+--     vim.lsp.start({
+--         name = 'Bazel/Starlark Language Server',
+--         cmd = { 'bzl', 'lsp', 'serve' },
+--         -- root_dir = util.root_pattern('WORKSPACE', 'WORKSPACE.bazel'),
+--         -- util.find_git_ancestor(vim.loop.cwd()) -- root_dir is not helpful since a lot of features are pay-walled
+--     })
+-- end
 
 
 -- Install with: cargo install starlark_bin

@@ -3,3 +3,5 @@
 	name = Danielkonge
 [core]
 	editor = nvim
+[includeIf "gitdir:~/work/"]
+	path = ~/work/.git/config

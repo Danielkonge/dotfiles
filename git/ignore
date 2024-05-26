@@ -50,4 +50,8 @@ build/
 .bcf
 __pycache__
 .ipynb_checkpoints
+.dmypy.json
+.ropeproject/
+venv/
 
+testing.ipynb

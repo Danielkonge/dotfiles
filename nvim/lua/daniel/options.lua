@@ -66,7 +66,6 @@ vim.opt.formatoptions = "cqrnj"
 
 vim.opt.diffopt = { "internal", "filler", "closeoff", "hiddenoff", "algorithm:minimal" }
 
--- NOTE: You should make sure your terminal supports this
 vim.opt.termguicolors = true
 
 vim.opt.scrolloff = 10
@@ -116,3 +115,8 @@ vim.opt.spelllang = { 'en_us' }
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
+-- turn off providers
+vim.g.loaded_ruby_provider = 0
+vim.g.loaded_perl_provider = 0
+vim.g.loaded_node_provider = 0
+-- vim.g.loaded_python_provider = 0

@@ -61,7 +61,7 @@ return {
         { silent = true, desc = '[G]enerate Class Docs' })
       vim.keymap.set('n', '<leader>Gt', function() neogen.generate({ type = 'type' }) end,
         { silent = true, desc = '[G]enerate Type Docs' })
-      vim.keymap.set('n', '<leader>Gf', function() neogen.generate({ type = 'file' }) end,
+      vim.keymap.set('n', '<leader>GF', function() neogen.generate({ type = 'file' }) end,
         { silent = true, desc = '[G]enerate File Docs' })
     end,
   }
