@@ -103,6 +103,7 @@ return {
         { name = 'buffer',  keyword_length = 3 },
         { name = 'path' },
         { name = 'git' },
+        { name = 'lazydev', group_index = 0, },
       }),
       formatting = {
         format = lspkind.cmp_format({

@@ -81,7 +81,7 @@ end
 --  Add any additional override configuration in the following tables. They will be passed to
 --  the `settings` field of the server config. You must look up that documentation yourself.
 local servers = {
-  clangd = {},   -- c/c++
+  clangd = {}, -- c/c++
   -- gopls = {},
   pylsp = {
     pylsp = {
@@ -119,7 +119,7 @@ local servers = {
         },
         jedi_completion = {
           enabled = true, -- true,
-          fuzzy = true, -- true,
+          fuzzy = true,   -- true,
         },
         -- jedi_definition = {
         --   enabled = false,
@@ -137,7 +137,7 @@ local servers = {
         --   enabled = false,
         -- },
         rope_autoimport = {
-          enabled = false,           -- setting this to true messes with code completion
+          enabled = false, -- setting this to true messes with code completion
         },
         rope_completion = {
           enabled = false,
@@ -166,21 +166,21 @@ local servers = {
         },
       }
     }
-  },                    -- python
+  }, -- python
   pyright = {
     -- python = {
     --   analysis = {
     --     typeCheckingMode = 'strict',
     --   }
     -- } -- use for checking code
-  },       -- python
-  rust_analyzer = {},   -- rust
-  texlab = {},          -- latex
+  },                  -- python
+  rust_analyzer = {}, -- rust
+  texlab = {},        -- latex
   -- tsserver = {},
-  bashls = {},          -- bash
-  yamlls = {},          -- yaml
-  taplo = {},           -- toml
-  bzl = {}, -- starlark (bazel) [old setup in ftplugin]
+  bashls = {},        -- bash
+  yamlls = {},        -- yaml
+  taplo = {},         -- toml
+  bzl = {},           -- starlark (bazel) [old setup in ftplugin]
   lua_ls = {
     Lua = {
       workspace = { checkThirdParty = false },
@@ -190,7 +190,7 @@ local servers = {
         unusedLocalExclude = { "_*" },
       },
     },
-  },   -- lua
+  }, -- lua
 }
 
 return {
@@ -216,12 +216,25 @@ return {
 
       -- Additional lua configuration, makes nvim stuff amazing!
       -- { 'folke/neodev.nvim',       commit = '3941036e3da9b0dc09244036d20c590b6d752175' },
-      { 'folke/neodev.nvim' },
+      {
+        'folke/lazydev.nvim',
+        ft = 'lua',
+        opts = {
+          library = {
+            -- See the configuration section for more details
+            -- Load luvit types when the `vim.uv` word is found
+            { path = "luvit-meta/library", words = { "vim%.uv" } },
+          },
+        },
+      },
+      { "Bilal2453/luvit-meta",    lazy = true }, -- optional `vim.uv` typings
     },
     config = function()
       -- Diagnostic keymaps
-      vim.keymap.set('n', '<leader>dp', vim.diagnostic.goto_prev, { desc = 'Go to [P]revious diagnostic message' })
-      vim.keymap.set('n', '<leader>dn', vim.diagnostic.goto_next, { desc = 'Go to [N]ext diagnostic message' })
+      vim.keymap.set('n', '<leader>dp', function() vim.diagnostic.jump({ count = -1, float = true }) end,
+        { desc = 'Go to [P]revious diagnostic message' })
+      vim.keymap.set('n', '<leader>dn', function() vim.diagnostic.jump({ count = 1, float = true }) end,
+        { desc = 'Go to [N]ext diagnostic message' })
       vim.keymap.set('n', '<leader>do', vim.diagnostic.open_float, { desc = '[O]pen floating diagnostic message' })
       vim.keymap.set('n', '<leader>dl', vim.diagnostic.setloclist, { desc = 'Open diagnostics [L]ist' })
       vim.keymap.set('n', '<leader>d+', function() vim.diagnostic.show(nil, 0) end,
@@ -243,12 +256,6 @@ return {
       )
 
       vim.keymap.set("n", "<leader>a", "<cmd>AerialToggle!<CR>")
-
-
-      -- Setup neovim lua configuration
-      require('neodev').setup({
-        -- add options here
-      })
 
       -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
       local capabilities = vim.lsp.protocol.make_client_capabilities()

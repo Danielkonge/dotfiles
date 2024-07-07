@@ -98,8 +98,12 @@ return {
       tree_context.setup({
         enable = true,
         max_lines = 8,
-        min_window_height = 10,
+        min_window_height = 15,
+        line_numbers = true,
         multiline_threshold = 1,
+        separator = nil,
+        trim_scope = 'outer',
+        mode = 'cursor',
       })
       -- vim.api.nvim_set_hl(0, 'TreesitterContextBottom', { underline = true, sp = 'Grey' })
       -- vim.api.nvim_set_hl(0, 'TreesitterContextLineNumber', { link = 'CursorLineNr' })

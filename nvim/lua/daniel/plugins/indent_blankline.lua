@@ -40,4 +40,14 @@ return {
       },
     })
   end,
+
+  -- dir = "~/personal/nvim-plugins/scope-indent-guides.nvim",
+  -- config = function()
+  --   require('scope-indent-guides').setup()
+  -- end
+
+  -- dir = "~/personal/nvim-plugins/indentmini.nvim",
+  -- config = function()
+  --   require('indentmini').setup()
+  -- end
 }
