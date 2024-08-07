@@ -75,6 +75,20 @@ local pyright_attach = function(client, _bufnr)
   client.server_capabilities.completionProvider.resolveProvider = false
 end
 
+local ruff_attach = function(client, _bufnr)
+  client.server_capabilities.declarationProvider = nil
+  client.server_capabilities.definitionProvider = nil
+  client.server_capabilities.documentHighlightProvider = nil
+  client.server_capabilities.documentSymbolProvider = nil
+  client.server_capabilities.executeCommandProvider = nil
+  client.server_capabilities.hoverProvider = nil
+  client.server_capabilities.referencesProvider = nil
+  client.server_capabilities.renameProvider = nil
+  client.server_capabilities.signatureHelpProvider = nil
+  client.server_capabilities.typeDefinitionProvider = nil
+  client.server_capabilities.codeActionProvider = nil
+end
+
 -- Enable the following language servers
 --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
 --
@@ -177,8 +191,8 @@ return {
 
       lspconfig.lua_ls.setup({
         capabilities = capabilities,
-        inlay_hint = { enabled = false },
-        on_attach = pyright_attach,
+        inlay_hint = { enabled = true },
+        on_attach = on_attach,
         settings = {
           Lua = {
             workspace = { checkThirdParty = false },
@@ -236,7 +250,7 @@ return {
               -- jedi_definition = {
               --   enabled = false,
               -- },
-              -- jedi_hover = {
+              -- jedi_hover = false{
               --   enabled = false,
               -- },
               -- jedi_references = {
@@ -279,6 +293,15 @@ return {
             }
           }
         },
+      })
+
+      lspconfig.ruff.setup({
+        on_attach = ruff_attach,
+        -- init_options = {
+        --   settings = {
+        --     organizeImports = true,
+        --   }
+        -- },
       })
 
       lspconfig.pyright.setup({
