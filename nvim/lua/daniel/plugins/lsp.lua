@@ -1,6 +1,6 @@
 -- [[ Configure LSP ]]
 --  This function gets run when an LSP connects to a particular buffer.
-local util = require('lspconfig.util')
+-- local util = require('lspconfig.util')
 local on_attach = function(_, bufnr)
   -- NOTE: Remember that lua is a real programming language, and as such it is possible
   -- to define small helper and utility functions so you don't have to repeat yourself
@@ -81,116 +81,19 @@ end
 --  Add any additional override configuration in the following tables. They will be passed to
 --  the `settings` field of the server config. You must look up that documentation yourself.
 local servers = {
-  clangd = {}, -- c/c++
-  -- gopls = {},
-  pylsp = {
-    pylsp = {
-      -- Run
-      -- :PylspInstall pylsp-mypy python-lsp-ruff python-lsp-black
-      -- to use the following
-      plugins = {
-        black = {
-          enabled = true,
-          line_length = 120,
-        },
-        pylsp_mypy = {
-          enabled = true,
-          live_mode = false,
-          dmypy = true,
-          strict = true,
-          report_progress = true,
-          -- overrides = {
-          --     "--check-untyped-defs",
-          --     "--warn-unused-ignores",
-          --     "--warn-return-any",
-          --     "--warn-unreachable",
-          --     "--strict-equality",
-          --     "--extra-checks",
-          --     "--show-error-context",
-          --     "--pretty",
-          --     true,
-          -- },
-        },
-        ruff = {
-          enabled = true,
-          lineLength = 120,
-          extendSelect = { "I" },
-          -- format = nil,
-        },
-        jedi_completion = {
-          enabled = true, -- true,
-          fuzzy = true,   -- true,
-        },
-        -- jedi_definition = {
-        --   enabled = false,
-        -- },
-        -- jedi_hover = {
-        --   enabled = false,
-        -- },
-        -- jedi_references = {
-        --   enabled = false,
-        -- },
-        -- jedi_signature_help = {
-        --   enabled = false,
-        -- },
-        -- jedi_symbols = {
-        --   enabled = false,
-        -- },
-        rope_autoimport = {
-          enabled = false, -- setting this to true messes with code completion
-        },
-        rope_completion = {
-          enabled = false,
-        },
-        flake8 = {
-          enabled = false,
-          maxLineLength = 120,
-        },
-        mccabe = {
-          enabled = false,
-        },
-        pycodestyle = {
-          enabled = false,
-        },
-        pyflakes = {
-          enabled = false,
-        },
-        pylint = {
-          enabled = false,
-        },
-        autopep8 = {
-          enabled = false,
-        },
-        yapf = {
-          enabled = false,
-        },
-      }
-    }
-  }, -- python
-  pyright = {
-    -- python = {
-    --   analysis = {
-    --     typeCheckingMode = 'strict',
-    --   }
-    -- } -- use for checking code
-  },                  -- python
-  rust_analyzer = {}, -- rust
-  texlab = {},        -- latex
-  -- tsserver = {},
-  bashls = {},        -- bash
-  yamlls = {},        -- yaml
-  taplo = {},         -- toml
-  bzl = {},           -- starlark (bazel) [old setup in ftplugin]
-  lua_ls = {
-    Lua = {
-      workspace = { checkThirdParty = false },
-      telemetry = { enable = false },
-      hint = { enable = true },
-      diagnostics = {
-        unusedLocalExclude = { "_*" },
-      },
-    },
-  }, -- lua
+  lua_ls = true,
+  pylsp = true,         -- python
+  pyright = true,       -- python
+  rust_analyzer = true, -- rust
+  clangd = true,        -- c/c++
+  texlab = true,        -- latex
+  bashls = true,        -- bash
+  yamlls = true,        -- yaml
+  taplo = true,         -- toml
+  -- starpls = true,       -- starlark (bazel)  -- manually install!
+  -- bzl = true,        -- starlark (bazel) [old setup in ftplugin]
+  -- gopls = true,
+  -- tsserver = true,
 }
 
 return {
@@ -270,21 +173,184 @@ return {
       -- local pylsp_capabilities = vim.lsp.protocol.make_client_capabilities()
       -- pylsp_capabilities.textDocument.hover.dynamicRegistration = false
 
+      local lspconfig = require('lspconfig')
 
-      mason_lspconfig.setup_handlers {
-        function(server_name)
-          require('lspconfig')[server_name].setup {
-            capabilities = capabilities,
-            inlay_hint = { enabled = true },
-            on_attach = server_name ~= 'pyright' and on_attach or pyright_attach,
-            settings = servers[server_name],
-            filetypes = (servers[server_name] or {}).filetypes,
-            root_dir = (server_name == 'pylsp' or server_name == 'pyright') and function(fname)
-              return util.find_git_ancestor(fname)
-            end or nil,
+      lspconfig.lua_ls.setup({
+        capabilities = capabilities,
+        inlay_hint = { enabled = false },
+        on_attach = pyright_attach,
+        settings = {
+          Lua = {
+            workspace = { checkThirdParty = false },
+            telemetry = { enable = false },
+            hint = { enable = true },
+            diagnostics = {
+              unusedLocalExclude = { "_*" },
+            },
           }
-        end,
-      }
+        },
+      })
+
+      lspconfig.pylsp.setup({
+        capabilities = capabilities,
+        inlay_hint = { enabled = true },
+        on_attach = on_attach,
+        settings = {
+          pylsp = {
+            -- Run
+            -- :PylspInstall pylsp-mypy python-lsp-ruff python-lsp-black
+            -- to use the following
+            plugins = {
+              black = {
+                enabled = true,
+                line_length = 120,
+              },
+              pylsp_mypy = {
+                enabled = true,
+                live_mode = false,
+                dmypy = true,
+                strict = true,
+                report_progress = true,
+                -- overrides = {
+                --     "--check-untyped-defs",
+                --     "--warn-unused-ignores",
+                --     "--warn-return-any",
+                --     "--warn-unreachable",
+                --     "--strict-equality",
+                --     "--extra-checks",
+                --     "--show-error-context",
+                --     "--pretty",
+                --     true,
+                -- },
+              },
+              ruff = {
+                enabled = true,
+                lineLength = 120,
+                extendSelect = { "I" },
+                -- format = nil,
+              },
+              jedi_completion = {
+                enabled = true, -- true,
+                fuzzy = true,   -- true,
+              },
+              -- jedi_definition = {
+              --   enabled = false,
+              -- },
+              -- jedi_hover = {
+              --   enabled = false,
+              -- },
+              -- jedi_references = {
+              --   enabled = false,
+              -- },
+              -- jedi_signature_help = {
+              --   enabled = false,
+              -- },
+              -- jedi_symbols = {
+              --   enabled = false,
+              -- },
+              rope_autoimport = {
+                enabled = false, -- setting this to true messes with code completion
+              },
+              rope_completion = {
+                enabled = false,
+              },
+              flake8 = {
+                enabled = false,
+                maxLineLength = 120,
+              },
+              mccabe = {
+                enabled = false,
+              },
+              pycodestyle = {
+                enabled = false,
+              },
+              pyflakes = {
+                enabled = false,
+              },
+              pylint = {
+                enabled = false,
+              },
+              autopep8 = {
+                enabled = false,
+              },
+              yapf = {
+                enabled = false,
+              },
+            }
+          }
+        },
+      })
+
+      lspconfig.pyright.setup({
+        capabilities = capabilities,
+        inlay_hint = { enabled = false },
+        on_attach = pyright_attach,
+        -- settings = {
+        --   python = {
+        --     analysis = {
+        --       typeCheckingMode = 'strict',
+        --     }
+        --   }
+        -- },
+      })
+
+      lspconfig.rust_analyzer.setup({
+        capabilities = capabilities,
+        inlay_hint = { enabled = true },
+        on_attach = on_attach,
+      })
+
+      lspconfig.clangd.setup({
+        capabilities = capabilities,
+        inlay_hint = { enabled = true },
+        on_attach = on_attach,
+      })
+
+      lspconfig.texlab.setup({
+        capabilities = capabilities,
+        inlay_hint = { enabled = true },
+        on_attach = on_attach,
+      })
+
+      lspconfig.bashls.setup({
+        capabilities = capabilities,
+        inlay_hint = { enabled = true },
+        on_attach = on_attach,
+      })
+
+      lspconfig.yamlls.setup({
+        capabilities = capabilities,
+        inlay_hint = { enabled = true },
+        on_attach = on_attach,
+      })
+
+      lspconfig.taplo.setup({
+        capabilities = capabilities,
+        inlay_hint = { enabled = true },
+        on_attach = on_attach,
+      })
+
+      lspconfig.starpls.setup({
+        capabilities = capabilities,
+        inlay_hint = { enabled = true },
+        on_attach = on_attach,
+      })
+
+
+      -- mason_lspconfig.setup_handlers {
+      --   function(server_name)
+      --     require('lspconfig')[server_name].setup {
+      --       capabilities = capabilities,
+      --       inlay_hint = { enabled = true },
+      --       on_attach = server_name ~= 'pyright' and on_attach or pyright_attach,
+      --       settings = servers[server_name],
+      --       filetypes = (servers[server_name] or {}).filetypes,
+      --       root_dir = (server_name == 'pylsp' or server_name == 'pyright') and function(fname)
+      --         return util.find_git_ancestor(fname)
+      --       end or nil,
+      --     }
+      --   end,
+      -- }
     end
   },
 
