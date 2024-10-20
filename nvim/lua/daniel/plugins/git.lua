@@ -12,9 +12,9 @@ return {
         changedelete = { text = '~' },
       },
       on_attach = function(bufnr)
-        vim.keymap.set('n', '<leader>gp', require('gitsigns').prev_hunk,
+        vim.keymap.set('n', '<leader>gsp', require('gitsigns').prev_hunk,
           { buffer = bufnr, desc = '[G]o to [P]revious Hunk' })
-        vim.keymap.set('n', '<leader>gn', require('gitsigns').next_hunk,
+        vim.keymap.set('n', '<leader>gsn', require('gitsigns').next_hunk,
           { buffer = bufnr, desc = '[G]o to [N]ext Hunk' })
         vim.keymap.set('n', '<leader>gP', require('gitsigns').preview_hunk,
           { buffer = bufnr, desc = '[P]review [H]unk' })
@@ -100,13 +100,13 @@ return {
       vim.keymap.set('n', '<leader>gC0', '<Cmd>GitConflictChooseNone<CR>', {
         desc = '[G]it [C]onflict Choose None',
       })
-      vim.keymap.set('n', '<leader>gCn', '<Cmd>GitConflictNextConflict<CR>', {
+      vim.keymap.set('n', '<leader>gn', '<Cmd>GitConflictNextConflict<CR>', {
         desc = '[G]it [C]onflict [N]ext',
       })
-      vim.keymap.set('n', '<leader>gCp', '<Cmd>GitConflictPrevConflict<CR>', {
+      vim.keymap.set('n', '<leader>gp', '<Cmd>GitConflictPrevConflict<CR>', {
         desc = '[G]it [C]onflict [P]rev',
       })
-      vim.keymap.set('n', '<leader>gCq', '<Cmd>GitConflictListQf<CR>', {
+      vim.keymap.set('n', '<leader>gq', '<Cmd>GitConflictListQf<CR>', {
         desc = '[G]it [C]onflict [Q]uickfix List',
       })
 

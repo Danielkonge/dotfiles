@@ -21,6 +21,8 @@ mason
 lazy
 .zcompdump
 .zcompdump*
+.zsh_history
+.zsh_sessions
 
 .aux
 .dvi

@@ -58,6 +58,9 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
+# always prefer brew bin
+export -U PATH="/opt/homebrew/bin:$PATH"
+
 eval "$(starship init zsh)"
 
 

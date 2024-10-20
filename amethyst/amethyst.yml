@@ -19,7 +19,7 @@ layouts:
   # - 4column-left
   # - 4column-right
   - column
-  # - row
+  - row
   - floating
   # - widescreen-tall
   # - widescreen-tall-right
@@ -209,10 +209,15 @@ select-tall-layout:
   mod: mod1
   key: t
 
-# Select wide layout
-select-wide-layout:
-  mod: mod1
-  key: w
+# Select wide layout (doesn't work)
+# select-wide-layout:
+#   mod: mod1
+#   key: w
+
+# Select wide layout (doesn't work)
+# select-row-layout:
+#   mod: mod1
+#   key: r
 
 # Select fullscreen layout
 select-fullscreen-layout:

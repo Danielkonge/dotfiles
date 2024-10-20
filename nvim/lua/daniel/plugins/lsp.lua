@@ -120,7 +120,7 @@ return {
       'williamboman/mason-lspconfig.nvim',
 
       -- Useful functionality
-      'hrsh7th/cmp-nvim-lsp',
+      -- 'hrsh7th/cmp-nvim-lsp',
       'nvim-telescope/telescope.nvim',
 
       -- Useful status updates for LSP
@@ -176,7 +176,7 @@ return {
 
       -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
       local capabilities = vim.lsp.protocol.make_client_capabilities()
-      capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+      -- capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
       -- Ensure the servers above are installed
       local mason_lspconfig = require 'mason-lspconfig'
@@ -296,6 +296,7 @@ return {
       })
 
       lspconfig.ruff.setup({
+        -- capabilities = capabilities,
         on_attach = ruff_attach,
         -- init_options = {
         --   settings = {
@@ -303,6 +304,11 @@ return {
         --   }
         -- },
       })
+
+      -- lspconfig.basedpyright.setup({
+      --   capabilities = capabilities,
+      --   on_attach = on_attach,
+      -- })
 
       lspconfig.pyright.setup({
         capabilities = capabilities,
@@ -317,10 +323,48 @@ return {
         -- },
       })
 
+      -- lspconfig.basedpyright.setup({
+      --   capabilities = capabilities,
+      --   inlay_hint = { enabled = true },
+      --   on_attach = on_attach,
+      -- })
+
+      local cwd = vim.fn.getcwd()
+      local kosmos = '/Users/daniel/work/kosmos'
+      local is_in_kosmos = string.sub(cwd, 1, #kosmos) == kosmos
+
       lspconfig.rust_analyzer.setup({
         capabilities = capabilities,
         inlay_hint = { enabled = true },
         on_attach = on_attach,
+        settings = is_in_kosmos and {
+          ['rust-analyzer'] = {
+            cargo = {
+              buildScripts = {
+                overrideCommand = {
+                  'bazel',
+                  'run',
+                  '//:gen_rust_project',
+                  '--config=rust_analyzer',
+                  '//zircon/...',
+                }
+              },
+            },
+            check = {
+              overrideCommand = {
+                'bazel',
+                'build',
+                '--config=rust_analyzer',
+                '//zircon/...',
+              }
+            },
+            -- server = {
+            --   extraEnv = {
+            --     RUSTUP_TOOLCHAIN = "nightly",
+            --   }
+            -- }
+          }
+        } or nil
       })
 
       lspconfig.clangd.setup({

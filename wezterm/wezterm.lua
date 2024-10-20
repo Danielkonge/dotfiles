@@ -41,10 +41,6 @@ wezterm.on('toggle-bg', toggles.on_toggle_bg)
 
 wezterm.on('toggle-ligature', toggles.on_toggle_ligature)
 
-local user_vars = require('user_vars')
-
-wezterm.on('user-var-changed', user_vars.on_user_var_change)
-
 require('workspaces').apply_to_config(config)
 
 require('key-bindings').apply_to_config(config)

@@ -44,7 +44,7 @@ function gui.apply_to_config(config)
     config.macos_window_background_blur = 10
 
     -- background of special text (e.g. which-key in nvim)
-    config.text_background_opacity = 0.3
+    config.text_background_opacity = 0.6
 
     -- config.window_padding = {
     --     left = 0,

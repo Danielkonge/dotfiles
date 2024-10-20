@@ -23,7 +23,7 @@ return {
       query = {
         [''] = 'rainbow-delimiters',
         lua = 'rainbow-blocks',
-        python = 'rainbow-blocks',
+        -- python = 'rainbow-blocks',
         query = function(bufnr)
           -- Use blocks for `:InspectTree`
           local is_inspecttree = vim.b[bufnr].dev_base ~= nil
@@ -34,7 +34,7 @@ return {
       priority = {
         [''] = 110,
         lua = 210,
-        python = 210,
+        -- python = 210,
       },
       highlight = {
         'RainbowDelimiterRed',
