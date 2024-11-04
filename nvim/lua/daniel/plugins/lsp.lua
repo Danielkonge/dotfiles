@@ -104,7 +104,7 @@ local servers = {
   bashls = true,        -- bash
   yamlls = true,        -- yaml
   taplo = true,         -- toml
-  -- starpls = true,       -- starlark (bazel)  -- manually install!
+  starpls = true,       -- starlark (bazel)  -- manually install!
   -- bzl = true,        -- starlark (bazel) [old setup in ftplugin]
   -- gopls = true,
   -- tsserver = true,
@@ -121,6 +121,7 @@ return {
 
       -- Useful functionality
       -- 'hrsh7th/cmp-nvim-lsp',
+      'saghen/blink.cmp',
       'nvim-telescope/telescope.nvim',
 
       -- Useful status updates for LSP
@@ -175,8 +176,9 @@ return {
       vim.keymap.set("n", "<leader>a", "<cmd>AerialToggle!<CR>")
 
       -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
-      local capabilities = vim.lsp.protocol.make_client_capabilities()
+      -- local capabilities = vim.lsp.protocol.make_client_capabilities()
       -- capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+      -- capabilities = require('blink.cmp').get_lsp_capabilities(capabilities)
 
       -- Ensure the servers above are installed
       local mason_lspconfig = require 'mason-lspconfig'
@@ -190,7 +192,7 @@ return {
       local lspconfig = require('lspconfig')
 
       lspconfig.lua_ls.setup({
-        capabilities = capabilities,
+        capabilities = require('blink.cmp').get_lsp_capabilities(lspconfig.lua_ls.capabilities),
         inlay_hint = { enabled = true },
         on_attach = on_attach,
         settings = {
@@ -206,7 +208,7 @@ return {
       })
 
       lspconfig.pylsp.setup({
-        capabilities = capabilities,
+        capabilities = require('blink.cmp').get_lsp_capabilities(lspconfig.pylsp.capabilities),
         inlay_hint = { enabled = true },
         on_attach = on_attach,
         settings = {
@@ -311,7 +313,7 @@ return {
       -- })
 
       lspconfig.pyright.setup({
-        capabilities = capabilities,
+        capabilities = require('blink.cmp').get_lsp_capabilities(lspconfig.pyright.capabilities),
         inlay_hint = { enabled = false },
         on_attach = pyright_attach,
         -- settings = {
@@ -334,7 +336,7 @@ return {
       local is_in_kosmos = string.sub(cwd, 1, #kosmos) == kosmos
 
       lspconfig.rust_analyzer.setup({
-        capabilities = capabilities,
+        capabilities = require('blink.cmp').get_lsp_capabilities(lspconfig.rust_analyzer.capabilities),
         inlay_hint = { enabled = true },
         on_attach = on_attach,
         settings = is_in_kosmos and {
@@ -368,37 +370,37 @@ return {
       })
 
       lspconfig.clangd.setup({
-        capabilities = capabilities,
+        capabilities = require('blink.cmp').get_lsp_capabilities(lspconfig.clangd.capabilities),
         inlay_hint = { enabled = true },
         on_attach = on_attach,
       })
 
       lspconfig.texlab.setup({
-        capabilities = capabilities,
+        capabilities = require('blink.cmp').get_lsp_capabilities(lspconfig.texlab.capabilities),
         inlay_hint = { enabled = true },
         on_attach = on_attach,
       })
 
       lspconfig.bashls.setup({
-        capabilities = capabilities,
+        capabilities = require('blink.cmp').get_lsp_capabilities(lspconfig.bashls.capabilities),
         inlay_hint = { enabled = true },
         on_attach = on_attach,
       })
 
       lspconfig.yamlls.setup({
-        capabilities = capabilities,
+        capabilities = require('blink.cmp').get_lsp_capabilities(lspconfig.yamlls.capabilities),
         inlay_hint = { enabled = true },
         on_attach = on_attach,
       })
 
       lspconfig.taplo.setup({
-        capabilities = capabilities,
+        capabilities = require('blink.cmp').get_lsp_capabilities(lspconfig.taplo.capabilities),
         inlay_hint = { enabled = true },
         on_attach = on_attach,
       })
 
       lspconfig.starpls.setup({
-        capabilities = capabilities,
+        capabilities = require('blink.cmp').get_lsp_capabilities(lspconfig.starpls.capabilities),
         inlay_hint = { enabled = true },
         on_attach = on_attach,
       })

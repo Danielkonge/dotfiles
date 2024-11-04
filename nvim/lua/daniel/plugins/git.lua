@@ -85,7 +85,16 @@ return {
     version = "*",
     config = function()
       require('git-conflict').setup({
-        default_mappings = false,
+        debug = false,
+        default_mappings = false,    -- disable buffer local mapping created by this plugin
+        default_commands = true,     -- disable commands created by this plugin
+        disable_diagnostics = false, -- This will disable the diagnostics in a buffer whilst it is conflicted
+        list_opener = 'copen',       -- command or function to open the conflicts list
+        highlights = {               -- They must have background color, otherwise the default color will be used
+          incoming = 'DiffAdd',
+          current = 'DiffText',
+          ancestor = nil,
+        },
       })
 
       vim.keymap.set('n', '<leader>gCo', '<Cmd>GitConflictChooseOurs<CR>', {
@@ -119,23 +128,21 @@ return {
     end,
   },
 
-  -- This is interesting but not yet useful
-  -- note: to use it, first brew install gh
-  -- {
-  --   'pwntester/octo.nvim',
-  --   dependencies = {
-  --     'nvim-lua/plenary.nvim',
-  --     'nvim-telescope/telescope.nvim',
-  --     'nvim-tree/nvim-web-devicons',
-  --   },
-  --   config = function()
-  --     require('octo').setup({
-  --       suppress_missing_scope = {
-  --         project_v2 = true,
-  --       },
-  --     })
-  --
-  --     -- vim.treesitter.language.register('markdown', 'octo')
-  --   end,
-  -- },
+  {
+    'pwntester/octo.nvim',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      'nvim-telescope/telescope.nvim',
+      'nvim-tree/nvim-web-devicons',
+    },
+    config = function()
+      require('octo').setup({
+        use_local_fs = true,
+        default_to_projects_v2 = true,
+        default_merge_method = "squash",
+      })
+
+      vim.treesitter.language.register('markdown', 'octo')
+    end,
+  },
 }

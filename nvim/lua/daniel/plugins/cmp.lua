@@ -7,7 +7,7 @@ return {
 
   -- use a release tag to download pre-built binaries
   -- version = 'v0.*',
-  commit = 'db635f2',
+  commit = '77f037c',
   build = 'cargo build --release',
   -- OR build from source, requires nightly:
   -- https://rust-lang.github.io/rustup/concepts/channels.html#working-with-nightly-rust
@@ -18,45 +18,48 @@ return {
   ---@module 'blink.cmp'
   ---@type blink.cmp.Config
   opts = {
-    highlight = {
-      -- sets the fallback highlight groups to nvim-cmp's highlight groups
-      -- useful for when your theme doesn't support blink.cmp
-      -- will be removed in a future release, assuming themes add support
-      use_nvim_cmp_as_default = true,
-    },
     -- set to 'mono' for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
     -- adjusts spacing to ensure icons are aligned
     nerd_font_variant = 'mono',
     keymap = {
-      show = '<C-x>',
-      hide = '<C-c>',
-      accept = '<CR>',
-      select_prev = { '<Up>', '<C-p>', '<S-Tab>' },
-      select_next = { '<Down>', '<C-n>', '<Tab>' },
+      ['<C-x>'] = { 'show', 'hide' },
+      ['<C-m>'] = { 'show_documentation', 'hide_documentation' },
+      ['<CR>'] = { 'select_and_accept', 'fallback' }, -- maybe select instead?
 
-      show_documentation = '<C-m>',
-      hide_documentation = '<C-m>',
-      scroll_documentation_up = '<C-,>',
-      scroll_documentation_down = '<C-.>',
+      ['<Tab>'] = { 'select_next', 'snippet_forward', 'fallback' },
+      ['<S-Tab>'] = { 'select_prev', 'snippet_backward', 'fallback' },
+      ['<Up>'] = { 'select_prev', 'fallback' },
+      ['<C-p>'] = { 'select_prev', 'fallback' },
+      ['<Down>'] = { 'select_next', 'fallback' },
+      ['<C-n>'] = { 'select_next', 'fallback' },
 
-      snippet_forward = '<Tab>',
-      snippet_backward = '<S-Tab>',
+      ['<C-,>'] = { 'scroll_documentation_up', 'fallback' },
+      ['<C-.>'] = { 'scroll_documentation_down', 'fallback' },
     },
     documentation = {
       auto_show = true,
     },
-
     -- experimental auto-brackets support
     accept = { auto_brackets = { enabled = true } },
 
     -- experimental signature help support
-    trigger = { signature_help = { enabled = true } },
+    trigger = {
+      completion = {
+        keyword_range = 'full',
+        blocked_trigger_characters = { ' ', '\n', '\t', ',' },
+      },
+      signature_help = { enabled = true },
+    },
     fuzzy = {
-      keyword_range = 'full',
       prebuiltBinaries = {
         download = false,
       }
-    }
+    },
+    windows = {
+      documentation = { auto_show = true },
+      signature_help = { auto_show = true },
+      ghost_text = { enabled = true },
+    },
   }
 }
 --   {

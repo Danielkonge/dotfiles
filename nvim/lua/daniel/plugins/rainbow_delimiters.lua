@@ -4,8 +4,8 @@ vim.keymap.set('n', '<leader>e', function()
 end, { desc = 'Reload file' })
 
 return {
-  -- "HiPhish/rainbow-delimiters.nvim",
-  dir = "~/personal/nvim-plugins/rainbow-delimiters.nvim",
+  "HiPhish/rainbow-delimiters.nvim",
+  -- dir = "~/personal/nvim-plugins/rainbow-delimiters.nvim",
   config = function()
     -- This module contains a number of default definitions
     local rainbow_delimiters = require 'rainbow-delimiters'
