@@ -7,9 +7,10 @@ if wezterm.config_builder then
     config = wezterm.config_builder()
 end
 
-config.front_end = "WebGpu"
-config.term = "wezterm"
+config.front_end = 'WebGpu'
+config.term = 'wezterm'
 config.freetype_load_flags = 'NO_HINTING'
+config.default_prog = { '/opt/homebrew/bin/fish', '-l' }
 
 config.enable_kitty_keyboard = true
 config.use_dead_keys = false

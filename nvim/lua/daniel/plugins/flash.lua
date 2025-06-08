@@ -11,7 +11,7 @@ return {
     keys = {
       {
         "s",
-        mode = { "n", "x", "o" },
+        mode = { "n", "x" },
         function()
           require("flash").jump()
         end,
@@ -19,7 +19,7 @@ return {
       },
       {
         "<C-s>",
-        mode = { "n", "o", "x" },
+        mode = { "n", "x" },
         function()
           require("flash").treesitter()
         end,
@@ -33,14 +33,14 @@ return {
       --   end,
       --   desc = "Remote Flash",
       -- },
-      {
-        "r",
-        mode = { "o", "x" },
-        function()
-          require("flash").treesitter_search()
-        end,
-        desc = "Flash Treesitter Search",
-      },
+      -- {
+      --   "r",
+      --   mode = { "o", "x" },
+      --   function()
+      --     require("flash").treesitter_search()
+      --   end,
+      --   desc = "Flash Treesitter Search",
+      -- },
       -- {
       --   "<c-s>",
       --   mode = { "c" }, -- command mode (used when searching with "/")

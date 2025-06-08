@@ -12,10 +12,6 @@ return {
         changedelete = { text = '~' },
       },
       on_attach = function(bufnr)
-        vim.keymap.set('n', '<leader>gsp', require('gitsigns').prev_hunk,
-          { buffer = bufnr, desc = '[G]o to [P]revious Hunk' })
-        vim.keymap.set('n', '<leader>gsn', require('gitsigns').next_hunk,
-          { buffer = bufnr, desc = '[G]o to [N]ext Hunk' })
         vim.keymap.set('n', '<leader>gP', require('gitsigns').preview_hunk,
           { buffer = bufnr, desc = '[P]review [H]unk' })
       end,
@@ -27,8 +23,7 @@ return {
     dependencies = {
       "nvim-lua/plenary.nvim",
       "sindrets/diffview.nvim",
-      "nvim-telescope/telescope.nvim",
-      "nvim-telescope/telescope-fzf-native.nvim",
+      "ibhagwan/fzf-lua",
     },
     branch = 'master',
     config = function()
@@ -37,17 +32,14 @@ return {
       neogit.setup({
         disable_insert_on_commit = "auto",
         graph_style = "unicode",
-        telescope_sorter = function()
-          return require("telescope").extensions.fzf.native_fzf_sorter()
-        end,
         integrations = {
-          telescope = true,
-          diffview = true
+          diffview = true,
+          fzf_lua = true,
         }
       })
 
       vim.keymap.set('n', '<leader>gg', neogit.open, { desc = 'Open Neo[G]it' })
-      vim.keymap.set('n', '<leader>gc', neogit.close, { desc = '[C]lose Neo[G]it' })
+      vim.keymap.set('n', '<leader>gC', neogit.close, { desc = '[C]lose Neo[G]it' })
       vim.keymap.set('n', '<leader>gr', neogit.refresh, { desc = 'Neo[G]it [R]efresh' })
 
       vim.keymap.set('n', '<leader>gdo', require("diffview").open, { desc = '[O]pen Diffview' })
@@ -97,16 +89,16 @@ return {
         },
       })
 
-      vim.keymap.set('n', '<leader>gCo', '<Cmd>GitConflictChooseOurs<CR>', {
+      vim.keymap.set('n', '<leader>gco', '<Cmd>GitConflictChooseOurs<CR>', {
         desc = '[G]it [C]onflict Choose [O]urs',
       })
-      vim.keymap.set('n', '<leader>gCt', '<Cmd>GitConflictChooseTheirs<CR>', {
+      vim.keymap.set('n', '<leader>gct', '<Cmd>GitConflictChooseTheirs<CR>', {
         desc = '[G]it [C]onflict Choose [T]heirs',
       })
-      vim.keymap.set('n', '<leader>gCb', '<Cmd>GitConflictChooseBoth<CR>', {
+      vim.keymap.set('n', '<leader>gcb', '<Cmd>GitConflictChooseBoth<CR>', {
         desc = '[G]it [C]onflict Choose [B]oth',
       })
-      vim.keymap.set('n', '<leader>gC0', '<Cmd>GitConflictChooseNone<CR>', {
+      vim.keymap.set('n', '<leader>gc0', '<Cmd>GitConflictChooseNone<CR>', {
         desc = '[G]it [C]onflict Choose None',
       })
       vim.keymap.set('n', '<leader>gn', '<Cmd>GitConflictNextConflict<CR>', {
@@ -125,24 +117,6 @@ return {
           vim.notify('Conflict detected in ' .. vim.fn.expand('<afile>'))
         end
       })
-    end,
-  },
-
-  {
-    'pwntester/octo.nvim',
-    dependencies = {
-      'nvim-lua/plenary.nvim',
-      'nvim-telescope/telescope.nvim',
-      'nvim-tree/nvim-web-devicons',
-    },
-    config = function()
-      require('octo').setup({
-        use_local_fs = true,
-        default_to_projects_v2 = true,
-        default_merge_method = "squash",
-      })
-
-      vim.treesitter.language.register('markdown', 'octo')
     end,
   },
 }

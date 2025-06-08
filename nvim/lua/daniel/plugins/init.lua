@@ -13,10 +13,10 @@ return {
       which_key.setup({})
       which_key.add({
         { "<leader>g", group = "git" },
-        { "<leader>gC", group = "git-conflict" },
-        { "<leader>gs", group = "git-signs" },
+        { "<leader>gc", group = "git-conflict" },
         { "<leader>gd", group = "diffview" },
         { "<leader>d", group = "diagnostics" },
+        { "<leader>l", group = "lsp" },
         { "<leader>t", group = "toggle" },
         { "<leader>w", group = "workspace" },
         { "<leader>G", group = "generate" },

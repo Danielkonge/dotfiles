@@ -6,8 +6,8 @@ return {
   dependencies = 'rafamadriz/friendly-snippets',
 
   -- use a release tag to download pre-built binaries
-  -- version = 'v0.*',
-  commit = '77f037c',
+  version = '*',
+  -- commit = '9854978',
   build = 'cargo build --release',
   -- OR build from source, requires nightly:
   -- https://rust-lang.github.io/rustup/concepts/channels.html#working-with-nightly-rust
@@ -18,49 +18,123 @@ return {
   ---@module 'blink.cmp'
   ---@type blink.cmp.Config
   opts = {
-    -- set to 'mono' for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
-    -- adjusts spacing to ensure icons are aligned
-    nerd_font_variant = 'mono',
+    appearance = {
+      -- set to 'mono' for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
+      -- adjusts spacing to ensure icons are aligned
+      nerd_font_variant = 'mono',
+    },
+
+    cmdline = {
+      completion = {
+        ghost_text = {
+          enabled = true, -- not working for now
+        },
+        menu = {
+          auto_show = true,
+        },
+      },
+      enabled = true,
+      keymap = {
+        preset = 'none',
+        ['<CR>'] = { 'select_and_accept', 'fallback' }, -- maybe select instead?
+
+        ['<Tab>'] = { 'select_next', 'snippet_forward', 'fallback' },
+        ['<S-Tab>'] = { 'select_prev', 'snippet_backward', 'fallback' },
+        ['<Up>'] = { 'select_prev', 'fallback' },
+        -- ['<C-p>'] = { 'select_prev', 'fallback' },
+        ['<Down>'] = { 'select_next', 'fallback' },
+        -- ['<C-n>'] = { 'select_next', 'fallback' },
+      }
+    },
+
+    completion = {
+      keyword = { range = 'full' },
+      accept = {
+        auto_brackets = {
+          enabled = true,
+          semantic_token_resolution = {
+            timeout_ms = 200,
+          },
+        },
+      },
+      list = {
+        -- max_items = 200,
+        selection = {
+          preselect = true,
+          auto_insert = true,
+        },
+
+      },
+      menu = {
+        auto_show = true,
+        -- nvim-cmp style menu
+        draw = {
+          columns = {
+            { "label",     "label_description", gap = 1 },
+            { "kind_icon", "kind",              gap = 1 },
+            -- { "source_name" },
+          },
+          treesitter = { 'lsp' },
+        },
+      },
+      documentation = { auto_show = true, auto_show_delay_ms = 300 },
+      trigger = {
+        show_on_keyword = true,
+        show_on_trigger_character = true,
+        show_on_insert_on_trigger_character = true,
+        show_on_accept_on_trigger_character = true,
+        -- show_on_blocked_trigger_characters = { ' ', '\n', '\t', ',' },
+      },
+      ghost_text = { enabled = true },
+    },
+
+    signature = {
+      enabled = true,
+      trigger = {
+        enabled = true,
+        show_on_trigger_character = true,
+        show_on_insert = true,
+      },
+    },
+
+    sources = {
+      default = { 'lsp', 'path', 'snippets', 'buffer' },
+      providers = {
+        cmdline = {
+          min_keyword_length = function(ctx)
+            -- when typing a command, only show when the keyword is 3 characters or longer
+            if ctx.mode == 'cmdline' and string.find(ctx.line, ' ') == nil then return 3 end
+            return 0
+          end
+        }
+      }
+    },
+
+    fuzzy = {
+      implementation = "rust",
+      prebuilt_binaries = {
+        download = false,
+      },
+    },
+
     keymap = {
+      preset = 'none',
       ['<C-x>'] = { 'show', 'hide' },
       ['<C-m>'] = { 'show_documentation', 'hide_documentation' },
+      ['<C-n>'] = { 'show_signature', 'hide_signature' },
       ['<CR>'] = { 'select_and_accept', 'fallback' }, -- maybe select instead?
 
       ['<Tab>'] = { 'select_next', 'snippet_forward', 'fallback' },
       ['<S-Tab>'] = { 'select_prev', 'snippet_backward', 'fallback' },
       ['<Up>'] = { 'select_prev', 'fallback' },
-      ['<C-p>'] = { 'select_prev', 'fallback' },
+      -- ['<C-p>'] = { 'select_prev', 'fallback' },
       ['<Down>'] = { 'select_next', 'fallback' },
-      ['<C-n>'] = { 'select_next', 'fallback' },
+      -- ['<C-n>'] = { 'select_next', 'fallback' },
 
-      ['<C-,>'] = { 'scroll_documentation_up', 'fallback' },
-      ['<C-.>'] = { 'scroll_documentation_down', 'fallback' },
+      ['<C-,>'] = { 'scroll_documentation_up' },
+      ['<C-.>'] = { 'scroll_documentation_down' },
     },
-    documentation = {
-      auto_show = true,
-    },
-    -- experimental auto-brackets support
-    accept = { auto_brackets = { enabled = true } },
-
-    -- experimental signature help support
-    trigger = {
-      completion = {
-        keyword_range = 'full',
-        blocked_trigger_characters = { ' ', '\n', '\t', ',' },
-      },
-      signature_help = { enabled = true },
-    },
-    fuzzy = {
-      prebuiltBinaries = {
-        download = false,
-      }
-    },
-    windows = {
-      documentation = { auto_show = true },
-      signature_help = { auto_show = true },
-      ghost_text = { enabled = true },
-    },
-  }
+  },
 }
 --   {
 --   -- Autocompletion
