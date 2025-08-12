@@ -29,7 +29,7 @@ require('lazy').setup('daniel.plugins',
     performance = {
       rtp = {
         disabled_plugins = {
-          'netrwPlugin',
+          -- 'netrwPlugin',
           'tutor',
         }
       }

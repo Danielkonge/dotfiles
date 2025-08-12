@@ -21,7 +21,9 @@ return {
         ["<C-e>"] = "preview-up",
         ["<C-y>"] = "preview-down",
       },
-      fzf = {},
+      fzf = {
+        ["ctrl-q"] = "select-all+accept",
+      },
     }
 
     local files = {
@@ -46,7 +48,7 @@ return {
       fzf.files({
         cwd = '~',
         cmd = [[fd --color=never --hidden --type d --type l --follow --exclude .git]],
-        previewer = false,
+        previewer = nil,
         preview = {
           type = 'cmd',
           fn = function(selected)
@@ -79,7 +81,7 @@ return {
       fzf.files({
         cwd = '~',
         cmd = [[fd --color=never --hidden --type d --type l --follow --exclude .git]],
-        previewer = false,
+        previewer = nil,
         preview = {
           type = 'cmd',
           fn = function(selected)
@@ -106,12 +108,13 @@ return {
     vim.keymap.set('n', '<leader>gs', fzf.git_status, { desc = '[S]earch [G]it status' })
 
 
-    -- LSP / Diagnostics
+    -- Diagnostics
     vim.keymap.set('n', '<leader>sd', fzf.diagnostics_document, { desc = '[S]earch document [D]iagnostics' })
     vim.keymap.set('n', '<leader>sD', fzf.diagnostics_workspace, { desc = '[S]earch workspace [D]iagnostics' })
     vim.keymap.set('n', '<leader>ds', fzf.diagnostics_document, { desc = '[S]earch document [D]iagnostics' })
     vim.keymap.set('n', '<leader>dS', fzf.diagnostics_workspace, { desc = '[S]earch workspace [D]iagnostics' })
 
+    -- LSP
     vim.keymap.set('n', 'gr', fzf.lsp_references, { desc = 'LSP: [G]oto [R]eferences' })
     vim.keymap.set('n', 'gd', fzf.lsp_definitions, { desc = 'LSP: [G]oto [D]efinitions' })
     vim.keymap.set('n', 'gD', fzf.lsp_declarations, { desc = 'LSP: [G]oto [D]eclarations' })
@@ -135,7 +138,7 @@ return {
     vim.keymap.set('n', '<leader>sp', function()
       fzf.complete_path({
         cmd = [[fd --color=never --hidden --type d --type f --type l --follow]],
-        previewer = false,
+        previewer = nil,
         fzf_opts = {
           ["--preview"] = 'bat --color=always --style=numbers,changes {} 2> /dev/null || tree -C -L 1 {}',
         },

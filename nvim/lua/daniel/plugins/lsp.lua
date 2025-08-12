@@ -14,6 +14,29 @@ local servers = {
 }
 
 
+-- local daniel_lsp = vim.api.nvim_create_augroup('DanielLsp', { clear = true })
+-- vim.api.nvim_create_autocmd("LspAttach", {
+--   group = daniel_lsp,
+--   callback = function(event)
+--     local buf = event.buf
+--     -- local client = vim.lsp.get_client_by_id(event.data.client_id)
+--     local daniel_lsp_buf = vim.api.nvim_create_augroup('DanielLsp_' .. buf, { clear = true })
+--     vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+--       group = daniel_lsp_buf,
+--       callback = function()
+--         vim.lsp.buf.document_highlight()
+--       end
+--     })
+--     vim.api.nvim_create_autocmd("CursorMoved", {
+--       group = daniel_lsp_buf,
+--       callback = function()
+--         vim.lsp.buf.clear_references()
+--       end
+--     })
+--   end
+-- })
+
+
 -- Find more lsp keymaps in fzf.lua
 vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, { desc = "LSP: [R]e[N]ame" })
 vim.keymap.set('n', '<leader>ih', function()
@@ -120,14 +143,12 @@ return {
       vim.lsp.config("ty", {
         init_options = {
           settings = {
-            experimental = {
-              completions = {
-                enable = false,
-              },
-            },
             -- logLevel = "trace",
           }
-        }
+        },
+        on_attach = function(client)
+          client.server_capabilities.semanticTokensProvider = nil
+        end,
       })
       vim.lsp.enable("ty")
     end,

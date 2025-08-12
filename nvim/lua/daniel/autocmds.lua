@@ -39,7 +39,7 @@ vim.api.nvim_create_autocmd('BufRead', {
   group = daniel_large_file_group,
   pattern = '*',
   callback = function(args)
-    if vim.api.nvim_buf_line_count(args.buf) > 10000 then
+    if vim.api.nvim_buf_line_count(args.buf) > 50000 then
       vim.cmd.syntax('off')
       -- vim.cmd('IBLDisable')
       vim.cmd('IBLDisableScope')

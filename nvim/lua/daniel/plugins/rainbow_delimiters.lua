@@ -14,7 +14,7 @@ return {
     vim.g.rainbow_delimiters = {
       strategy = {
         [''] = function(bufnr)
-          local large_file = vim.api.nvim_buf_line_count(bufnr) > 10000
+          local large_file = vim.api.nvim_buf_line_count(bufnr) > 50000
           return (not large_file) and rainbow_delimiters.strategy['global'] or nil
         end,
         -- vim = rainbow_delimiters.strategy['local'],
@@ -29,7 +29,7 @@ return {
           local is_inspecttree = vim.b[bufnr].dev_base ~= nil
           return is_inspecttree and 'rainbow-blocks' or 'rainbow-delimiters'
         end,
-        latex = 'rainbow-blocks',
+        -- latex = 'rainbow-blocks',
       },
       priority = {
         [''] = 110,

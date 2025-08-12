@@ -98,12 +98,21 @@ return {
     },
 
     sources = {
-      default = { 'lsp', 'path', 'snippets', 'buffer' },
+      default = { 'lsp', 'path', 'buffer' }, -- skip 'snippets'
       providers = {
         cmdline = {
           min_keyword_length = function(ctx)
             -- when typing a command, only show when the keyword is 3 characters or longer
-            if ctx.mode == 'cmdline' and string.find(ctx.line, ' ') == nil then return 3 end
+            if ctx.mode == 'cmdline' then
+              local special_cmds = {
+                ['e'] = true,
+                ['q'] = true,
+                ['q!'] = true,
+                ['w'] = true,
+                ['wq'] = true,
+              }
+              if special_cmds[ctx.line] then return 3 end
+            end
             return 0
           end
         }

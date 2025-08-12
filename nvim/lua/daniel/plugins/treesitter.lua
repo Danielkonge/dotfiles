@@ -4,7 +4,9 @@ return {
     'nvim-treesitter/nvim-treesitter',
     dependencies = {
       'nvim-treesitter/nvim-treesitter-textobjects',
+      "OXY2DEV/markview.nvim",  -- not actually a dependency, but this fixes install order
     },
+    lazy = false,
     build = ':TSUpdate',
     config = function()
       -- [[ Configure Treesitter ]]
