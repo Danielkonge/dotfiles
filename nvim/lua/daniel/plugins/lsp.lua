@@ -141,11 +141,17 @@ return {
       vim.lsp.enable("ruff")
 
       vim.lsp.config("ty", {
-        init_options = {
-          settings = {
-            -- logLevel = "trace",
+        settings = {
+          ty = {
+            experimental = {
+              rename = true,
+              -- autoImport = true,
+            }
           }
         },
+        -- init_options = {
+        --   logLevel = "trace",
+        -- },
         on_attach = function(client)
           client.server_capabilities.semanticTokensProvider = nil
         end,
