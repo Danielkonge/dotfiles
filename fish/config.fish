@@ -37,6 +37,8 @@ set -g fish_key_bindings fish_hybrid_key_bindings
 set -x EDITOR nvim
 set -x VISUAL nvim
 
+set -x MANPAGER 'nvim +Man!'
+
 fzf --fish | source
 
 starship init fish | source

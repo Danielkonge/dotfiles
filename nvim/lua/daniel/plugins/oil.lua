@@ -1,8 +1,11 @@
 return {
   'stevearc/oil.nvim',
+  -- dir = "~/personal/nvim-plugins/oil.nvim",
   dependencies = { "nvim-tree/nvim-web-devicons" },
   config = function()
+    local detail = false
     require("oil").setup({
+      -- extra_s3_args = { "--profile=danielkonge", "--region=eu-west-1" },
       -- Oil will take over directory buffers (e.g. `vim .` or `:e src/`)
       -- Set to false if you still want to use netrw.
       default_file_explorer = true,
@@ -13,6 +16,7 @@ return {
         -- "permissions",
         -- "size",
         -- "mtime",
+        -- "birthtime",
       },
       -- Buffer-local options to use for oil buffers
       buf_options = {
@@ -63,11 +67,22 @@ return {
         ["-"] = "actions.parent",
         ["_"] = "actions.open_cwd",
         ["<leader>oc"] = "actions.open_cwd",
-        -- ["<C-.>"] = "actions.cd",
+        ["<leader>oC"] = "actions.cd",
         -- ["<C-,>"] = "actions.tcd",
         ["<leader>os"] = "actions.change_sort",
         ["<leader>ox"] = "actions.open_external",
         ["<leader>o."] = "actions.toggle_hidden",
+        ["<leader>od"] = {
+          desc = "[O]il Toggle [D]etails",
+          callback = function()
+            detail = not detail
+            if detail then
+              require("oil").set_columns({ "icon", "permissions", "size", "birthtime" })
+            else
+              require("oil").set_columns({ "icon" })
+            end
+          end
+        },
         ["<C-s>"] = false,
         ["<C-h>"] = false,
         ["<C-t>"] = false,
