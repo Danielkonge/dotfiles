@@ -46,8 +46,8 @@ return {
         highlight = {
           enable = true,
           additional_vim_regex_highlighting = false,
-          disable = function(_lang, bufnr)
-            return vim.api.nvim_buf_line_count(bufnr) > 10000
+          disable = function(lang, bufnr)
+            return vim.api.nvim_buf_line_count(bufnr) > 10000 or lang == "csv" or lang == "tsv"
           end,
         },
         indent = { enable = true },

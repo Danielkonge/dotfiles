@@ -1,6 +1,6 @@
 local servers = {
   "lua_ls",        -- lua
-  "pylsp",         -- python
+  -- "pylsp",         -- python
   "ty",            -- python
   "ruff",          -- python
   "rust_analyzer", -- rust
@@ -77,79 +77,79 @@ return {
         ensure_installed = servers,
         automatic_enable = {
           exclude = {
-            "pylsp",
+            -- "pylsp",
             "ty",
             "ruff",
           }
         }
       })
 
-      vim.lsp.config("pylsp", {
-        settings = {
-          pylsp = {
-            plugins = {
-              jedi = {
-                environment = "~/work/kosmos/.venv/bin/python",
-              },
-              jedi_completion = {
-                fuzzy = true,
-              },
-              rope_autoimport = {
-                enabled = false,
-              },
-              rope_completion = {
-                enabled = false,
-              },
-              flake8 = {
-                enabled = false,
-              },
-              mccabe = {
-                enabled = false,
-              },
-              pycodestyle = {
-                enabled = false,
-              },
-              pyflakes = {
-                enabled = false,
-              },
-              pylint = {
-                enabled = false,
-              },
-              autopep8 = {
-                enabled = false,
-              },
-              yapf = {
-                enabled = false,
-              },
-            }
-          }
-        },
-      })
-      vim.lsp.enable("pylsp")
+      -- vim.lsp.config("pylsp", {
+      --   settings = {
+      --     pylsp = {
+      --       plugins = {
+      --         jedi = {
+      --           environment = "~/work/kosmos/.venv/bin/python",
+      --         },
+      --         jedi_completion = {
+      --           fuzzy = true,
+      --         },
+      --         rope_autoimport = {
+      --           enabled = false,
+      --         },
+      --         rope_completion = {
+      --           enabled = false,
+      --         },
+      --         flake8 = {
+      --           enabled = false,
+      --         },
+      --         mccabe = {
+      --           enabled = false,
+      --         },
+      --         pycodestyle = {
+      --           enabled = false,
+      --         },
+      --         pyflakes = {
+      --           enabled = false,
+      --         },
+      --         pylint = {
+      --           enabled = false,
+      --         },
+      --         autopep8 = {
+      --           enabled = false,
+      --         },
+      --         yapf = {
+      --           enabled = false,
+      --         },
+      --       }
+      --     }
+      --   },
+      -- })
+      -- vim.lsp.enable("pylsp")
 
-      vim.lsp.config("ruff", {
-        init_options = {
-          settings = {
-            configuration = "~/work/kosmos/common/bazel/linting/ruff_config/drug_discovery_ruffconfig.toml",
-            -- logLevel = "trace",
-          }
-        },
-        -- capabilities = {
-        --   hoverProvider = false,
-        -- }
-      })
+      local cwd = vim.fn.getcwd()
+      if cwd == "/Users/daniel/work/kosmos" then
+        vim.lsp.config("ruff", {
+          init_options = {
+            settings = {
+              configuration = "~/work/kosmos/common/bazel/linting/ruff_config/drug_discovery_ruffconfig.toml",
+              -- logLevel = "trace",
+            },
+          },
+          -- capabilities = {
+          --   hoverProvider = false,
+          -- }
+        })
+      else
+        vim.lsp.config("ruff", {})
+      end
       vim.lsp.enable("ruff")
 
       vim.lsp.config("ty", {
         cmd = { "/Users/daniel/personal/ruff/target/release/ty", "server" },
-        settings = {
-          ty = {
-            experimental = {
-              rename = true,
-              autoImport = true,
-            }
-          }
-        },
+        -- settings = {
+        --   ty = {}
+        -- },
         -- init_options = {
         --   logLevel = "trace",
         -- },
