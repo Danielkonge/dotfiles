@@ -146,7 +146,7 @@ return {
       vim.lsp.enable("ruff")
 
       vim.lsp.config("ty", {
-        cmd = { "/Users/daniel/personal/ruff/target/release/ty", "server" },
+        -- cmd = { "/Users/daniel/personal/ruff/target/release/ty", "server" },
         -- settings = {
         --   ty = {}
         -- },
