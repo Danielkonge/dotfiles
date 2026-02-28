@@ -48,7 +48,7 @@ return {
       fzf.files({
         cwd = '~',
         cmd = [[fd --color=never --hidden --type d --type l --follow --exclude .git]],
-        previewer = nil,
+        previewer = false,
         preview = {
           type = 'cmd',
           fn = function(selected)
@@ -81,7 +81,7 @@ return {
       fzf.files({
         cwd = '~',
         cmd = [[fd --color=never --hidden --type d --type l --follow --exclude .git]],
-        previewer = nil,
+        previewer = false,
         preview = {
           type = 'cmd',
           fn = function(selected)

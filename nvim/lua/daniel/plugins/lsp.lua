@@ -147,9 +147,15 @@ return {
 
       vim.lsp.config("ty", {
         -- cmd = { "/Users/daniel/personal/ruff/target/release/ty", "server" },
-        -- settings = {
-        --   ty = {}
-        -- },
+        settings = {
+          ty = {
+            configuration = {
+              rules = {
+                ["unused-type-ignore-comment"] = "ignore",
+              }
+            }
+          }
+        },
         -- init_options = {
         --   logLevel = "trace",
         -- },
