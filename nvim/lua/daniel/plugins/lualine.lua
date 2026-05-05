@@ -8,7 +8,6 @@ return {
   config = function()
     local custom_onedark = require('lualine.themes.onedark')
 
-    local gitblame = require('gitblame')
     require('lualine').setup({
       options = {
         icons_enabled = true,
@@ -40,11 +39,6 @@ return {
           },
         },
         lualine_x = {
-          {
-            gitblame.get_current_blame_text,
-            cond = gitblame.is_blame_text_available
-          },
-
           -- {
           --   function() return 'Recording macro to: @' .. vim.fn.reg_recording() end,
           --   cond = function()
@@ -60,7 +54,6 @@ return {
         'quickfix',
         'man',
         'mason',
-        'trouble',
         'lazy',
         'oil',
       }

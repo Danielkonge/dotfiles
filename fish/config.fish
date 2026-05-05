@@ -5,7 +5,6 @@ end
 ### PATH ###
 
 fish_add_path --append "/Users/daniel/.luarocks/bin" "/Users/daniel/.config/scripts"
-fish_add_path --path "/Users/daniel/personal/zig/zig-aarch64-macos-0.16.0-dev.2565+684032671"
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
@@ -21,6 +20,8 @@ end
 # <<< conda initialize <<<
 
 fish_add_path --path "/opt/homebrew/bin"
+fish_add_path --path "/Users/daniel/personal/zig/zig-aarch64-macos-0.16.0-dev.2565+684032671"
+fish_add_path --path "/Users/daniel/.config/bin"
 
 ### Setup ###
 

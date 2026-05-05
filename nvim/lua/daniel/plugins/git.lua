@@ -12,8 +12,10 @@ return {
         changedelete = { text = '~' },
       },
       on_attach = function(bufnr)
-        vim.keymap.set('n', '<leader>gP', require('gitsigns').preview_hunk,
-          { buffer = bufnr, desc = '[P]review [H]unk' })
+        local gitsigns = require("gitsigns")
+        vim.keymap.set('n', '<leader>gP', gitsigns.preview_hunk, { desc = '[G]it [P]review Hunk' })
+        vim.keymap.set('n', '<leader>gb', gitsigns.blame, { desc = '[G]it [B]lame Toggle' })
+        vim.keymap.set('n', '<leader>gq', gitsigns.setqflist, { desc = '[G]it [B]lame Toggle' })
       end,
     },
   },
@@ -50,25 +52,6 @@ return {
       vim.keymap.set('n', '<leader>gdt', '<Cmd>DiffviewToggleFiles<CR>',
         { silent = true, desc = 'Diffview [T]oggle Files' })
       vim.keymap.set('n', '<leader>gdr', require("diffview").update_colors, { desc = 'Diffview [R]efresh' })
-    end,
-  },
-
-  {
-    'f-person/git-blame.nvim',
-    config = function()
-      require('gitblame').setup({
-        enabled = false,
-        display_virtual_text = false,
-        date_format = '%r',
-        -- delay = 2000,
-        schedule_event = "CursorHold",
-        -- clear_event = "CursorMoved"
-        -- use_blame_commit_file_urls = true,
-      })
-
-      vim.keymap.set('n', '<leader>go', '<Cmd>GitBlameOpenCommitURL<CR>', { desc = '[G]it Blame [O]pen Commit' })
-      vim.keymap.set('n', '<leader>gf', '<Cmd>GitBlameOpenFileURL<CR>', { desc = '[G]it Blame Open [F]ile' })
-      vim.keymap.set('n', '<leader>gb', '<Cmd>GitBlameToggle<CR>', { desc = '[G]it [B]lame Toggle' })
     end,
   },
 

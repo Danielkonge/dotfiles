@@ -21,7 +21,6 @@ return {
         { "<leader>w", group = "workspace" },
         { "<leader>G", group = "generate" },
         { "<leader>n", group = "noice" },
-        { "<leader>x", group = "trouble" },
         { "ga", group = "align", mode = "x" },
         { "<leader>z", group = "spell" },
         { "<leader>T", group = "treesitter" },

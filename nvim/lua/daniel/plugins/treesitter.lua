@@ -1,18 +1,12 @@
 return {
   {
     -- Highlight, edit, and navigate code
-    'nvim-treesitter/nvim-treesitter',
+    "romus204/tree-sitter-manager.nvim",
     dependencies = {
-      'nvim-treesitter/nvim-treesitter-textobjects',
-      "OXY2DEV/markview.nvim",  -- not actually a dependency, but this fixes install order
+      "OXY2DEV/markview.nvim", -- not actually a dependency, but this fixes install order
     },
-    lazy = false,
-    build = ':TSUpdate',
     config = function()
-      -- [[ Configure Treesitter ]]
-      -- See `:help nvim-treesitter`
-      require('nvim-treesitter.configs').setup {
-        -- Add languages to be installed here that you want installed for treesitter
+      require('tree-sitter-manager').setup({
         ensure_installed = {
           'c',
           'lua',
@@ -22,6 +16,7 @@ return {
           'rust',
           'latex',
           'bibtex',
+          "csv",
           'vimdoc',
           'vim',
           'query',
@@ -34,61 +29,32 @@ return {
           'html',
           'css',
           'javascript',
+          "cmake",
+          "cpp",
+          "cuda",
+          "diff",
+          "dockerfile",
+          "fish",
+          "fortran",
+          "json",
+          "make",
+          "sql",
+          "ssh_config",
+          "starlark",
+          "tsv",
+          "zig",
         },
-        sync_install = false,
-
-        -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
         auto_install = true,
+        highlight = true,
+      })
 
-        ignore_install = {},
-        modules = {},
-
-        highlight = {
-          enable = true,
-          additional_vim_regex_highlighting = false,
-          disable = function(lang, bufnr)
-            return vim.api.nvim_buf_line_count(bufnr) > 10000 or lang == "csv" or lang == "tsv"
-          end,
-        },
-        indent = { enable = true },
-        incremental_selection = {
-          enable = true,
-          keymaps = {
-            init_selection = '<leader>Tv',
-            node_incremental = '+',
-            scope_incremental = '.',
-            node_decremental = '-',
-          },
-        },
-        textobjects = {
-          select = {
-            enable = true,
-            lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
-            keymaps = {
-              -- You can use the capture groups defined in textobjects.scm
-              ['aa'] = '@parameter.outer',
-              ['ii'] = '@parameter.inner',
-              ['af'] = '@function.outer',
-              ['if'] = '@function.inner',
-              ['ac'] = '@class.outer',
-              ['ic'] = '@class.inner',
-            },
-          },
-          -- move = {
-          --   enable = true,
-          --   set_jumps = true, -- whether to set jumps in the jumplist
-          -- },
-          swap = {
-            enable = true,
-            swap_next = {
-              ['<leader>Ts'] = '@parameter.inner',
-            },
-            swap_previous = {
-              ['<leader>TS'] = '@parameter.inner',
-            },
-          },
-        },
-      }
+      -- work around since treesitter manager doesn't handle this yet
+      vim.treesitter.language.register('starlark', { 'bzl' })
+      vim.treesitter.language.register('bash', { 'sh' })
+      vim.api.nvim_create_autocmd('FileType', {
+        pattern = { 'bzl', 'sh' },
+        callback = function() vim.treesitter.start() end,
+      })
     end
   },
 
@@ -137,7 +103,7 @@ return {
 
   {
     'Wansmer/treesj',
-    dependencies = { 'nvim-treesitter/nvim-treesitter' },
+    dependencies = { "romus204/tree-sitter-manager.nvim", },
     config = function()
       require('treesj').setup({
         use_default_keymaps = false,

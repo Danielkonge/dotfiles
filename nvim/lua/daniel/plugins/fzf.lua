@@ -28,15 +28,20 @@ return {
 
     local files = {
       hidden = true,
-      follow = true,
+      follow = false,
       no_ignore = false,
     }
-
+    local grep = {
+      hidden = true,
+      follow = false,
+      no_ignore = false,
+    }
 
     fzf.setup({
       winopts = winopts,
       keymap = keymap,
       files = files,
+      grep = grep,
     })
     fzf.register_ui_select()
 

@@ -49,12 +49,18 @@ vim.keymap.set('n', '<leader>k', vim.lsp.buf.signature_help, { desc = "LSP: Sign
 vim.keymap.set('n', 'gT', vim.lsp.buf.typehierarchy, { desc = "LSP: Type hierarchy" })
 
 -- Diagnostic keymaps
+local function on_jump(diagnostic, bufnr)
+  if not diagnostic then return end
+  vim.wait(10)
+  vim.diagnostic.open_float()
+end
 vim.keymap.set('n', '<leader>dp', function()
-  vim.diagnostic.jump({ count = -1, float = true })
+  vim.diagnostic.jump({ count = -1, on_jump = on_jump })
 end, { desc = 'Go to [P]revious diagnostic message' })
 vim.keymap.set('n', '<leader>dn', function()
-  vim.diagnostic.jump({ count = 1, float = true })
+  vim.diagnostic.jump({ count = 1, on_jump = on_jump })
 end, { desc = 'Go to [N]ext diagnostic message' })
+
 vim.keymap.set('n', '<leader>do', vim.diagnostic.open_float, { desc = '[O]pen floating diagnostic message' })
 vim.keymap.set('n', '<leader>dl', vim.diagnostic.setloclist, { desc = 'Open diagnostics [L]ist' })
 vim.keymap.set('n', '<leader>d+', function()
@@ -80,6 +86,8 @@ return {
             -- "pylsp",
             "ty",
             "ruff",
+            "rust_analyzer",
+            "starpls",
           }
         }
       })
@@ -132,7 +140,7 @@ return {
         vim.lsp.config("ruff", {
           init_options = {
             settings = {
-              configuration = "~/work/kosmos/common/bazel/linting/ruff_config/drug_discovery_ruffconfig.toml",
+              configuration = "~/work/kosmos/common/bazel/linting/ruff_config/qrunch_ruffconfig.toml",
               -- logLevel = "trace",
             },
           },
@@ -140,10 +148,64 @@ return {
           --   hoverProvider = false,
           -- }
         })
+
+        vim.lsp.config("rust_analyzer", {
+          settings = {
+            ["rust-analyzer"] = {
+              -- check = {
+              --   overrideCommand = {
+              --     "bazel",
+              --     "--output_base=/Users/daniel/work/kosmos/.rust_analyzer_cache",
+              --     "build",
+              --     "--keep_going",
+              --     "--@rules_rust//:error_format=json",
+              --     "--@rules_rust//:rustc_output_diagnostics",
+              --     "--output_groups=+rustc_rmeta_output,+rustc_output",
+              --     "--@rules_rust//rust/settings:clippy_error_format=json",
+              --   },
+              -- },
+              workspace = {
+                discoverConfig = {
+                  command = { "/Users/daniel/work/kosmos/common/third_party/rust/rust_analyzer.sh", "{arg}" },
+                  progressLabel = "kosmos-rust-analyzer",
+                  filesToWatch = { "BUILD", "BUILD.bazel", "MODULE.bazel" },
+                }
+              },
+              -- server = {
+              --   extraEnv = {
+              --     RUSTUP_TOOLCHAIN = "stable",
+              --   }
+              -- },
+            }
+          }
+        })
       else
         vim.lsp.config("ruff", {})
+        vim.lsp.config("rust_analyzer", {
+          -- ["rust-analyzer"] = {
+          --   workspace = {
+          --     discoverConfig = {
+          --       command = { "/Users/daniel/work/kosmos/common/third_party/rust/rust_analyzer.sh", "{arg}" },
+          --       progressLabel = "kosmos-rust-analyzer",
+          --       filesToWatch = { "BUILD", "BUILD.bazel", "MODULE.bazel" },
+          --     }
+          --   },
+          -- }
+        })
       end
       vim.lsp.enable("ruff")
+      vim.lsp.enable("rust_analyzer")
+
+      vim.lsp.config("starpls", {
+        cmd = {
+          "starpls",
+          "server",
+          "--experimental_infer_ctx_attributes",
+          "--experimental_use_code_flow_analysis",
+          "--experimental_enable_label_completions",
+        },
+      })
+      vim.lsp.enable("starpls")
 
       vim.lsp.config("ty", {
         -- cmd = { "/Users/daniel/personal/ruff/target/release/ty", "server" },
@@ -194,7 +256,7 @@ return {
     },
     -- Optional dependencies
     dependencies = {
-      "nvim-treesitter/nvim-treesitter",
+      "romus204/tree-sitter-manager.nvim",
       "nvim-tree/nvim-web-devicons"
     },
   },
