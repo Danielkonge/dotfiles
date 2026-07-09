@@ -22,6 +22,9 @@ vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup('daniel.plugins',
   {
+    rocks = {
+      hererocks = true,
+    },
     dev = {
       path = '~/personal/nvim-plugins',
     },

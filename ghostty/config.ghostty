@@ -48,3 +48,5 @@ keybind = ctrl+space>arrow_right=move_tab:1
 keybind = ctrl+space>r=reload_config
 
 keybind = ctrl+space>s=write_scrollback_file:copy
+
+keybind = global:cmd+å=toggle_quick_terminal

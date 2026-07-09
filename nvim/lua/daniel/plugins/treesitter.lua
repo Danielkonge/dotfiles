@@ -49,12 +49,12 @@ return {
       })
 
       -- work around since treesitter manager doesn't handle this yet
-      vim.treesitter.language.register('starlark', { 'bzl' })
-      vim.treesitter.language.register('bash', { 'sh' })
-      vim.api.nvim_create_autocmd('FileType', {
-        pattern = { 'bzl', 'sh' },
-        callback = function() vim.treesitter.start() end,
-      })
+      -- vim.treesitter.language.register('starlark', { 'bzl' })
+      -- vim.treesitter.language.register('bash', { 'sh' })
+      -- vim.api.nvim_create_autocmd('FileType', {
+      --   pattern = { 'bzl', 'sh' },
+      --   callback = function() vim.treesitter.start() end,
+      -- })
     end
   },
 

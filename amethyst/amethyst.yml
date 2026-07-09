@@ -210,9 +210,9 @@ select-tall-layout:
   key: t
 
 # Select wide layout (doesn't work)
-# select-wide-layout:
-#   mod: mod1
-#   key: w
+select-wide-layout:
+  mod: mod1
+  key: w
 
 # Select wide layout (doesn't work)
 # select-row-layout:

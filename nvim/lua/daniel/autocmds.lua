@@ -1,12 +1,12 @@
-
 -- [[ Highlight on yank ]]
 -- See `:help vim.hl.on_yank()`
 local yank_highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
 vim.api.nvim_create_autocmd('TextYankPost', {
   group = yank_highlight_group,
-  pattern = '*',
   callback = function()
-    vim.hl.on_yank()
+    if vim.v.event.operator ~= "y" then return end
+
+    vim.hl.hl_op({ higroup = "IncSearch", timeout = 100 })
   end,
 })
 
@@ -54,9 +54,9 @@ vim.api.nvim_create_autocmd('BufRead', {
 -- so we change it back again
 local daniel_format = vim.api.nvim_create_augroup('DanielFormat', { clear = true })
 vim.api.nvim_create_autocmd("FileType", {
-	group = daniel_format,
-	pattern = "*",
-	callback = function()
-		vim.opt.formatoptions = "cqrnj"
-	end
+  group = daniel_format,
+  pattern = "*",
+  callback = function()
+    vim.opt.formatoptions = "cqrnj"
+  end
 })

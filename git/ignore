@@ -55,5 +55,6 @@ __pycache__
 .dmypy.json
 .ropeproject/
 venv/
+.venv/
 
 testing.ipynb

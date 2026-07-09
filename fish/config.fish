@@ -39,6 +39,9 @@ set -g fish_key_bindings fish_hybrid_key_bindings
 set -x EDITOR nvim
 set -x VISUAL nvim
 
+set -x CLAUDE_CODE_USE_BEDROCK 1
+set -x AWS_REGION 'eu-west-1'
+
 set -x MANPAGER 'nvim +Man!'
 
 fzf --fish | source
